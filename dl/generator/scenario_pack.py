@@ -74,24 +74,54 @@ def _make_camera_views(scene):
 def build_demo_city(output_dir: str = SCENARIO_DIR):
     """Build the demo city scenario pack."""
     os.makedirs(output_dir, exist_ok=True)
+    from PIL import Image
+    from shapely.ops import unary_union
+    from dl.generator.hazards import _seg_poly
 
     rng = _random.Random(DEMO_SEED)
 
-    # Generate a 6×6 city
+    # 1. Generate base 6×6 city
     scene = generate_city("DEMO-001", DEMO_SEED, Difficulty.HARD)
 
-    # Place specific hazards for the T0–T3 timeline
-    hazards = generate_hazards(scene, rng)
-    scene.hazards = hazards
+    # Precompute buffered union for near-miss safety
+    roads_buffered = unary_union([_seg_poly(s) for s in scene.road_segments]).buffer(8.5)
+
+    # 2. Place explicit hazards matching the T0–T3 demonstration sequence:
+    # T1: Flood across one main road segment in NW (synthetic_camera_1)
+    nw_roads = [s for s in scene.road_segments if s.zone.value == "NW"]
+    flood_seg = nw_roads[0] if nw_roads else scene.road_segments[0]
+    poly_flood = _place_block_full(flood_seg, rng, HazardType.FLOOD)
+    h_flood = Hazard(
+        id="H-001",
+        type=HazardType.FLOOD,
+        placement=PlacementSpec.BLOCK_FULL,
+        polygon=_poly_points(poly_flood),
+        bbox=_bbox(poly_flood),
+        affected_road=flood_seg.id,
+    )
+
+    # T2: Debris near-miss decoy beside a road in NE (synthetic_camera_2)
+    ne_roads = [s for s in scene.road_segments if s.zone.value == "NE"]
+    debris_seg = ne_roads[0] if ne_roads else scene.road_segments[1]
+    poly_debris = _place_near_miss(debris_seg, rng, HazardType.DEBRIS, roads_buffered=roads_buffered)
+    h_debris = Hazard(
+        id="H-002",
+        type=HazardType.DEBRIS,
+        placement=PlacementSpec.NEAR_MISS_DECOY,
+        polygon=_poly_points(poly_debris),
+        bbox=_bbox(poly_debris),
+        affected_road=debris_seg.id,
+    )
+
+    scene.hazards = [h_flood, h_debris]
 
     # Compute ground truth
     gt = compute_ground_truth(scene)
 
-    # Render images
+    # Render base city images
     plain_path, labelled_path = render_scene(scene, output_dir, apply_hard_effects=False)
 
     # Generate 4 quadrant camera images from plain view
-    from PIL import Image
     full_img = Image.open(plain_path)
     cx = scene.image_width // 2
     cy = scene.image_height // 2
@@ -109,12 +139,20 @@ def build_demo_city(output_dir: str = SCENARIO_DIR):
         crop_path = os.path.join(output_dir, f"camera_{cam_num}.png")
         cropped.save(crop_path, "PNG")
 
+    # Render T3 receded image for camera 1 (flood receded)
+    scene_t3 = scene.model_copy(deep=True)
+    scene_t3.hazards = [h_debris]  # flood removed
+    temp_dir = os.path.join(output_dir, "_temp_t3")
+    os.makedirs(temp_dir, exist_ok=True)
+    t3_plain, _ = render_scene(scene_t3, temp_dir, apply_hard_effects=False)
+    t3_full = Image.open(t3_plain)
+    t3_cam1 = t3_full.crop(cam_crops["synthetic_camera_1"])
+    t3_cam1.save(os.path.join(output_dir, "camera_1_t3.png"), "PNG")
+    import shutil
+    shutil.rmtree(temp_dir, ignore_errors=True)
+
     # Camera views
     cameras = _make_camera_views(scene)
-
-    # Identify specific segments for the demo events
-    nw_segs = [s.id for s in scene.road_segments if s.zone.value == "NW"]
-    ne_segs = [s.id for s in scene.road_segments if s.zone.value == "NE"]
 
     # T0–T3 timeline events
     events = [
@@ -128,15 +166,15 @@ def build_demo_city(output_dir: str = SCENARIO_DIR):
             "time_step": "T1",
             "timestamp": "2026-11-27T08:00:00+05:30",
             "description": (
-                "Flood detected across a main road segment. "
-                "Expected: BLOCKED. Route alert should trigger."
+                f"Flood detected across {flood_seg.id}. "
+                "Expected outcome: BLOCKED. Saved route raises an alert."
             ),
             "observations": [
                 {
                     "source": "synthetic_camera_1",
                     "capture_time": "2026-11-27T08:00:00+05:30",
                     "zone": "NW",
-                    "affected_segments": nw_segs[:2] if len(nw_segs) >= 2 else nw_segs,
+                    "affected_segments": [flood_seg.id],
                     "hazard_type": "flood",
                     "image": "camera_1.png",
                 },
@@ -146,15 +184,15 @@ def build_demo_city(output_dir: str = SCENARIO_DIR):
             "time_step": "T2",
             "timestamp": "2026-11-27T09:00:00+05:30",
             "description": (
-                "Debris detected beside a road (near-miss). "
-                "Expected: road remains unblocked. No false-block."
+                f"Debris detected beside {debris_seg.id} (near-miss). "
+                "Expected outcome: road remains unblocked (CLEAR). No false block."
             ),
             "observations": [
                 {
                     "source": "synthetic_camera_2",
                     "capture_time": "2026-11-27T09:00:00+05:30",
                     "zone": "NE",
-                    "affected_segments": ne_segs[:1] if ne_segs else [],
+                    "affected_segments": [debris_seg.id],
                     "hazard_type": "debris",
                     "near_miss": True,
                     "image": "camera_2.png",
@@ -165,18 +203,18 @@ def build_demo_city(output_dir: str = SCENARIO_DIR):
             "time_step": "T3",
             "timestamp": "2026-11-27T10:00:00+05:30",
             "description": (
-                "Same flood-affected area re-observed with flood receded. "
-                "Recovery needs stronger evidence. Status may become UNCERTAIN."
+                f"Same NW corridor ({flood_seg.id}) re-observed with flood receded. "
+                "Recovery requires stronger evidence. Status initially UNCERTAIN."
             ),
             "observations": [
                 {
                     "source": "synthetic_camera_1",
                     "capture_time": "2026-11-27T10:00:00+05:30",
                     "zone": "NW",
-                    "affected_segments": nw_segs[:2] if len(nw_segs) >= 2 else nw_segs,
+                    "affected_segments": [flood_seg.id],
                     "hazard_type": None,
                     "recovery": True,
-                    "image": "camera_1.png",
+                    "image": "camera_1_t3.png",
                 },
             ],
         },

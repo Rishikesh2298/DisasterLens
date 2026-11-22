@@ -56,6 +56,26 @@ class TestDeterminism:
         for a, b in zip(h1, h2):
             assert a.model_dump() == b.model_dump()
 
+    def test_repeated_build_deterministic_hashes(self):
+        """Repeated generation of the same scene produces identical canonical JSON and SHA-256."""
+        import hashlib
+        from dl.generator.build import _canonical_json
+
+        s1 = generate_city("S-0001", 2026, Difficulty.EASY)
+        s1.hazards = generate_hazards(s1, _random.Random(2026))
+        gt1 = compute_ground_truth(s1)
+
+        s2 = generate_city("S-0001", 2026, Difficulty.EASY)
+        s2.hazards = generate_hazards(s2, _random.Random(2026))
+        gt2 = compute_ground_truth(s2)
+
+        j1 = _canonical_json(s1.model_dump(mode="json"))
+        j2 = _canonical_json(s2.model_dump(mode="json"))
+        assert j1 == j2
+        h1 = hashlib.sha256(j1.encode("utf-8")).hexdigest()
+        h2 = hashlib.sha256(j2.encode("utf-8")).hexdigest()
+        assert h1 == h2
+
     def test_different_seed_different_scene(self):
         """Different seeds → different scenes."""
         s1 = generate_city("S-0001", 2026, Difficulty.EASY)
@@ -414,21 +434,36 @@ class TestValidator:
     def test_disconnected_graph_detected(self):
         """Disconnected road graph should be caught."""
         scene = generate_city("S-TEST", 7779, Difficulty.EASY)
-        # Corrupt: remove a critical segment's node connections
-        # Modify an intersection to create a disconnected component
-        orig_id = scene.intersections[-1].id
-        scene.intersections[-1].id = "N999"
-        # This breaks the adjacency for the last node
-        for seg in scene.road_segments:
-            if seg.node_b == orig_id:
-                seg.node_b = "N999"
-            if seg.node_a == orig_id:
-                seg.node_a = "N999"
+        # Add an isolated node with no connected edges
+        isolated_node = Intersection(id="N99", x=10, y=10, zone=Zone.NW)
+        scene.intersections.append(isolated_node)
 
         gt = compute_ground_truth(scene)
         errors = validate_scene(scene, gt)
-        # The graph should still be connected if only the ID changed
-        # but the validator should handle it
+        assert any("not connected" in e for e in errors), f"Disconnected graph not detected: {errors}"
+
+    def test_invalid_near_miss_detected(self):
+        """Near-miss hazard that directly intersects a road polygon must fail validation."""
+        scene = generate_city("S-TEST", 7780, Difficulty.EASY)
+        seg = scene.road_segments[0]
+        # Deliberately place a near-miss directly on the road
+        hazard = Hazard(
+            id="H-001",
+            type=HazardType.DEBRIS,
+            placement=PlacementSpec.NEAR_MISS_DECOY,
+            polygon=seg.polygon,
+            bbox=BBox(
+                x_min=min(p.x for p in seg.polygon),
+                y_min=min(p.y for p in seg.polygon),
+                x_max=max(p.x for p in seg.polygon),
+                y_max=max(p.y for p in seg.polygon),
+            ),
+            affected_road=seg.id,
+        )
+        scene.hazards = [hazard]
+        gt = compute_ground_truth(scene)
+        errors = validate_scene(scene, gt)
+        assert any("intersects road" in e for e in errors), f"Invalid near-miss not detected: {errors}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -525,3 +560,63 @@ class TestIntegration:
         assert scene.grid_size == 6
         errors = validate_scene(scene, gt)
         assert errors == [], f"Validation errors: {errors}"
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# H. DATASET COMPOSITION & VERIFICATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+class TestDatasetComposition:
+    def test_manifest_and_stats(self):
+        """Verify the 100-scene dataset composition against master plan targets."""
+        import os
+        import hashlib
+        from pathlib import Path
+
+        manifest_path = Path("datasets/v1/manifest.json")
+        stats_path = Path("datasets/v1/stats.json")
+
+        assert manifest_path.exists(), "datasets/v1/manifest.json must exist"
+        assert stats_path.exists(), "datasets/v1/stats.json must exist"
+
+        with open(manifest_path, encoding="utf-8") as f:
+            manifest = json.load(f)
+        with open(stats_path, encoding="utf-8") as f:
+            stats = json.load(f)
+
+        scenes = manifest["scenes"]
+        # Exactly 100 scenes
+        assert len(scenes) == 100
+        assert stats["total_scenes"] == 100
+
+        # Distribution: 30 easy, 35 medium, 35 hard
+        assert stats["difficulty_counts"]["easy"] == 30
+        assert stats["difficulty_counts"]["medium"] == 35
+        assert stats["difficulty_counts"]["hard"] == 35
+
+        # Split: 30 dev (S-0001 to S-0030), 70 test (S-0031 to S-0100)
+        dev_scenes = [s for s in scenes if s["split"] == "dev"]
+        test_scenes = [s for s in scenes if s["split"] == "test"]
+        assert len(dev_scenes) == 30
+        assert len(test_scenes) == 70
+
+        # At least 25% near-miss route questions
+        assert stats["near_miss_percentage"] >= 25.0
+
+        # 5 hazard classes present
+        assert len(stats["hazard_type_counts"]) == 5
+
+        # All 6 question types present
+        assert len(stats["question_type_counts"]) == 6
+
+        # Check SHA-256 hashes of committed development scenes match files on disk
+        for scene_entry in scenes[:5]:  # verify first 5 dev scenes on disk
+            sid = scene_entry["scene_id"]
+            for fname, expected_hash in scene_entry["file_hashes"].items():
+                fpath = Path(f"datasets/v1/{sid}/{fname}")
+                if fpath.exists():
+                    h = hashlib.sha256()
+                    with open(fpath, "rb") as f:
+                        for chunk in iter(lambda: f.read(8192), b""):
+                            h.update(chunk)
+                    assert h.hexdigest() == expected_hash, f"Hash mismatch for {sid}/{fname}"

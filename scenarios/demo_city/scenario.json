@@ -118,12 +118,11 @@
       "timestamp": null
     },
     {
-      "description": "Flood detected across a main road segment. Expected: BLOCKED. Route alert should trigger.",
+      "description": "Flood detected across SEG-001. Expected outcome: BLOCKED. Saved route raises an alert.",
       "observations": [
         {
           "affected_segments": [
-            "SEG-001",
-            "SEG-002"
+            "SEG-001"
           ],
           "capture_time": "2026-11-27T08:00:00+05:30",
           "hazard_type": "flood",
@@ -136,7 +135,7 @@
       "timestamp": "2026-11-27T08:00:00+05:30"
     },
     {
-      "description": "Debris detected beside a road (near-miss). Expected: road remains unblocked. No false-block.",
+      "description": "Debris detected beside SEG-005 (near-miss). Expected outcome: road remains unblocked (CLEAR). No false block.",
       "observations": [
         {
           "affected_segments": [
@@ -154,16 +153,15 @@
       "timestamp": "2026-11-27T09:00:00+05:30"
     },
     {
-      "description": "Same flood-affected area re-observed with flood receded. Recovery needs stronger evidence. Status may become UNCERTAIN.",
+      "description": "Same NW corridor (SEG-001) re-observed with flood receded. Recovery requires stronger evidence. Status initially UNCERTAIN.",
       "observations": [
         {
           "affected_segments": [
-            "SEG-001",
-            "SEG-002"
+            "SEG-001"
           ],
           "capture_time": "2026-11-27T10:00:00+05:30",
           "hazard_type": null,
-          "image": "camera_1.png",
+          "image": "camera_1_t3.png",
           "recovery": true,
           "source": "synthetic_camera_1",
           "zone": "NW"

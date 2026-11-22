@@ -1106,95 +1106,63 @@
   "hazards": [
     {
       "affected_building": null,
-      "affected_road": "SEG-017",
+      "affected_road": "SEG-001",
       "bbox": {
-        "x_max": 445.6,
-        "x_min": 405.6,
-        "y_max": 317.17,
-        "y_min": 276.19
+        "x_max": 143.9,
+        "x_min": 108.9,
+        "y_max": 100.0,
+        "y_min": 60.0
       },
       "id": "H-001",
       "placement": "block_full",
       "polygon": [
         {
-          "x": 445.6,
-          "y": 276.19
+          "x": 143.9,
+          "y": 60.0
         },
         {
-          "x": 445.6,
-          "y": 317.17
+          "x": 143.9,
+          "y": 100.0
         },
         {
-          "x": 405.6,
-          "y": 317.17
+          "x": 108.9,
+          "y": 100.0
         },
         {
-          "x": 405.6,
-          "y": 276.19
+          "x": 108.9,
+          "y": 60.0
         }
       ],
       "severity": null,
-      "type": "fallen_tree"
+      "type": "flood"
     },
     {
       "affected_building": null,
-      "affected_road": "SEG-035",
+      "affected_road": "SEG-005",
       "bbox": {
-        "x_max": 100.0,
-        "x_min": 80.0,
-        "y_max": 774.76,
-        "y_min": 723.39
+        "x_max": 491.57,
+        "x_min": 459.0,
+        "y_max": 48.88,
+        "y_min": 16.32
       },
       "id": "H-002",
-      "placement": "block_partial",
-      "polygon": [
-        {
-          "x": 100.0,
-          "y": 723.39
-        },
-        {
-          "x": 100.0,
-          "y": 774.76
-        },
-        {
-          "x": 80.0,
-          "y": 774.76
-        },
-        {
-          "x": 80.0,
-          "y": 723.39
-        }
-      ],
-      "severity": null,
-      "type": "debris"
-    },
-    {
-      "affected_building": null,
-      "affected_road": "SEG-011",
-      "bbox": {
-        "x_max": 911.75,
-        "x_min": 877.4,
-        "y_max": 147.11,
-        "y_min": 112.76
-      },
-      "id": "H-003",
       "placement": "near_miss_decoy",
       "polygon": [
         {
-          "x": 877.4,
-          "y": 112.76
+          "x": 459.0,
+          "y": 16.32
         },
         {
-          "x": 877.4,
-          "y": 147.11
+          "x": 459.0,
+          "y": 48.88
         },
         {
-          "x": 911.75,
-          "y": 147.11
+          "x": 491.57,
+          "y": 48.88
         },
         {
-          "x": 911.75,
-          "y": 112.76
+          "x": 491.57,
+          "y": 16.32
         }
       ],
       "severity": null,

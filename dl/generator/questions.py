@@ -96,8 +96,11 @@ def generate_questions(
 
     # ── Q3: Water regions ─────────────────────────────────────────────────
     water_bboxes = []
+    water_boxes_list = []
     for h in scene.hazards:
         if h.id in gt.water_region_ids:
+            box_coords = [h.bbox.x_min, h.bbox.y_min, h.bbox.x_max, h.bbox.y_max]
+            water_boxes_list.append(box_coords)
             water_bboxes.append({
                 "hazard_id": h.id,
                 "bbox": {
@@ -106,12 +109,16 @@ def generate_questions(
                     "x_max": h.bbox.x_max,
                     "y_max": h.bbox.y_max,
                 },
+                "box": box_coords,
             })
     questions.append(Question(
         id=f"Q-{q_counter:03d}",
         type=QuestionType.WATER_REGIONS,
         prompt="Locate all regions with standing water in this scene.",
-        expected_answer={"water_regions": water_bboxes},
+        expected_answer={
+            "water_regions": water_bboxes,
+            "boxes": water_boxes_list,
+        },
     ))
     q_counter += 1
 
