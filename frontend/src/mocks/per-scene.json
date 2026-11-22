@@ -1,0 +1,74 @@
+[
+  {
+    "scene_id": "S-0008",
+    "difficulty": "medium",
+    "truth": {
+      "segments": { "SEG-018": "clear", "SEG-019": "blocked" },
+      "hazards": [{ "type": "debris", "bbox": [140, 90, 184, 126] }],
+      "damaged_building_count": 1,
+      "routes": { "N1-N3": "clear" }
+    },
+    "prediction": {
+      "segments": { "SEG-018": "blocked", "SEG-019": "blocked" },
+      "hazards": [
+        { "type": "debris", "bbox": [130, 86, 188, 130], "confidence": 0.76 }
+      ],
+      "damaged_building_count": 1,
+      "routes": { "N1-N3": "clear" }
+    }
+  },
+  {
+    "scene_id": "S-0013",
+    "difficulty": "hard",
+    "truth": {
+      "segments": { "SEG-027": "blocked", "SEG-028": "clear" },
+      "hazards": [{ "type": "flood", "bbox": [62, 114, 119, 168] }],
+      "damaged_building_count": 2,
+      "routes": { "N2-N4": "obstructed" }
+    },
+    "prediction": {
+      "segments": { "SEG-027": "clear", "SEG-028": "clear" },
+      "hazards": [],
+      "damaged_building_count": 2,
+      "routes": { "N2-N4": "clear" }
+    }
+  },
+  {
+    "scene_id": "S-0021",
+    "difficulty": "easy",
+    "truth": {
+      "segments": { "SEG-009": "partial" },
+      "hazards": [{ "type": "fallen_tree", "bbox": [203, 48, 229, 88] }],
+      "damaged_building_count": 0,
+      "routes": {}
+    },
+    "prediction": {
+      "segments": { "SEG-009": "blocked" },
+      "hazards": [
+        {
+          "type": "fallen_tree",
+          "bbox": [203, 48, 229, 88],
+          "confidence": 0.92
+        }
+      ],
+      "damaged_building_count": 0,
+      "routes": {}
+    }
+  },
+  {
+    "scene_id": "S-0027",
+    "difficulty": "hard",
+    "truth": {
+      "segments": { "SEG-031": "clear" },
+      "hazards": [],
+      "damaged_building_count": 2,
+      "routes": {}
+    },
+    "prediction": {
+      "segments": { "SEG-031": "clear" },
+      "hazards": [],
+      "damaged_building_count": 1,
+      "routes": {}
+    }
+  }
+]
