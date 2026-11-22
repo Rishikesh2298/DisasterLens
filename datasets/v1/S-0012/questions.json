@@ -1,0 +1,86 @@
+{
+  "questions": [
+    {
+      "expected_answer": {
+        "blocked_segments": [
+          "SEG-005",
+          "SEG-010"
+        ]
+      },
+      "id": "Q-001",
+      "prompt": "Which road segments are blocked in this scene?",
+      "type": "blocked_segments"
+    },
+    {
+      "expected_answer": {
+        "building_ids": [],
+        "count": 0
+      },
+      "id": "Q-002",
+      "prompt": "How many buildings are visibly damaged in this scene?",
+      "type": "damaged_buildings"
+    },
+    {
+      "expected_answer": {
+        "water_regions": [
+          {
+            "bbox": {
+              "x_max": 505.04,
+              "x_min": 453.72,
+              "y_max": 388.0,
+              "y_min": 348.0
+            },
+            "hazard_id": "H-001"
+          }
+        ]
+      },
+      "id": "Q-003",
+      "prompt": "Locate all regions with standing water in this scene.",
+      "type": "water_regions"
+    },
+    {
+      "expected_answer": {
+        "blocking_segments": [
+          "SEG-005"
+        ],
+        "obstructed": true,
+        "route_segments": [
+          "SEG-014",
+          "SEG-007",
+          "SEG-005",
+          "SEG-003"
+        ]
+      },
+      "id": "Q-004",
+      "prompt": "Is the route from N12 to N2 obstructed? If yes, identify the blocking road segments.",
+      "type": "route_obstruction_positive"
+    },
+    {
+      "expected_answer": {
+        "blocking_segments": [],
+        "obstructed": false,
+        "route_segments": [
+          "SEG-012",
+          "SEG-013",
+          "SEG-020"
+        ]
+      },
+      "id": "Q-005",
+      "prompt": "Is the route from N8 to N15 obstructed? If yes, identify the blocking road segments.",
+      "type": "route_obstruction_negative"
+    },
+    {
+      "expected_answer": {
+        "zone_a": "NE",
+        "zone_a_area": 3732.8,
+        "zone_b": "NW",
+        "zone_b_area": 2052.8,
+        "zone_with_more": "NE"
+      },
+      "id": "Q-006",
+      "prompt": "Which zone has more visible hazard area: NE or NW?",
+      "type": "zone_comparison"
+    }
+  ],
+  "scene_id": "S-0012"
+}

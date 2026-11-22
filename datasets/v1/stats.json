@@ -1,0 +1,40 @@
+{
+  "difficulty_counts": {
+    "easy": 30,
+    "hard": 35,
+    "medium": 35
+  },
+  "hazard_type_counts": {
+    "damaged_building": 26,
+    "debris": 106,
+    "fallen_tree": 74,
+    "flood": 85,
+    "road_damage": 18
+  },
+  "near_miss_percentage": 50.0,
+  "near_miss_route_questions": 100,
+  "placement_spec_counts": {
+    "block_full": 116,
+    "block_partial": 70,
+    "building_spill": 9,
+    "damaged_building_only": 26,
+    "near_miss_decoy": 58,
+    "road_damage": 18,
+    "water_on_park": 12
+  },
+  "question_type_counts": {
+    "blocked_segments": 100,
+    "damaged_buildings": 100,
+    "route_obstruction_negative": 100,
+    "route_obstruction_positive": 100,
+    "water_regions": 100,
+    "zone_comparison": 100
+  },
+  "road_status_counts": {
+    "BLOCKED": 190,
+    "CLEAR": 3836,
+    "PARTIAL": 194
+  },
+  "total_route_questions": 200,
+  "total_scenes": 100
+}

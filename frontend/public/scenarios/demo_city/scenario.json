@@ -1,0 +1,181 @@
+{
+  "cameras": [
+    {
+      "camera_id": "synthetic_camera_1",
+      "covered_segments": [
+        "SEG-001",
+        "SEG-002",
+        "SEG-003",
+        "SEG-004",
+        "SEG-006",
+        "SEG-012",
+        "SEG-013",
+        "SEG-014",
+        "SEG-015",
+        "SEG-017",
+        "SEG-023",
+        "SEG-025"
+      ],
+      "viewport": {
+        "x_max": 512.0,
+        "x_min": 0,
+        "y_max": 512.0,
+        "y_min": 0
+      },
+      "zone": "NW"
+    },
+    {
+      "camera_id": "synthetic_camera_2",
+      "covered_segments": [
+        "SEG-005",
+        "SEG-007",
+        "SEG-008",
+        "SEG-009",
+        "SEG-010",
+        "SEG-011",
+        "SEG-016",
+        "SEG-018",
+        "SEG-019",
+        "SEG-020",
+        "SEG-021",
+        "SEG-022",
+        "SEG-027",
+        "SEG-029",
+        "SEG-031"
+      ],
+      "viewport": {
+        "x_max": 1024,
+        "x_min": 512.0,
+        "y_max": 512.0,
+        "y_min": 0
+      },
+      "zone": "NE"
+    },
+    {
+      "camera_id": "synthetic_camera_3",
+      "covered_segments": [
+        "SEG-024",
+        "SEG-026",
+        "SEG-028",
+        "SEG-034",
+        "SEG-035",
+        "SEG-036",
+        "SEG-037",
+        "SEG-039",
+        "SEG-045",
+        "SEG-046",
+        "SEG-047",
+        "SEG-048",
+        "SEG-050",
+        "SEG-056",
+        "SEG-057"
+      ],
+      "viewport": {
+        "x_max": 512.0,
+        "x_min": 0,
+        "y_max": 1024,
+        "y_min": 512.0
+      },
+      "zone": "SW"
+    },
+    {
+      "camera_id": "synthetic_camera_4",
+      "covered_segments": [
+        "SEG-030",
+        "SEG-032",
+        "SEG-033",
+        "SEG-038",
+        "SEG-040",
+        "SEG-041",
+        "SEG-042",
+        "SEG-043",
+        "SEG-044",
+        "SEG-049",
+        "SEG-051",
+        "SEG-052",
+        "SEG-053",
+        "SEG-054",
+        "SEG-055",
+        "SEG-058",
+        "SEG-059",
+        "SEG-060"
+      ],
+      "viewport": {
+        "x_max": 1024,
+        "x_min": 512.0,
+        "y_max": 1024,
+        "y_min": 512.0
+      },
+      "zone": "SE"
+    }
+  ],
+  "description": "DisasterLens demonstration city — a 6×6 grid with four camera views and a T0–T3 disaster timeline. Results are based on synthetic scenes and do not establish real-world disaster performance.",
+  "events": [
+    {
+      "description": "No observations. All roads UNKNOWN.",
+      "observations": [],
+      "time_step": "T0",
+      "timestamp": null
+    },
+    {
+      "description": "Flood detected across a main road segment. Expected: BLOCKED. Route alert should trigger.",
+      "observations": [
+        {
+          "affected_segments": [
+            "SEG-001",
+            "SEG-002"
+          ],
+          "capture_time": "2026-11-27T08:00:00+05:30",
+          "hazard_type": "flood",
+          "image": "camera_1.png",
+          "source": "synthetic_camera_1",
+          "zone": "NW"
+        }
+      ],
+      "time_step": "T1",
+      "timestamp": "2026-11-27T08:00:00+05:30"
+    },
+    {
+      "description": "Debris detected beside a road (near-miss). Expected: road remains unblocked. No false-block.",
+      "observations": [
+        {
+          "affected_segments": [
+            "SEG-005"
+          ],
+          "capture_time": "2026-11-27T09:00:00+05:30",
+          "hazard_type": "debris",
+          "image": "camera_2.png",
+          "near_miss": true,
+          "source": "synthetic_camera_2",
+          "zone": "NE"
+        }
+      ],
+      "time_step": "T2",
+      "timestamp": "2026-11-27T09:00:00+05:30"
+    },
+    {
+      "description": "Same flood-affected area re-observed with flood receded. Recovery needs stronger evidence. Status may become UNCERTAIN.",
+      "observations": [
+        {
+          "affected_segments": [
+            "SEG-001",
+            "SEG-002"
+          ],
+          "capture_time": "2026-11-27T10:00:00+05:30",
+          "hazard_type": null,
+          "image": "camera_1.png",
+          "recovery": true,
+          "source": "synthetic_camera_1",
+          "zone": "NW"
+        }
+      ],
+      "time_step": "T3",
+      "timestamp": "2026-11-27T10:00:00+05:30"
+    }
+  ],
+  "grid_size": 6,
+  "ground_truth_file": "ground_truth.json",
+  "scenario_id": "demo_city",
+  "scene_file": "scene.json",
+  "seed": 20261127
+}
