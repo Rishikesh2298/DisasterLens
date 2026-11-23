@@ -1,0 +1,377 @@
+{
+  "damaged_building_ids": [],
+  "hazard_area_per_zone": {
+    "NE": 0.0,
+    "NW": 2460.48,
+    "SE": 0.0,
+    "SW": 0.0
+  },
+  "scene_id": "DEMO-001",
+  "segment_statuses": [
+    {
+      "blocking_hazards": [
+        "H-001"
+      ],
+      "max_coverage": 1.0,
+      "segment_id": "SEG-001",
+      "status": "BLOCKED"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-002",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-003",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-004",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-005",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-006",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-007",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-008",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-009",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-010",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-011",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-012",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-013",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-014",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-015",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-016",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-017",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-018",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-019",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-020",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-021",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-022",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-023",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-024",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-025",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-026",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-027",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-028",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-029",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-030",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-031",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-032",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-033",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-034",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-035",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-036",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-037",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-038",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-039",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-040",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-041",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-042",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-043",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-044",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-045",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-046",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-047",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-048",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-049",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-050",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-051",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-052",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-053",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-054",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-055",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-056",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-057",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-058",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-059",
+      "status": "CLEAR"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-060",
+      "status": "CLEAR"
+    }
+  ],
+  "water_region_ids": [
+    "H-001"
+  ]
+}

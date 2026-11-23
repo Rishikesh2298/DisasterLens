@@ -12,6 +12,8 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+*.db
+*.sqlite3
 .venv/
 venv/
 
@@ -23,3 +25,5 @@ dist/
 datasets/v1/*
 !datasets/v1/manifest.json
 !datasets/v1/stats.json
+*.egg-info/
+uploads/
