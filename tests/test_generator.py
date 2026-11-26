@@ -625,10 +625,10 @@ class TestDatasetComposition:
             for fname, expected_hash in scene_entry["file_hashes"].items():
                 fpath = Path(f"datasets/v1/{sid}/{fname}")
                 if fpath.exists():
-                    h = hashlib.sha256()
-                    with open(fpath, "rb") as f:
-                        for chunk in iter(lambda: f.read(8192), b""):
-                            h.update(chunk)
+                    raw = fpath.read_bytes()
+                    if fname.endswith(".json"):
+                        assert b"\r\n" not in raw, f"{sid}/{fname} must use LF line endings"
+                    h = hashlib.sha256(raw)
                     assert h.hexdigest() == expected_hash, f"Hash mismatch for {sid}/{fname}"
 
     def test_contract_scene_and_evaluation_adapter(self):

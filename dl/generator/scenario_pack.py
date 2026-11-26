@@ -237,14 +237,14 @@ def build_demo_city(output_dir: str = SCENARIO_DIR):
         "ground_truth_file": "ground_truth.json",
     }
 
-    # Write files
-    with open(os.path.join(output_dir, "scenario.json"), "w", encoding="utf-8") as f:
+    # Write files with explicit LF line endings for cross-platform determinism
+    with open(os.path.join(output_dir, "scenario.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(scenario, f, indent=2, sort_keys=True, ensure_ascii=False)
 
-    with open(os.path.join(output_dir, "scene.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(output_dir, "scene.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(scene.model_dump(mode="json"), f, indent=2, sort_keys=True, ensure_ascii=False)
 
-    with open(os.path.join(output_dir, "ground_truth.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(output_dir, "ground_truth.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(gt.model_dump(mode="json"), f, indent=2, sort_keys=True, ensure_ascii=False)
 
     print(f"Demo city scenario written to {output_dir}/")

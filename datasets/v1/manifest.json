@@ -3,11 +3,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "02399ac84e655e5a8e7d81b5e4813e18973faf4dccc943d007743946a673320d",
+        "ground_truth.json": "9b17d172e1f257cb6e04c20bb5544a43c985df3e094cbadf19d999d6e2b6d941",
         "image_labelled.png": "412ce4eb6a992889820772bbf64a25cf0f22551cd3d408ec4b284db872f64773",
         "image_plain.png": "411bae70dcedece0de4257d338f83cbfb6c0013415d4a2916f89ed1a52116ce8",
-        "questions.json": "d0eeca546bff0ae59df03dddb98872fe44bbb435a06f43379c52661cdcc3aa60",
-        "scene.json": "a67e46e60e7731a6e5b3d164ec66f390543578c727f91cc3c08d9a292ebb07cb"
+        "questions.json": "c53c84312ff2e034c0431bf79b3b666033c1357c4db100e3b71230eccd6828ee",
+        "scene.json": "dbb2a002912fa86dab58404823c8ed35bc239f24e83b8511cffcdb3a75c63809"
       },
       "scene_id": "S-0001",
       "seed": 2026,
@@ -16,11 +16,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "365c748bdaae571db082b588f6a23c5ed812905e1debafb46e8e55987514328d",
+        "ground_truth.json": "a87ba356ccff30ad6b9bd3338cab6594db3d5f32036a2adde998cdffad4849c1",
         "image_labelled.png": "422c20365d8760a424145092990126239f4671815dcd0eca3577c5642fbf9caf",
         "image_plain.png": "b8c60cd231536394123e07c2d277a005abdcb8aaf0e672eb65c6e01dc97b35e1",
-        "questions.json": "b43d0a7376bbbf573594efb9d5a9e815e0dfecd762d0b742a8c2d4d2179b570c",
-        "scene.json": "9861dd71751ac3f6020c48cbbcedae1c7810447e3f359e623d8ed804275096e4"
+        "questions.json": "f313a1fa65b85998d40f47a739a6e8fb64889e8df1c3c1f5a02795013367a5e3",
+        "scene.json": "4f9711ffdf49d08cdf2398c9909259f6ed24de71a3467cc8090ea8bddaccba1b"
       },
       "scene_id": "S-0002",
       "seed": 2027,
@@ -29,11 +29,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "3e782140e6a72d786ed409d0628381d4eb4bd4d3e8963b60c842c46cc3fdc405",
+        "ground_truth.json": "9703b0554d777c3fc8ea40c2baea14df1627548fd493978ef9bd0ac36509151d",
         "image_labelled.png": "a1506f661bc4bcc05b914d921c960c1788bc55b1cb73dfdfddc64202b1ed5ca5",
         "image_plain.png": "4083fec6635dcc43dfe86dfebaa38c81745524a05c903b533381028421695ac1",
-        "questions.json": "ca4018521f1c8e31fdd4e96c74108e29245c26a7715eac427e71b47739aae049",
-        "scene.json": "fa691de6357a9403e5b24177ab8f21cf50b28db504e5d41a9eaf62a062564adb"
+        "questions.json": "f0b69dbb395c2cbc921489e459e4a211ba41f88b77384fa60d2f39c122058688",
+        "scene.json": "9e730526a8a33ba7b7135681549372e25c86971fb04750e7e4e84aee789ca126"
       },
       "scene_id": "S-0003",
       "seed": 2028,
@@ -42,11 +42,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "7eb0a172ef3abfd43f298287df5afb7a3a8e3c603c42a8fa6239f2609651ed03",
+        "ground_truth.json": "2996b34d6af6b01b4e3e02ba8eafcb65b01e997570e643a988ffe5cbedea0e95",
         "image_labelled.png": "17f71d3d5cb539473c731e4a61ff80343815e6f1572bce92dc767005afc90d7e",
         "image_plain.png": "9d78f46845dce0a0b9254850308711d5e8c19033f9c000b5bca7b6b21291d62a",
-        "questions.json": "731ef690b5db63719ede9397c315896357af78c4810051e6e49d902c9a2bc18e",
-        "scene.json": "53da62373ce1fe1c50c91f24bd57e736e6e09b120506e8c66964daf0807b634f"
+        "questions.json": "8a64d0d7af3b8a403cd4eceb7a01643fbdce72376ab437cc8f72ef96bcee378d",
+        "scene.json": "e696a0edc9ef0793cadc4c66a71385e83e01509d0c79cca2ddd306017a7e73b5"
       },
       "scene_id": "S-0004",
       "seed": 2029,
@@ -55,11 +55,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "872831f71f0114f7a86cea94e8feb0fe0722da69448ac5ff5a425f4f73c45391",
+        "ground_truth.json": "945531498cc4ca17e5d9eab64788986a04b76a2ef64c1af09ef17cf9e7483ca3",
         "image_labelled.png": "292450079dee0e2e13a37c5aeb32d7138f90a0543b62e83323116b69cc2a5c92",
         "image_plain.png": "eb2b513de0f27001045a27c69dea8383bc43e6ce2b60239c1bddc6ce9420604a",
-        "questions.json": "6467f3426a9c9555ab3b1345aaedf586bf1edce7ad19169e5ca123ff60654051",
-        "scene.json": "f411aed83ca35c8f642facf92f369af9fa13ee6ae37c94e325f22ea3af56ac43"
+        "questions.json": "cf8ad25e1d80a43d25269258e93d6a3c95c354cb16238d87fe9f4b9444bcb8d1",
+        "scene.json": "be2784afd55f38a579050db7d74f4fd757c3f46ed73fc9b86fff8a45187f7d31"
       },
       "scene_id": "S-0005",
       "seed": 2030,
@@ -68,11 +68,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "583a6266a0b490b184e7c104749d15487b1cee066999d50799768b85fa7182c9",
+        "ground_truth.json": "83fd5d56aa068534ae1a929cc3824f9b9973fba7a6ec5725344cd057f70e0732",
         "image_labelled.png": "3b4dae3bb6c9b8c61dcc3fd8defcd31ea922baee490357ad9be03b627c2b1701",
         "image_plain.png": "4bbb1a0d88d3313dde7bc0c07334d4234190feb1c90acb5a3cb88f0a05233d42",
-        "questions.json": "f42612ef5f0d8783f187bdd72a4ebb371e609a76f5ad7ad9071a70f4eb7584eb",
-        "scene.json": "f2fcda4b6faf02a18595daaedee4bfc3dffc15abf129aac61a0c7866d68987e0"
+        "questions.json": "c38f36b5748033a2a891411dbfc304703307ad1801e94215df6bfb91da921afe",
+        "scene.json": "a6002a60dd8efe86df2802676a36b50dd73a2d0ed0e29e65e12a06896db9fb98"
       },
       "scene_id": "S-0006",
       "seed": 2031,
@@ -81,11 +81,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "be082ffa206626a83f5cace1e58a11686662d22cf0458273b1adca4f055cbe2e",
+        "ground_truth.json": "3e076d6f31a5c84bdc9e2cad307ffb6677df22cf08a61ce29d7da11d38e88031",
         "image_labelled.png": "0ae8f82620fd81d0e1197401c825c8f21d30bb8fd19e3543dd6192adf248e64d",
         "image_plain.png": "38fe4c89c31bf85ac311b1324c3b65503c2d4352abf5a22025cceb026749fcc6",
-        "questions.json": "fe2f64f359197c43a43433ae0174e4c6ba4926a7f411b1fda5171cacbebe2fe8",
-        "scene.json": "b09c2272c36d704936354d6eae4a05b9a273b13ab06af5e939d85c40fb50fb7a"
+        "questions.json": "bf81153532396de270c7dc3c014021a0115a80b57a3a04a4d7a86f635807751c",
+        "scene.json": "11e4a6797373ee1b36ce00d8b4af2f3f48c0c29c88e7b59ce4abc8aa70d54881"
       },
       "scene_id": "S-0007",
       "seed": 2032,
@@ -94,11 +94,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "8c98974109c484c5ff5be9d041bceb8795c6b1e0e16974723bb90c7e49ed25ef",
+        "ground_truth.json": "63783a1f22c5a3ae762ae8fce95e424193499d914d94dda9948875f6208c3138",
         "image_labelled.png": "1969d96624edb300043ea37d6ec210ab75f7a4d2d859d88f50f0daecdcccc4d1",
         "image_plain.png": "b09c2da5621d02a7531c1d94dc7e5b99516046d3baf2ecc3498dead4ab9fb5b1",
-        "questions.json": "8db1c9caccbbb2e09c21f489df44b29a88ad26881470611ae6ba87abf6adc504",
-        "scene.json": "d61118a5570b0bd16e68b61656aa952b49547098e2473b9d8b67c30022d9ed6d"
+        "questions.json": "0185327fe00687ee79698ff10ad26529ad58ec645ff40f85d369e88eb6dc8fbb",
+        "scene.json": "3478a6311b842fd89032ee8f60c65250a04bcc9430dc6d96d996074a4309b10b"
       },
       "scene_id": "S-0008",
       "seed": 2033,
@@ -107,11 +107,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "4aff6b5b4cbffadfa24781f03c41751922bcbbfa9730d0b7ad4a44abe925d0a4",
+        "ground_truth.json": "dd8a9098e94f01526f464b460664ee818aceab66b961bda8384579a9f7ffc5a2",
         "image_labelled.png": "2ccc95a34c68966b4bce0674f69474333d88ccc35bfb44c91c97306af4b4ba7d",
         "image_plain.png": "4a046764b144e8589c343f4a1ba39f28da094ac16962c50c44718cc734e60676",
-        "questions.json": "63320dff35bff26b8198f89d51e0b814cf1254229fce3487d0c2f9810933ce56",
-        "scene.json": "78d9fe89d099bb1a9d178dfeaf88d54c0d37ad04d57b2d0199e4da5932dac790"
+        "questions.json": "2d265d8bde3719406813d9d3ec304488cd3615306401e507c808502e91dee83c",
+        "scene.json": "915ef36d6cfd70fcbc0402ae2e85cf8b08d0f0118be5bb14dc61cdee159c7c12"
       },
       "scene_id": "S-0009",
       "seed": 2034,
@@ -120,11 +120,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "f6b08cb32f0254b405d9ce23b80905f239c9c70f4652ed497178785bd803577e",
+        "ground_truth.json": "345600360ee5bc09950e24ea52788eaf383d814b5aa1769e3960126fc21e2a7f",
         "image_labelled.png": "9b9f72133bb002047e69ee1fe312530dcb20de61586e06d47d4df6cc90b4cda1",
         "image_plain.png": "dc41c937c2fe19e10647c4068ab5f621493ef349a6973d4ce56237deae7b079c",
-        "questions.json": "9b065a2de4e2d171d926fa1194b1cda5e0223becd5ffb7709b8fb85ea1c30dc6",
-        "scene.json": "d127fd0bf2aca66a0dce923ca7a8f8ee5e03afbe86fbe99ee9491d317839b154"
+        "questions.json": "4ca64b30eb7f320488a25f44ff0f578e36d2cb1e9db81c54686ef774cba7b7ad",
+        "scene.json": "9bf70d8fd50c0dc9a5cfcfa051ba599bfe52c7fac1d844edb965f400e43794a5"
       },
       "scene_id": "S-0010",
       "seed": 2035,
@@ -133,11 +133,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "222276d26e6b5d8118a1b766c2cd5e6c272c5a1ec9a9a335e22feb798a203cb4",
+        "ground_truth.json": "6683cba604f3379d5de03a34385b2b8c6820fc204108ae6b7c36622c0a62e358",
         "image_labelled.png": "0c5a281cc380447c0a16dc0f87e86f8c6da02f4776c0d690ce8bf8f53888a6c0",
         "image_plain.png": "232fd4b0815e933bc331eb030399bd526f527955619beee6a6d1d962a67115e7",
-        "questions.json": "81550ae3e766fbc6dadba38558042b052ee3252ede2f5907206d8d337d75dc25",
-        "scene.json": "b7f1095506e1701f744ca969166acebdd8b4764bdfa77b7418d1e6a113b18b30"
+        "questions.json": "2911ef670ad8ce4a4cb816a52743234fcf93d7f994e430e632ecb69f7c6a7628",
+        "scene.json": "75f72756820fd779ad6a1adf9b0d3436efe53a0289d1d5e4cd0a5ab10e9fac32"
       },
       "scene_id": "S-0011",
       "seed": 2036,
@@ -146,11 +146,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "fc1031e4564641a46ba1cb7e71430baf58f070855c4f09c32ad55d7574aa4556",
+        "ground_truth.json": "57055ba6150aa95d400ba039097904595ce05a5c66a7bdd07d333d331d79cf3d",
         "image_labelled.png": "cffffb0c31fb82ceae30a52f4aaa494623aae6e670ba666f76db3f10262beec1",
         "image_plain.png": "c33ec8761192e75294a209024defb72e1c0a6f48531c50b697ce732e757012eb",
-        "questions.json": "60990e6037f99d99570a32ef84349840c816591ae14a82c4471ae7f446a8dc2b",
-        "scene.json": "690168b302460ea858f7c625ff990b66b2048ff867c70e8b45245826a2359a8c"
+        "questions.json": "e2635ca317f7eda8ec48183474788e14178ea324e205310fe8bbbaf0d152b9a0",
+        "scene.json": "1744a28ec1c93917a6a820666fcaf465606f4e8916d3bdac56a2fdd87cf16a9f"
       },
       "scene_id": "S-0012",
       "seed": 2037,
@@ -159,11 +159,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "e4c977589f083808ada5491a5168fceb057542a809ebeef96b3d9ccf7ce9ac3a",
+        "ground_truth.json": "93d2ca5c31213faa83169de3cd23f2be69e16f8fbf886d73125d3be61e17f150",
         "image_labelled.png": "40c828894a436940b043673a91955a3c0c7c0e2cf40ff4f0911c89a9a4bfcd6e",
         "image_plain.png": "58f2a0e6f604b216c0cb308250377ceb34b8cde7d9ae0abcb2ca389e2e009495",
-        "questions.json": "127080186eb501213fbc496df5aaf7aeaf30a90eb4ac6a724d0cef3911aa61c4",
-        "scene.json": "a52ed1f48a2c27a2006c96bc757c4837f954fb5a38a3f7558dc37730c1896534"
+        "questions.json": "e0d90182d0e0138dacb3813ac765241fa247c04c345cf029b36735cfca2a165c",
+        "scene.json": "978906dc8902316f439cfe047e3330bfe1d06d904f1a88c734f6effd2dc47f66"
       },
       "scene_id": "S-0013",
       "seed": 2038,
@@ -172,11 +172,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "50bf9be2bd11245f1ac035eba0996d0ef61e2147f241591c0167bda9a9490370",
+        "ground_truth.json": "939d01c49e819f46bb7aba45b38f1d8cc88b0e7ce04cc570cb27b7132fff4cfc",
         "image_labelled.png": "cb6b15fd5b7741225a95e04073cc267b04e841eee373fb1861be5ca1782090f2",
         "image_plain.png": "549a29fdd10b0d0cb13e3827a8ef5b327376a9f5473de416b4c240d323167fa5",
-        "questions.json": "61494bd35ed91e4dfd56dffd5be38fa391aadfe0cefbb6d11dfe54a97c36f69d",
-        "scene.json": "f67e68b4805385d2c9e715db6fb9b1d0d65c8b0f7e1c968fa0d0678a75da194c"
+        "questions.json": "853382e881ab24e92a7f67fcd234feb5c9d4b2bb80066687dc91d733c0e90931",
+        "scene.json": "8e671ef1c0f9ef3f516f9272dbaddbd108e8fdaa4c6e74bda2fd3c6ae5fbc02b"
       },
       "scene_id": "S-0014",
       "seed": 2039,
@@ -185,11 +185,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "a00527eed75855e28b642b10b28363e6d450f613a667017c47abf996d34586ed",
+        "ground_truth.json": "acb80bf60b3e14217570b04fd6c173d7822909b28bf599d0e8f7631d30cf1461",
         "image_labelled.png": "a6ab5257ec0e91bb7dedad54e23b62e144febc34f7be46dded5509172460f296",
         "image_plain.png": "f1b552470150c21d22a205d9412347c929f6963bd650b444036ef66554e58bef",
-        "questions.json": "6a3a2689c96b4f7d26cd8b14d6246119e46fb7b99acac2107e90b10f6c71600f",
-        "scene.json": "de4f1cbfba2521106c82be1571919fd6c2c1f91cedea69391cfc7702ae29bb54"
+        "questions.json": "66101d658432a30ad2ece7ec4ab49af0e037c0a59ce45814d07ff74dd0e19dde",
+        "scene.json": "6d1f69ceb5612b3f147a1fad23cf0ba9d7d3826d6d01b35789bdfacc97303119"
       },
       "scene_id": "S-0015",
       "seed": 2040,
@@ -198,11 +198,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "467cc9aa6faf92057bbedb6280ff24baf48da36db6b983fc18a68a5bcff32977",
+        "ground_truth.json": "5500a5178afba6126687666ace813d2f07e3200203d4e7663c4e217b68660f01",
         "image_labelled.png": "93c287746bd1b9bab31ceaa5d82eff02b230cd3104f0809f97470e893752cbe3",
         "image_plain.png": "7bfda2b15cef0919cccdebf0bf04b74fa7ef62ecb862b8575888c3b1fcfa5272",
-        "questions.json": "f88c494017aca86ef34e765a04aac686adbeb2c16a3b16f17f836fff9f1f7aa1",
-        "scene.json": "c2b1071781e2bb47d557e98d03d051f88bdf21745b9b7dbeb69f7e50f308f387"
+        "questions.json": "447cebceb603e05c71f9858b95d69d4c26c4fdf6271b4ad8d1ebe7313939c5a8",
+        "scene.json": "6b7b933e229ba4c0abb7cf599c99bf2e2429c0b883be1d868574a6087bea73ad"
       },
       "scene_id": "S-0016",
       "seed": 2041,
@@ -211,11 +211,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "cb6932d2f2e39abf10a2c2c957ba837b9481adf84f46b115450414e0d173d07e",
+        "ground_truth.json": "8da421be9b0a9e476f8d29a6b8b7fb5185736de769b07d3d217f53f3f4ec1c60",
         "image_labelled.png": "3c9966db96fa01017430456a7c254a84c9a36ca396531d93718ff742e22e9cfa",
         "image_plain.png": "466c8619299422000df3588c53e36b4dae32c0472c958b34843533c00f5e5a06",
-        "questions.json": "43a3b2b097272201c1703e54d61da41519980436989960a858e2595f2f18e27d",
-        "scene.json": "cb507307f7dce47fdad71492392f79df397dfea4f1d8f5edb4e8a5b0a2259036"
+        "questions.json": "3ffcdde8f41aba9db07a07d0ed41df48d823f17f79ab84e7dcf8b97c79853b7e",
+        "scene.json": "7f78d70998166b515fa4d7ab2e0537533316432925e7d27594825e0716ffd9ac"
       },
       "scene_id": "S-0017",
       "seed": 2042,
@@ -224,11 +224,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "3ded4057f9bb9ddc32b5ab0a59337e37b9d06726c582a90245de3c9f68bf799b",
+        "ground_truth.json": "0a406da3ba8df46c016d66f5e17bac83506082a897bf9876cccfa3900905cc74",
         "image_labelled.png": "9f39c0a138eed58d246b3dd17b4e122562ce1bdb0cfa4827dbe479079f2e1aea",
         "image_plain.png": "20ebe28eea3c9495aa34aeaf1b8244d40472d7d8db2f2e0536a97667a0fd90cf",
-        "questions.json": "4f5b5cd4b2d00844c1a90de836d43519fa8104fa279a95ea9a9940d285036912",
-        "scene.json": "06c151ea907d6a1cdafc8a262aa3fb9a28e844de19dfa820278dd46acea78a0f"
+        "questions.json": "c931eddb5fb39aa74c57ea26d21c6f8e02d59a9bceb892238e921d81052271d8",
+        "scene.json": "db6e75d3c60b4624f2d4719d88e41feaa41336825afde793d2c1a0ca559ac7c1"
       },
       "scene_id": "S-0018",
       "seed": 2043,
@@ -237,11 +237,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "14c349c92118ed6d46b234073083cb30280bfd2a0412d99963fc0826607457d3",
+        "ground_truth.json": "ac3e2f6f2fd02355203f1aaab184e553d984758730d593310385682756e5499d",
         "image_labelled.png": "538b513f4b8cebe4daa3d93ddd3d8bee313ce070e4216c7c85aaf7b380cd2ab7",
         "image_plain.png": "9fc1d8374da8f4c285ee4e0241c063fb21c9717890dde797ebde1ab5eff08cb3",
-        "questions.json": "652d1673b8f9fac3b0410734fabee3e2382a3fff73cbe65804d20c227756bb9e",
-        "scene.json": "51c779d36af5a0b9b54301b44562c5e2f3c3116223bcbeb69fbb1c045436d12c"
+        "questions.json": "47833d1fd1495d3eeb2f2b6759553ae06c9b061a39747f0c9b8c0bd8d96ae5b9",
+        "scene.json": "78c1daf552bc6f42e2a3df11bbd3c26e94370d477dfa5805ba5791abe72228ae"
       },
       "scene_id": "S-0019",
       "seed": 2044,
@@ -250,11 +250,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "113c081504c582d0c993450d312567ba538a5aeb055dd8912fcf59c9acf7eb03",
+        "ground_truth.json": "d214fbbd0c49b0fdf5da630e9d8be96feb885b92d8ea43ed1e7f0aafc3bdaf4e",
         "image_labelled.png": "43cdbf99592ee47284d92216898e42fdd58f6c358ca15fc2e0f81e5cd4f3ae68",
         "image_plain.png": "2ee0af29c03f8833cb32dbd569e16d412e971ecbdbb614813ba522781a5f6047",
-        "questions.json": "3d04a34f5f29ebcc894af4153bc04d1d2f7ecf138f7573f126421503cfe3d7cb",
-        "scene.json": "0f0f58c7c488d40bcec45c6f20b02d3d05010c08df83d3a5a6c3fe8e8fd17300"
+        "questions.json": "56902627909f9b3ac5f4c1e2a62e94eacddcbb7f43d31406b1e28939f923685a",
+        "scene.json": "eff51c6d4ea18791bfe4227d98afb4ab8ee5a13383fbb054c744c6b8074782a3"
       },
       "scene_id": "S-0020",
       "seed": 2045,
@@ -263,11 +263,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "4a36a6a6ed91131eb7784ea87ffa18f6fdbcf4bcbb057271a0110a21a3075637",
+        "ground_truth.json": "a42dca0ae2021e758ccd232c44f709cecec215ca5d87e4fd8e0144fe3eb8eda8",
         "image_labelled.png": "9ee4886c80c4595f0c3714ea42aa148b9645fe79b3431bb3029b10252e6ea3db",
         "image_plain.png": "b907627ab01c712480405eed0a0940c88f2576634ae788abbd9e759fae58f57e",
-        "questions.json": "b78606b1be020ee7d9a521b56825a4704689c9239e0c038dddf77a1c8608e474",
-        "scene.json": "715756001d12361facba2e0ff4a8cf55c96ed7078ab06598d7dc0908d04ee274"
+        "questions.json": "e3d7207bc3a765bc53b33b8251d4006128b81bf97a705a63f3c8705dca47d5b5",
+        "scene.json": "ebdd49a7bd56ab213778211e4d77a28258cf77a2667d79032e2be17a752aa42b"
       },
       "scene_id": "S-0021",
       "seed": 2046,
@@ -276,11 +276,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "cbd6f6aad65eac32b008127dce4927473588dfd5bab936b8bdcfd1bc680bd41b",
+        "ground_truth.json": "5c78b2a8d924232792dd85e7066eb394c2d36d8717d400273231cc6eb1570dee",
         "image_labelled.png": "6e3005abea0a8e6a8b60e1f6b6679564e22806ccb423475818851cf039dce52a",
         "image_plain.png": "7f3e361389a1e192859a0040fd614e6807286904b8b8a22f8d103e36353447ec",
-        "questions.json": "3f647ee76514ce2575b0d4feb500c800559204f722870549e83d06d9bba361c6",
-        "scene.json": "1e5aa7f8e6fd63cee01ff8e149d487357b836247bca1f92bf121eb4fcaa6b849"
+        "questions.json": "d5b1e7249bd68d69f422512528e5679270eb8e1280853bb17911d57320731dfe",
+        "scene.json": "b16d2cb6d547a11af9afc5186ff3a5e0eb8d2ea22076389c8635abbd31f2ebd4"
       },
       "scene_id": "S-0022",
       "seed": 2047,
@@ -289,11 +289,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "c60f167430887776320d8cfbed712b2a55ae9bd1cf5a23412c5c6f9c720df46d",
+        "ground_truth.json": "eaa0944e8a7178bfec8264f66a85abfae054926263b2bc1a4682943c8cd22251",
         "image_labelled.png": "5af8a8122bf504e17104673ee13489a1e920a012105838c90e576f0b6747d560",
         "image_plain.png": "77c153a526dddd03ec09a2f7d0f03674e556d382d49d96ed2fee52824bf3178c",
-        "questions.json": "d11c4aac0db5aa7be5af84d9a3b419f07ac4cbbc5a0e16b8fe1d8d7970f4ec96",
-        "scene.json": "084d6941d2156510113db6c91a7db7437497b355f444509d95b95a6986fadd2e"
+        "questions.json": "0757fcf0e734577a80cce40fd01b85b07621f5e986cd3ba32b2509433df1b587",
+        "scene.json": "2e037c8c62ab01ec696e993708c6661f787fd4c2a8cd699440b4e728bd37f67e"
       },
       "scene_id": "S-0023",
       "seed": 2048,
@@ -302,11 +302,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "c6e26bedab9e4439920df918f16662532d2c4cd0a666d79eba967fd95fb06a8b",
+        "ground_truth.json": "0f37d173f6051d8a72c1983472ea49a7bb5916d957382c3cfd518db7f552afe3",
         "image_labelled.png": "aec93b5fe788f60ff11229ccf47c5ff5c98c1d5cc1346be9225690c95efabe0b",
         "image_plain.png": "93ad811b1d91d3d47f257b17d78907c0c6fad1cefefaacb5d3cb8c8c1ff0054c",
-        "questions.json": "e9e3bb33f4432eb7bfb58cbfaa8098b0ad8af32647db86e0bc00caee5db586b0",
-        "scene.json": "1e56fd5458d96c41ea6e568ee9b52197bc230131c6ce271d8d5b13553bea0948"
+        "questions.json": "811c7b26aa2870bad99ff2f32c2452ddb7dce06cc2acd07157686f6468cf9ce7",
+        "scene.json": "681ff8f24203f5bd47d35079f1a7b65fdbfefd3b150e7d3ad4c1be2c38a96297"
       },
       "scene_id": "S-0024",
       "seed": 2049,
@@ -315,11 +315,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "e6dc856fb945fd5893bb1c5d36e84d2ad5cbcac0314a3bf246190eba1e6a6c53",
+        "ground_truth.json": "35d4f0f382124816261ec4968e81e2a5a2df3db9439bcc85432a11f2c3a36698",
         "image_labelled.png": "fad80b4ae56f8ab4d8c4c66b6a56532d72a822676f329834dbcebdf2c8d3ac22",
         "image_plain.png": "6fd14657f63a1ece1ebff4a523b8bd983e2a53c6fd0ed727254bd8faee611f56",
-        "questions.json": "03a2b50135dac8f7e6dea5f1d4c1d0378d3962ce0564e712b0880169a1540656",
-        "scene.json": "a4ea4bb0fd1816feacc499b8795bda22f55fa5a0813d96e5b07b2b8bc76163d3"
+        "questions.json": "59acbb3d8a0714d8feca832c2a3f553627cfd084fd8ca29b397b59088cf06b0c",
+        "scene.json": "42637e8e0be6d1fd0154aa1f2e7612bd6363ca3f5c0d2ccc7b5be618720b1cdc"
       },
       "scene_id": "S-0025",
       "seed": 2050,
@@ -328,11 +328,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "49d31c2a7c64524b76f3b030524810d722ea8603b8a20a0ce2f5937ed6f87cbf",
+        "ground_truth.json": "72638d82d7f1ec6736f8c60ef58ea5abef9361cc9761fc78b9e88842fd306f2d",
         "image_labelled.png": "0a8f5bca99afbfbb05b54bf5096568f4504144edf6b8ce0c697b3ff27907b065",
         "image_plain.png": "6ec69aad856b092e26ef6ab026d4f2fb7ae05560e4e5ec5fd23fb9c303b7dbd3",
-        "questions.json": "2daafe8574ab69c12401edff326f70afbb003fff88b4bc00d2ba0457bb64f986",
-        "scene.json": "5a94b085f04bc95669941df72a2d53490881f559d3745c3a096c37ebe3c53353"
+        "questions.json": "df28c23e4e8a505da5d0385eb1bbf0e01f179e50871a155d33945a0c0e4e9572",
+        "scene.json": "1847c544cbfc54e800cbda982227df0188da554d599f0f6b2e4d965cd2c8bd8e"
       },
       "scene_id": "S-0026",
       "seed": 2051,
@@ -341,11 +341,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "a0b24551ac26e1a4051b220f6c58737a96fefc3873794bebed7ecbadf6e67a3e",
+        "ground_truth.json": "07c14084fba54012c84906ad816d851c24e028b015d62c1f643d3241b1899bde",
         "image_labelled.png": "9d19bddccc4891fd3b54a0204877427c5fb3fc5e5950bd1eb199999379aaf582",
         "image_plain.png": "a92dbf1c58868f361e36f99ffff832052ccc43866be4b52b527d9e67fddf7b3a",
-        "questions.json": "b4ff82d3a5768949607684c13cea9ef228be793c9366790c71815a35f2adeef5",
-        "scene.json": "11ae6164e001b59005e207aefc3b6efdf8c4fbc35d7169b53b9f539a907ba393"
+        "questions.json": "50e87c84a57b97621173b1c15ac227ca3f6df6f98c2e1cb2284aaa4af1805343",
+        "scene.json": "61c6067a99d3ecb0be443bb76d09e6c9d4d97ace8476299f560dc4392cca8bce"
       },
       "scene_id": "S-0027",
       "seed": 2052,
@@ -354,11 +354,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "30ff07d705df15275f2e1c32d471fe2fcfa5e7689a64bd7d088567a241b2689c",
+        "ground_truth.json": "0bb2c7cee19f794576bdf5fb6dd6e6e8e58d648e76c2a1afa90b40ffc1d3d7af",
         "image_labelled.png": "8d45e42ccd86e0e1d6b276b4f18ebdee83fe25e864c55bc3ffba3936313eb4f3",
         "image_plain.png": "79e914c0dbea6293c7a375104bda4d75a79e34a69ceff352ab8b96e08baccc26",
-        "questions.json": "72656faf338e07424b131510a24caabd859728702d3b80892f498257035e14ff",
-        "scene.json": "8dff6c27d9a62bc31db6c55ece8f31177201d7bdc625181fe3e26455e0e27511"
+        "questions.json": "0b02b127fc7a3d17123ca7743b59c316cd4a962905ff30af07f5c71e5b1b9ce6",
+        "scene.json": "1c89135ab54a765d4c164a1393cf08444198b5f00c6c152a6b126a12c0f40ce4"
       },
       "scene_id": "S-0028",
       "seed": 2053,
@@ -367,11 +367,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "824eccc9e6ca30e5363b4c806950be24f46a4ed70e0689357d762fa557eb229b",
+        "ground_truth.json": "03920f412e9dc85dfce83763b45f75f5cc95faac04e4590f9fc93fa0c0a2e2c3",
         "image_labelled.png": "c34b0c65f5a8dbc383bc869aac87da2649f4e718fb8f314349bd60e23685e8a6",
         "image_plain.png": "4d02af7d5841cd47f0d6b83e89c7072a6844cb166ae7ca0a94fba431a97dabef",
-        "questions.json": "2058b55596eb087d51783b7e58e3b938a24ae5f80e67dcc65b0e81a376a4b691",
-        "scene.json": "88241b92504cadbf22b9c953cd7cd46b8276afa2ba9c0f02380b17c5a8818046"
+        "questions.json": "4533a8dd0a6728147e5a5f786a15e7fcbeacdbfc22599bb65160ae4560a02519",
+        "scene.json": "9e8d42c612fcb28d63a7abc7a7cd4e848e46c13f43d75c95f89559f77212df97"
       },
       "scene_id": "S-0029",
       "seed": 2054,
@@ -380,11 +380,11 @@
     {
       "difficulty": "easy",
       "file_hashes": {
-        "ground_truth.json": "91baeba3ea3c1fb1bbc37c262fd2277cf678cf35c0920d8c163ef8102cd1f18b",
+        "ground_truth.json": "e9cda3e7b038fc4d930ea1999a1e752f58fd15e9bd3537e6873e2eaa509158ae",
         "image_labelled.png": "7d64f5ae1f50aa4674c51ef822f4fc1953d8bc0ec61f0a8edff935710c04b36b",
         "image_plain.png": "a9a5750a2b82740166d70b73e9fde318c8b7ebbda88fb142a56d0474bb5967b7",
-        "questions.json": "acdc5a89e3446fe7e78dbc670e250431093baf939902bd49be0570199a9e20e5",
-        "scene.json": "b8effcf40a4e2e57270b3bec3e1972c344241838a3072b627e4f90ffc62e35b0"
+        "questions.json": "e17adf009e91a812bbb6202d03816b79cd864ace77fc14601a1d0e8e07704dd9",
+        "scene.json": "3d6fc66595949a39652070f68e12b5259dbe1166a3aa9438f78c43ff373bac86"
       },
       "scene_id": "S-0030",
       "seed": 2055,
@@ -393,11 +393,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "a78bc8220c87f2d029d8932c8a5653a4be2530ffabe8f93feae0df2f059aaf06",
+        "ground_truth.json": "9f5810af9652432326cb620272ea6ca2d0d3f6599ceb529713c29e5a15bb2305",
         "image_labelled.png": "6b648f2ee40c7766301a489eee4eb2fcaa82207cd72e1d0b157857d48a7fc1a7",
         "image_plain.png": "96911fe66664f080e33ed26203ec986d255150a952775fb40ed03d30c989c8c2",
-        "questions.json": "4935f2195813eab40ba4527c79600164e9936d2cafb850d75090b9ec457394c5",
-        "scene.json": "3af1e7633a0a981d45b33d2f191d4ee5072a82e96bf46e4e992008da9bf1f461"
+        "questions.json": "b19e365e9cf8f980387deeee991a96d44925b8ff269079df7a228aa60d6e413b",
+        "scene.json": "34e39e57eb474fb511bfb65bdecc8e2f33ee9db05ae8dce7ea790e5b61c174a9"
       },
       "scene_id": "S-0031",
       "seed": 2056,
@@ -406,11 +406,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "61b0e3cda242521336a8ad4052c3edc259e161f5a3876e93a4602e523320e818",
+        "ground_truth.json": "f3542f4cf6618cc875e7ddff0f06ddd7b95d74c666bd452256f2d67061bba24a",
         "image_labelled.png": "e71b281ee6b35eb1005ab7690d0ac804bbe04b71861690a29d9a76dcc6e5dacf",
         "image_plain.png": "a8404d97de92a4f72f745be5f0de3a442066329189d3aa6e374ceb394650783d",
-        "questions.json": "88cb0e9799abc738af6f42520926fbd9ec18f1f5f8d4d455a18854481f8c27ab",
-        "scene.json": "24e5691ee72b95971ebd4f2767bb0bfd46cc1c391c9836534d2365f4530bf26a"
+        "questions.json": "f8d300d057f3e4eef15c6e2219a34006bd6496656bced9d86b19dc3d2ffd5d1c",
+        "scene.json": "99b157a2a869f462e21a04544c5aad8377cdd5419750d2c821681844c14c0a5a"
       },
       "scene_id": "S-0032",
       "seed": 2057,
@@ -419,11 +419,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "612b8873407c03cd12d94b173b99f0545403cfc88efd8751b756e4fd28b52dda",
+        "ground_truth.json": "84e5a355a13c4f03b4552763dfd76902b6870fddd28ec3183476bc00956d0dd3",
         "image_labelled.png": "3a9898ed61c226f830a86a3d36b20b0d31dd140d31c298bdf594647dce1dafa4",
         "image_plain.png": "02eb08ac9aca34612c53acffcf9577b2c2d9d3fc94a8aaf576380dd970011aa0",
-        "questions.json": "a711cf7ee7b5ccef874d20accc993a8bc66e82c76fe8091f5e988818c47abc93",
-        "scene.json": "5f57596dbedaacc7a9595681512b561fd256767e8dbec0ad1f32662049cd4627"
+        "questions.json": "a93821d398500a1ecd81844b6199bffbbc7f93823ac5e7ef197b9de94a832120",
+        "scene.json": "7c8d05d25dc4d74979720a72e6765a9014c737a0c28cc5786b3915c000a58647"
       },
       "scene_id": "S-0033",
       "seed": 2058,
@@ -432,11 +432,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "8420cee0c6b18af43f4d7bdd83f3f942c227724eb274e992068bec02bb03bcb7",
+        "ground_truth.json": "61500e120495fdfe98384562f67217888fa6fdbbe4a0f995172d5c6e3c1f3bec",
         "image_labelled.png": "2634d40438cfd388fc7c2da8a03ba26854bb904ac2175673444f98fb63674b4b",
         "image_plain.png": "7bc2b1ca2fa38e2def66f7e41cea0d4ba3f0b9f3b4db58dc6c9edc717f3270d0",
-        "questions.json": "d9afc447d2589c1277cc977b44033f1a3d1ab2fa43e836facd4925c2204b8e06",
-        "scene.json": "cc83dfd8c50080cf15cc6e7786e64aa2a1a5357623a6476b997a8ab27b73390b"
+        "questions.json": "c4082e9af208066e7977cd752ba2c138cb01d4ff3621463cb73e21ae697da3c2",
+        "scene.json": "c92aae0d5c5a1be3543b9f76a47ed07be94c0e7f7ead906634824fc94df092b8"
       },
       "scene_id": "S-0034",
       "seed": 2059,
@@ -445,11 +445,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "526ae228a52108b6ddcd05d7c71e649ba5ecb8579465433c1a1c075995c11972",
+        "ground_truth.json": "dad05d321385e8086f461593226546b1a864af6a54230697c8fd68680ec745c4",
         "image_labelled.png": "0b66749fd8a8c6677479d8c29ad89e7c1b636310a74aa8ef038833c24b6edfc5",
         "image_plain.png": "5aecbecdc3942a5675b2db6143d8335b49f0550c9f598e847e6329c99daffaf3",
-        "questions.json": "a7a4d0c84caf327fb246409f46c24dbc3fcf2b8a428565449ae33f45abea9732",
-        "scene.json": "0416b0257d77267aa9ee608dc36ead2295415501a14247a0fa874769d744680d"
+        "questions.json": "84fe4df0408e5b500bf86069b269e9f05adf40979c4cce40fec794402034b28c",
+        "scene.json": "8b3aba0d548c144369700524d73d927b022c5738bad45264a6c0c63ea8310b2f"
       },
       "scene_id": "S-0035",
       "seed": 2060,
@@ -458,11 +458,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "3f46a407660c5333871dacd80ac1580751885447883bb2f6550f9a8dcfe499e6",
+        "ground_truth.json": "1a60368a6ce40f8c98cb94a4854b17282f5a19d23fe4041977b25e70271039ed",
         "image_labelled.png": "b5814c8f9a79ac1f8f50f6ef51a956bcd0ea84a4b774582bcd0d318e4f93f64c",
         "image_plain.png": "d15eca10a81e38a6cc6c48ba79fa8ffa91117e8cdcda939adb5b11188e65de22",
-        "questions.json": "b7bc9048aebcf56b35994c53a4f516db3a1bf362486c7e9ccc59b9324f919e1b",
-        "scene.json": "3294086302bfa1c8285582541eda5f30762dd746c96a4fd0e517d5d9d7bd3c32"
+        "questions.json": "956a737d012876a2163a1bb508672862d2dd45c5e0025087f918dada2ae95ca8",
+        "scene.json": "39ecc43498c5ffda3c84cab9088a902baf195ce1845da76b906958087940ed14"
       },
       "scene_id": "S-0036",
       "seed": 2061,
@@ -471,11 +471,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "63f7de52bb33cff80ebd4f5bc6159eab852f066eb77944b1b6337175e38e73b2",
+        "ground_truth.json": "be5746a6a8345e012acd57ee56cb0f5f47c0d5d94ff0b82b9a20a299c17f473b",
         "image_labelled.png": "e56ecfa129f85c66bd4f3b7eec4e979d42c976a03306dcd091c844b98487bf28",
         "image_plain.png": "c66d10d8f5e397d4469b603598a8e294fd4e7147f04f71bcae4ea4a51b4a93ca",
-        "questions.json": "27ed2fff2c03d464f8f1f0adea4e070cf0f0e1d7add577d1dc7b0ed1872814ba",
-        "scene.json": "3b9f87d40024f2350d151eb7fccbee315661a46660cda51c542ba2909a537894"
+        "questions.json": "6cb1e8680b71faeeea9f1af36fc69c26bd029a6c3360c87e1f379ca3bb0b18a2",
+        "scene.json": "a7cd9cb3b8c68cfa61dd92e621c1cf5279b5be576c50d7b97db078cd2097469e"
       },
       "scene_id": "S-0037",
       "seed": 2062,
@@ -484,11 +484,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "8ac41aef4b83ea8c3d1cec6572949af51e46d30f0a659838af4e584a07904dc9",
+        "ground_truth.json": "e89ce57395a724c6682fae27e7087736cdb775a297dd59f8175cf8a7ce7f62b3",
         "image_labelled.png": "8d06c81e25c57f79fc68e7629c10835efd1f281c677dcc9c275d58763b2acbf8",
         "image_plain.png": "9d7e1d7e3e4cddf6f4d4ddfe1a6e4ffa97336829068a02f19211888f5f15bfe3",
-        "questions.json": "139dc29758f85ad8f304e2a83f74e06c908813cdfb6e9a659bf59f7816cd3fa8",
-        "scene.json": "f380b7b50fcfa866528233f4c107db99c78f6754ac82b6380125af93cecffdf4"
+        "questions.json": "0630850a5c6b7158b829211c3117f364887985d0bad4a83da844a6899eb2cb65",
+        "scene.json": "e9abc74a144ad4a9a75f327fa95670c8739fa71366bb8ad33fa733855d0c3256"
       },
       "scene_id": "S-0038",
       "seed": 2063,
@@ -497,11 +497,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "0a01251bd623acd8b1b339bc5d23be784aea7d4bcae8319545cce5103eb55ea8",
+        "ground_truth.json": "4c9b2c6eb97e4ce7e6259adb689612f18c02a6335ccd46b06611d10237e30a3a",
         "image_labelled.png": "c943efa73a3a08046cb13d36ec1276027d5aaa60a119f38ba1cadd7833d6af6e",
         "image_plain.png": "8495b917cfc8b7c991a936745e848c30c118888e462f1eb97527c9a1a5a3aa62",
-        "questions.json": "50f1cdd78f7d267652d7f27984d07bd56b8c59654115eac1ff0f0149f95668ff",
-        "scene.json": "f8a5800b8bc18ca6f78cdaa39d91863d47edee2d3464a1ff99ca4836b357f794"
+        "questions.json": "afa895762a5522196916912f440ec49d32d68ad746a69cecf839bfc60421713c",
+        "scene.json": "c84736dd198f1f9767f8fc65ee1965b0ad03ebd0aa64fd1db18acd8605580ed3"
       },
       "scene_id": "S-0039",
       "seed": 2064,
@@ -510,11 +510,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "2940399cc3457a238d54170b9440d1330f8831f305f0b21367f183e87a688aa6",
+        "ground_truth.json": "8acda55d00aad01aa435bb2b0e434ef0478f8b922c4eb820627b1970fc058881",
         "image_labelled.png": "6776ebdcc92fd19b06b73e03b2bb405136a6c898c38452f60b00c2228940fa6f",
         "image_plain.png": "55049207911e2522e617e9e8c7524947f1db85de54e40a8857d057fd1057ff94",
-        "questions.json": "25ec3660bc93195d597bd72429774949df4ea5801a4ac5ddb75e1f829f3c6c75",
-        "scene.json": "43a196eb631e0053b9d7752f0c9eb68e41e34991a6b08784414864051932b8ae"
+        "questions.json": "23e94e1b0520f7057d2f85f47ab2c52408aac14c30c532941ce14219b3bed4ce",
+        "scene.json": "9bd6c15b4930dad5f598ba6867c2b5d4f2945da48efc9c779e6962f7b3062fed"
       },
       "scene_id": "S-0040",
       "seed": 2065,
@@ -523,11 +523,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "e1a4bcd862f8afc9eea971117efeec90ae7ecd96bec7e63b527647fc61bff6eb",
+        "ground_truth.json": "70c11625da83ab99ad86d0d147246460a6eb0f34ca9aa40366bc2bd86240a73c",
         "image_labelled.png": "fdde151289c84e48a2470dbcdea810745352abd69200de3cc315cbcbb2fb5b99",
         "image_plain.png": "1da1fad008c7d267d4cfcf12f530d14c5eff5c0e5a474fb1acfaa5d1a51df439",
-        "questions.json": "3b2d3c5e33b90b7965d8781034d6656aad8a8c6828d00d75a765f56e4f15bd66",
-        "scene.json": "838d65e17c1493548cd597722ad2743fd8529c6cdeff5fdce8282e9a4e214155"
+        "questions.json": "b35fbcf638228183c7f7a1e96ebb0031966696f432cd969c4f567fb0074acdd6",
+        "scene.json": "f4c31637dff5773b4b9d40b3823f0004496c7626b11b2e80636bce09b13c7adb"
       },
       "scene_id": "S-0041",
       "seed": 2066,
@@ -536,11 +536,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "4a717890933344eace7681a553d9d1f0b00206cda954ecd7eda2991eda51e8dd",
+        "ground_truth.json": "f4ca9987df5ed616663fbf20f1bd97fa8de81177369b74437166807030505d2f",
         "image_labelled.png": "57dc2bb41b5b016040a38f191d2209380344d11e098ac95b90b10517f637a92e",
         "image_plain.png": "56219247d8a82ee87864d029c5315a77ce4cd03a5c347c558b77d8e38f03c241",
-        "questions.json": "b0be8131fbf736bc8bd1bd3b7f494a180f07622442c3a12ce9e6a2c799b11305",
-        "scene.json": "e5ef4c8ba4fac14bc6708d6b93e69bd295706901d3b36fd39fd34cdce51c3b0a"
+        "questions.json": "ef5b8cdff1c547c359bba3a061d9803faffc81e1aacf2d8824c5d9d379099aee",
+        "scene.json": "44369d10ab940b989d064c8670700c9612ca800fbc3fd65f2432320c8f810844"
       },
       "scene_id": "S-0042",
       "seed": 2067,
@@ -549,11 +549,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "2d4567eafb502b80159b2c6f4e4b8efc9447bd991b665b2aa469f52c527e01ca",
+        "ground_truth.json": "4a4b205ab12e822987fcd31b7723b79075f6bdf000eee244d91741cc5497b35c",
         "image_labelled.png": "00451211934dc0b2f44349c39ff96392272ffee7552d687610392ef4937e9f7d",
         "image_plain.png": "4f35e7595127473e8d81dc9ff16e88df94524538902c72d881b72e1bfb703e26",
-        "questions.json": "85b83b8f84d234efb7ed6dd79f29b66af0a295a3e939d4f2e3fe281729c87937",
-        "scene.json": "39825fd9dd2094d7ad210c2d97a77cbbfad86f0e275359b5f0b4d76929db0666"
+        "questions.json": "e11ad49545a5c23435efc0417216c3686737f851b1394e28d8ec4f8f6af17531",
+        "scene.json": "f7f5feb0fa7a82201bffa911798dd8ba62630f4b16ddfba963bd928f2408ab37"
       },
       "scene_id": "S-0043",
       "seed": 2068,
@@ -562,11 +562,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "23de2ab8468a36619ca9b78cdb403375b121c6a9efb10418fb8aa403c131b24c",
+        "ground_truth.json": "0a00a6f0de6081c05860c6daba1c48aa186feb1817ece2854c27ed6f340c93cd",
         "image_labelled.png": "b077da6fd20436cc9d116777e9fe2176b64cacadf8f359d7b890f8f013e1de95",
         "image_plain.png": "74db9f12858a93837cc1c02c48ea270c51c392866f587e4a74ded086f757819b",
-        "questions.json": "d9fbab3127f648773f1b480f081db4e6899abba5a2a965fec619c776862fd42a",
-        "scene.json": "ce0c0f9749528ea3fa93a5fbb7a388a617f7d2f0f0a54305439cdbeb57950705"
+        "questions.json": "11a07d2a9679a23732c63f538dd6e49a7a3412c9858df88431968fa8f71ca902",
+        "scene.json": "c10a0c81b2df1a638225ff89e0042429cc3e4ffcdd63b16b1bc802c59aacb6be"
       },
       "scene_id": "S-0044",
       "seed": 2069,
@@ -575,11 +575,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "746598bfe618c957a4c0a4334595ad732c3185f7c2111bd8ce69b406add02e86",
+        "ground_truth.json": "b9f5584348f538cc450f296f3fc11d0e488d131fb0cf86d02f2ad27a409c71e9",
         "image_labelled.png": "60a6260e3dc1fafcd22e7a76d0a07786ae759e78cb92012db3fa9f2e62f3fe45",
         "image_plain.png": "8131cecd54fe84a39465e788947917815836bd78cb2fcec409bdc376df776699",
-        "questions.json": "3a62e40527b98bd9af85a6c5f20c96b93261ca6c97b517a40f36fd035475ef28",
-        "scene.json": "329218898465d0ff3428bb76f32fec8d331ac4fc8ac1e33a3c4d6148811a515e"
+        "questions.json": "49a670004bff60296bfe6093f320305541e7233c6d3234fdb4125f9cc5c13ee6",
+        "scene.json": "d851fe13ebef927a0898764240a940e7ebf22fa343a0316b8af02eca6000c0df"
       },
       "scene_id": "S-0045",
       "seed": 2070,
@@ -588,11 +588,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "76128127b6cca9745f91b6d088d2b561e3647de0b5d316757e4152e0b106c5a3",
+        "ground_truth.json": "bd9f73ff9e997d5a19f6d7e2eb4efa4f7eb471c87b789448be18e3fbdd1cf4b5",
         "image_labelled.png": "f5d877d930dfb4cfd2c832c1e19bc73c35723bd2f6252da29f44bef43bba6100",
         "image_plain.png": "2e61091d1aca840baacc6968554e752b2ceb2bbc14671cd32904cb199b77101f",
-        "questions.json": "8df9cb5df6fa0a8df52886f9a1253043439a8ff49e426ecd19bbbc22dde2de42",
-        "scene.json": "b7f41b7215093f1b4d485236469afe7a682c46a939be84b60e7c0af5f44b213b"
+        "questions.json": "f9383a801ddf61d855f0530ca1bc88b3e765a1ef18ab323469e3d43e7dab992b",
+        "scene.json": "88076c03563b0ffd737666124e8c7b182209bd7fbfcf22af6c56800d883c5dab"
       },
       "scene_id": "S-0046",
       "seed": 2071,
@@ -601,11 +601,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "0b3f0ec0e2b64598eac5506b0c3ffb781f7f7c3d3d086252f2f831246f9c22fa",
+        "ground_truth.json": "20f5d1cf57ffc2ffeaca7ec71d9423aa4308815d285dea9ca159c582cfe35fdc",
         "image_labelled.png": "a181fff836a6bffaf93c1311b3c691f6d72d19d0ae7ab0c7d393bc2059a345c1",
         "image_plain.png": "19c23b220745f9e25b49869a1bd9c920a6da2c988f736530512926ff5eaaf5c8",
-        "questions.json": "e662b2da9de7043cd8898cf571edd8b2d044f15f23830dc51ff809438e469085",
-        "scene.json": "ecc476a0730d75be1897d7793ff94d679452c3b4c91138fc86f280325e9e8796"
+        "questions.json": "42db0e542f800bec6bd2f37ed1898949c622839cf4134d79c9af12f35f424f41",
+        "scene.json": "5992e3c6518454e926daa7b04e7bfc02630151e1962b89ba351745be412e29cc"
       },
       "scene_id": "S-0047",
       "seed": 2072,
@@ -614,11 +614,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "180b9ced3f45274b565bf9116d29ee5ad487d64f23ac1d448aae2c85a68b3e00",
+        "ground_truth.json": "bb9f51eaa377d0a9f5fc96ea56d5b9bf55eb812eef5ee628559a5118391f337f",
         "image_labelled.png": "0159e3e9e799560b114555cc02489a5b12a757faa2660761acba813ff596fb76",
         "image_plain.png": "8ff3fafa59c527cbc2a5b1fd607b86229ddc8945c0f80512dacffb8a5341046e",
-        "questions.json": "72474289d9b86dc29b56b48d760a827a02de87f562f6f9618a3552a56346a9d7",
-        "scene.json": "1de4466627ea9392d2979b021b3e2c26cc771e134f51bf25822864f9ec3a844a"
+        "questions.json": "8a2645bff67182814c1054a82fe41a064606ea1aa0a08c3b0726976f5a773125",
+        "scene.json": "7e14da075c945bf0ad6f6c2059429e3aca3c54e99d3e435249412b18b8e5164b"
       },
       "scene_id": "S-0048",
       "seed": 2073,
@@ -627,11 +627,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "15f3b382c894b2e2af191a1c91a2efaf80d76165b437d902ed347aa3dd677aa2",
+        "ground_truth.json": "ad7792fe2e77e014f68d50563ca060e6d6c7d7a54e018be5bda4ca7bcb9c4168",
         "image_labelled.png": "8214eaf57863b3d71114441ccec87d203574747b3c5ab7baa4f45a627c27ff5c",
         "image_plain.png": "9957a11a5c057d5309e7438af6d8424bb35b43bdb28371157fcbe9e5e6aa59ec",
-        "questions.json": "4a4300595278ef6f453ae9d9c261d70f7c4666fd32208551297741bcc9e47da1",
-        "scene.json": "8b7aba56f7c6d8b24fad6960afbcf74c5acd4ae16a3690ba3e463bbdf60128d1"
+        "questions.json": "40e96e06d1f153327ddd40a716b364b564aca48bd5527b1ed427daef46af094c",
+        "scene.json": "de561b1b3f3b0cfbcda77b3c5f8cc4c1112a3eae1bdb0262f63395c3893e4713"
       },
       "scene_id": "S-0049",
       "seed": 2074,
@@ -640,11 +640,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "05962a40f86b7d680f69e7170701fdebbd8b10b0cc1e05a2fc355a82588a74d0",
+        "ground_truth.json": "469089b125166ec1b6affb3cc0993ec8be04191676639b07a8291f893010b83a",
         "image_labelled.png": "268bd5912fb9ce269e0b4fb17db719bc6054d0d4fbb547344ca9420c1773d4f3",
         "image_plain.png": "4def6f9a014c76ad2161dd47e5279c889eb2923da95af26055e8ca02028952c0",
-        "questions.json": "d10cb5649550be5cf1f1c578eaf6287ef202016f1c954936964c6afb137d50af",
-        "scene.json": "73131fe497c47366fa27ed2f3483e34413579faeb3e9ee394123414a0c9481c4"
+        "questions.json": "4adbdeea448ec11bf86393b2dc9b575db5b29ffaeed07eecf88865b5e4c5a7f5",
+        "scene.json": "d03ea69125fe711b4bc221f316987ef9bd3ac25e044bca56da1e266f9450c3f0"
       },
       "scene_id": "S-0050",
       "seed": 2075,
@@ -653,11 +653,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "5d6634e0969d7986021ac65877b4901ae8840efcc1e544b47403f4e206da4e78",
+        "ground_truth.json": "385ea184fcdc9522340d38a753b280d685a31485799713f28a183b7f629d08df",
         "image_labelled.png": "e60000b10e266b784fb1fe57d16879be35f8d04aec609cb2e8ece82c0197c970",
         "image_plain.png": "f0c57e4e560635897a350d3c67a494b43bc98b545abcbac5a54b15a1bb06babf",
-        "questions.json": "c8181ea4a18dba9750e4bf1f76fb40a286c894d74cfb3d77ce448eebb1557c30",
-        "scene.json": "6ef0eaf002f65ac60cecaf2b915c5f82fc2422152dd934a9a91da51521d18fab"
+        "questions.json": "a9650f764c2431bc00d8ddf646c2eae769d5304a7f8e6489245501cb9057d045",
+        "scene.json": "40f117dc6ad392da035c5bcdfd137534f8a5a22f3940c56b7b6c59ec25fe70a1"
       },
       "scene_id": "S-0051",
       "seed": 2076,
@@ -666,11 +666,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "5722aace2172044b2c719d5d95f62cb4433c263975683bf794c69f4e32a8358a",
+        "ground_truth.json": "57c3461029f958ee7502ece4b9da4d591ec3bf6907abd62851d44efc0633f8ab",
         "image_labelled.png": "835849df416d83bf8290e807a4ad695f14fe1e4fd6dfe846b2767a66f4641da2",
         "image_plain.png": "1d46700eef04cda419f7d9985886531b899dfaa1d2beac63b801317f4d60ea78",
-        "questions.json": "9ec84bb9dd3d24a20c46997a7374ce09813af366f3d0a1b573aeaafd49e70fb2",
-        "scene.json": "08ce152ea23546bd2eaddb4f0f87459cc112e78a6c2de84463637f6282ee08f0"
+        "questions.json": "10c2e2f13d12743e980becd87c86fdaa25359aebbbb74e3e91c11d6daf628b8b",
+        "scene.json": "a0d86e4fd539ea758912f8a30a175eac0b708d94abb5a3523bd2916a61d02ff1"
       },
       "scene_id": "S-0052",
       "seed": 2077,
@@ -679,11 +679,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "fb678d4bbd02f840519b9621cb671f359dc8740e1100246796013223cc489960",
+        "ground_truth.json": "84c0e59b1107b79cf8f1fc3620f3f09bc1d809c0f9faaa330fd49098552fa8f2",
         "image_labelled.png": "bae5ae249dc5255cf107569ce43f0e3fc589d6df47f847f88914840a220fcfa6",
         "image_plain.png": "ec8fcf516ecf3796117b940bd1287c719327b8994082f05486c10f1b84f6ae51",
-        "questions.json": "ec20a5c5a6e412c1cea4f217a1287da34dcb5c44eef67d7909355f0f1a918931",
-        "scene.json": "83bf9bf0ab860b54f55bf35071022297b8bdaf141651e46fc82a10797cd47f35"
+        "questions.json": "eeef4cdbc9b4eca0a1ec2dfb77c3c7472aac4ec3e3dda0ad72a034b5bae8f939",
+        "scene.json": "4693888646946dbfaa462ed1940a1a1225aabf528b4c5f38e35bee25fead2fc0"
       },
       "scene_id": "S-0053",
       "seed": 2078,
@@ -692,11 +692,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "311e0c7ff87e4aac40612d82f47c2ed37e6518d6efa10af093a09c019cf31e6d",
+        "ground_truth.json": "4de3a72a813ed51f505b356f566faf8c60685d5c1d08a9b4b8be2e0c42bcdd00",
         "image_labelled.png": "c7581061197dd70e3fe2ed5f632f5fd0dabf746b157d1d3355e39702ee76123b",
         "image_plain.png": "a7e42d1bc7663ae258d5c7d20e3b7a6e77ab50ff650a9b233b6ea1addcf7d00d",
-        "questions.json": "013c0315ab6a635b40817294488a3fd60f7c3e15792aa4e030e5034cf829a8bf",
-        "scene.json": "cfb25de9471ed19eabf60318f82cd03ce127b0d391a90c26e28bc0267dfbd942"
+        "questions.json": "33d0a46cb088245c7db906a8d7129815b7d31d8643897ebbe591bc11dd13c26c",
+        "scene.json": "c09369dff53231a0e19f66f10bcf053e86d0d868ca9c52f69be70b24a4af3a9c"
       },
       "scene_id": "S-0054",
       "seed": 2079,
@@ -705,11 +705,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "1576bab0bba39ef407f4139b7f946fa2e628a6591679ba3d9b9dc106e5323a79",
+        "ground_truth.json": "c7758c8ba90f1184fb6a52fef0f6f50459fbdc4ee62be2b2c7483f371eca5ac8",
         "image_labelled.png": "5ecd3bcf9f40a68b1f1500ca0c074394238542a5f68eb25b83f1599010423ca7",
         "image_plain.png": "69e8228d42fdfab95bec13b42385ffcb124c42430f6e76034fe4270fde89c995",
-        "questions.json": "50ac64004fa0852646f7ec2417403ec839c8882f028e4f7cc2c6785366c3e784",
-        "scene.json": "886a27cb79254f5871728e45ffda42299106ec3a57d6f67fd761fb422cdf57a6"
+        "questions.json": "9d5061855de77fca7902787ee6b42392221418e9dec50784e12dab5c499b4321",
+        "scene.json": "70d5ab5eb51da866c0641307434b57d6798712807729d1a9bdfeedcd32986c93"
       },
       "scene_id": "S-0055",
       "seed": 2080,
@@ -718,11 +718,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "aed5e314042d613726caa5f3cc3fb67b4f23d53784cae48c2c06cb33b5f14e13",
+        "ground_truth.json": "01b8715d053c455b9e5ec07134b27b0ac8dace4c5a9808dbfcfa6655669d239c",
         "image_labelled.png": "3192efa0941293845ab4176e7e16f71b66da3589c9acecbfd8fdbc9fa153d168",
         "image_plain.png": "84729e6776db89989682713bfb4c51fbbaaa2cc54ab6ba2f3b3b4bcbaa345cdb",
-        "questions.json": "07de2eebb6bdd99f70e3f0c4936b42aba913c38dea8ef2c5c44a38884b850469",
-        "scene.json": "2824f3f64c8c7237e0eca5e10b3754a1a9b30a91232cc1584f04384b83263a7f"
+        "questions.json": "3d627b2209c3f0e49f99fe1ac2e17b61937b1c4f33ffb7a1f22bf3cd15f22634",
+        "scene.json": "5f4a864a4dd1da676b698092c53da9eb7442a15ce876d5950c407427cea33233"
       },
       "scene_id": "S-0056",
       "seed": 2081,
@@ -731,11 +731,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "71a7d8085a410cb5fd28641ea0db8a69a7603d435fa5ec22323e778277a500cf",
+        "ground_truth.json": "614687507bae12af7a814667a2fd82e2f37049b62de36416bb658df12ae72711",
         "image_labelled.png": "96788b641a6211252c72b62b5ab8efc75c6f4df412c99570b615d31f08886e32",
         "image_plain.png": "09e3ceedf294d8fc8f77996f457a65fdb6db71a507700b7296644bfb10cfea4b",
-        "questions.json": "82330e1f67784540d7c292e9c178ba9b3670284b3e93a6e86da345fbc2ab78df",
-        "scene.json": "eb46aa7ab41552253644a1bd2832d9788a9ea70128b399a879f8ef80601b50e3"
+        "questions.json": "5bb226130d669da28edcbcdc4ddf6fc2a492f6b2bcbcbba6f01fcbc6d91fbdc4",
+        "scene.json": "698f86153cc409ad887c99e38c039b0d40baf33fb6cda3e4bbe8e9f18518f5ad"
       },
       "scene_id": "S-0057",
       "seed": 2082,
@@ -744,11 +744,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "eee68bbdd78e3592b3596539f485bc733849f79bdfcd198e056e15c572b9ac3e",
+        "ground_truth.json": "3c62cb8c8a31d70f2beb8499eca0fccd54f7a002a532c59927d50d22eb1dd704",
         "image_labelled.png": "335613358023ed69225fd2bc0506aed451de9796cd8f654c2925c39ac568e0b1",
         "image_plain.png": "208377b64b41bafb73a2071f88ab00101230f09c59d4f42b3cf2af57c2df01f1",
-        "questions.json": "1a1957dead5c07b1ed40116a42996e79c48abc31be82cb62a01095c09240381b",
-        "scene.json": "d4959d542e08690b80cd8e3c5450eed37982d53fc12ac3facd3927edb6088253"
+        "questions.json": "1e7b871872cb7f8cd949921314ac98ecb57b39b8d39eac94eb707df9674769f2",
+        "scene.json": "e10f4b3d53c715bc273345465692c29d6b0a912e3db58794daa0f4a757e01f7e"
       },
       "scene_id": "S-0058",
       "seed": 2083,
@@ -757,11 +757,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "a95de06eb17609a754c082e80ff658de8b0a19af7b135871fd9d31458fa25f69",
+        "ground_truth.json": "9c2cbf26198d303f97e00ce4a032ce8b10b6f059070314a1c8d91fdf907cfd86",
         "image_labelled.png": "de0df94950917cd96076636ebe05ff9ac81032cbc11bc6b4e5b3a6db8e19277c",
         "image_plain.png": "eefa2fad6f0fd281e88ed16b65d81d995500ebf31dfc9b1c8228f45a1e141b59",
-        "questions.json": "85ee77da18bdf78bf068ad70694fa1b8c59e5a0e93c9bd639d44af1f2548b63c",
-        "scene.json": "8680671c39177858d04934fdc24f1c6b74d9dfc77c7b2e50ad4fcc4483a5d1a3"
+        "questions.json": "ccf269a75f6b84b4ee9d9818cbb014898e085b37ccee4cc935c649023bc3981e",
+        "scene.json": "d8714cd5b5ec1999c5c483b6dcec063e0f3cfee3424189963ee112be560e0624"
       },
       "scene_id": "S-0059",
       "seed": 2084,
@@ -770,11 +770,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "7d486d326e21b4dbf4cb45f139fda6afd62f98a4d10f2e30b099d4dc78ffb854",
+        "ground_truth.json": "40b54dafd51de02f6fd5298506198435837e858d69c53755fd21775a5e536c84",
         "image_labelled.png": "68a76f71c74066a7c2b81fc958ecfb00849785d3f30c474ac965c037838a1e4a",
         "image_plain.png": "55ee76b658c8a761bef7eacab42de792f50cb90c5cbb8d214f2e60a506abaf6f",
-        "questions.json": "de476ba93e48b18c7f38f58548f875eab53b8426eb3da9ca7a7838dea2446bb9",
-        "scene.json": "669f574fa4a18daacd0d714315ce676b021054b42a5c5478d7f808078c1383af"
+        "questions.json": "dcac9ce7d3e702643c83d2f72c85e307deeed2fed49f105b0c755770fd015f58",
+        "scene.json": "636b2da47be0a8b05b8bef0b894d9a0d6f4b60c63f2ac4f1a4b60048022dd492"
       },
       "scene_id": "S-0060",
       "seed": 2085,
@@ -783,11 +783,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "c7f212ce4d50191396e0114ce6f414be0bafb2d9d2cd0eee2528e7ed93d1b2e9",
+        "ground_truth.json": "4aaa43077659a6203a5f352a1c16c2fc252f7525c9ab1a68d33c88372e097722",
         "image_labelled.png": "6c7a9d23055cb15912d333eafd96bcd0a0a069f3241807a0fa2ffad38d58e227",
         "image_plain.png": "1631064f9b508c7c0fa811307c8b088e7894c96abf07838bacd3032bda1aae78",
-        "questions.json": "176f2fcbd747151483898b3f7840ea9b6ea9a312d1577def2b46de3efe0bd29b",
-        "scene.json": "0f6c2ee78d1ebba7b7451da2b0358ba568cae6d2329d5815df58dd8f3c7af974"
+        "questions.json": "be412dc11b2edf001d655f6cc61098e69d9aef14c357de170dcf4aee3ee0ad05",
+        "scene.json": "0b0534891542d292ff6c872a51ab5e74488bef026291f8805d6c30ab2f8f8581"
       },
       "scene_id": "S-0061",
       "seed": 2086,
@@ -796,11 +796,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "d128d6cb8944cbb89453305d52bdc868b63fe7a1443e901b43b498f5d267f4d0",
+        "ground_truth.json": "66b6195d50583e97ab4fa30d2d0a98be7a13ddf130f5950a0b4791573531aafd",
         "image_labelled.png": "5bb5d472555437b4f663f9c12726e00f2b3714c1437975bb338e86233f3a5c7d",
         "image_plain.png": "ea96740811668f86ab8166f35e14aac6fa7ec6e12c9486db5809e68f88335b97",
-        "questions.json": "cbccfd0a0e8bea105bde182d36bf79bfe96a26ea351452a11ade53833e2b4095",
-        "scene.json": "1aeb720010aa71c8e42c33d78b87517d49e7e49f0a3598b5477a6dd50913afd3"
+        "questions.json": "cf4400f431db3a0fa0a804f2f255d370dafb86b6ae75909c7ff28723f0fd6f06",
+        "scene.json": "f84895de8dc3c2f0c4ab259c93e02117eb78e3ddfc1c2339fe27acf752f114a4"
       },
       "scene_id": "S-0062",
       "seed": 2087,
@@ -809,11 +809,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "4858859bfed0f94444da2f8acc82cf2ecb8cf90a2cc8445e8f4c18112433f7d6",
+        "ground_truth.json": "f46225170d83fd97328ee42142fcdf6d234dcd2726e9994a10d4c0c634722a14",
         "image_labelled.png": "e94cca0239810cb7282a73a009c76f6ab951f393f78ab714d904669f15df287f",
         "image_plain.png": "41266f2554036049503a28647e5d3b50ba510111b42974c83a12ae1bcf7c7863",
-        "questions.json": "dfcaaade44061c09f8dfaa0791465b0a0e26d987e49f5a9d690b98ef921b552e",
-        "scene.json": "867e6672e693b146934dbd329ec9aa2d14e7f5bf92eba234655436dd3f20f897"
+        "questions.json": "2c4de8e2408bb499942a2aaf3f45937320fc942405af678f722742f54534e8ed",
+        "scene.json": "7fc6f2310f8fc9dc421bc929707d13ee8e4beb71bd3f30ce6c6190a3deb01b89"
       },
       "scene_id": "S-0063",
       "seed": 2088,
@@ -822,11 +822,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "fcd2d2691587d15f0d6d5d5adb0e1c1264ad327d8e0ed2ff0b133aee848a48e3",
+        "ground_truth.json": "ca5b3f814c191fe7f37592d04f5cba0f12343f1e950ef0e4f913a926967764a6",
         "image_labelled.png": "613e4fb7284cc1d2bb211ba2f36fca0ae8bf665af77aed1e1e933be83aa0bd16",
         "image_plain.png": "352ead7f634f7bd2876522c6f3d49df0c90ff9cde754446f3da78cf3ce89a528",
-        "questions.json": "69a6e5435edd0840f81fcc84ed369f51ab8973cfdc93e855098a1efb65b4602e",
-        "scene.json": "5039606346ad8069e25edc93e834769179edd329deff4df0fd9ff79720ef4fcf"
+        "questions.json": "04238a80596005736df0d7bd8c677b94607ee8a09066035182f5101093025271",
+        "scene.json": "5e8df09e2b3d0f71dcb0a789ca8799e09f5e08e91e80439b4e10e3e960216d15"
       },
       "scene_id": "S-0064",
       "seed": 2089,
@@ -835,11 +835,11 @@
     {
       "difficulty": "medium",
       "file_hashes": {
-        "ground_truth.json": "9c407023a158cd291dc1c55b2c7edaddb1e8200193240419ccd2247c7d7a8863",
+        "ground_truth.json": "6889cd2898f3002a15d6b6b978c3b1af99f54b21b2eaa0128d136dbc23c50a35",
         "image_labelled.png": "6876140a1373ff4898c746f219ad8fecb7f397809086a3f95ca621a10d93254a",
         "image_plain.png": "aaf41ba1a42e56f9aa6788371a7520f6dbededcbc7a9f49ec7a057fe58463369",
-        "questions.json": "982f3295f4f2151f7e3f4f63fe1ec4ec1256866682c9701866199ca19a34e2a8",
-        "scene.json": "1829e374b40fe14dd2d9958ea11af87ce3398395c09da97512507d5b72c2d27c"
+        "questions.json": "cc94ba8e60d99d4c35d0a2597df34c0cb7a4b3709fc3929f132f0d380c60c57f",
+        "scene.json": "9fe509b5caec9e3bf75f3b7dfb11f7ff4c6ef90a2f709dbe63dbcf9f9b44b6b1"
       },
       "scene_id": "S-0065",
       "seed": 2090,
@@ -848,11 +848,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "623856dbf2a2a85b9714035721a9321cb4d83e5875f2376caef89c73f13b8026",
+        "ground_truth.json": "52cc9f7d2e8ea1c111b585bfda7f96b438af844fc5545812b2a701f1efd5d3c3",
         "image_labelled.png": "a3cd2a5f2dccd8c790096a3f499665a1a3f26e0ed6d25342ac5bfeced043bdac",
         "image_plain.png": "0d41c93d8742234cce49170cad937e70caff77e09226398c9d207be9351fa7b2",
-        "questions.json": "3c0a59ecb58805a74dbb2d6764d4087609833d5e815f27a307d99fbc3c21b798",
-        "scene.json": "8947d2722aaa3068b52e80e80dceb2baf13666edf992cad771b4a0825651a25c"
+        "questions.json": "6fa4c38cdc61d1d11f9d9e83ca12f4c81966e54f2377a5928642024bb2d845bb",
+        "scene.json": "bd24b7f8d2abb248efbf0a67cd4f597c9e3c55b5fdccfd6a5f2f5caafb32b446"
       },
       "scene_id": "S-0066",
       "seed": 2091,
@@ -861,11 +861,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "0a278000361e58baa4815601ba1a2f55f41475d77d86235a757b33b9510fa6d2",
+        "ground_truth.json": "887cb31e5a5b0f2a4a56b1d79326e859f42c138c611735ca05268ee024652e95",
         "image_labelled.png": "7e3871cda0be59d9e9eaa238b40821a76b37d848d5d5b66359f7135ba4d01798",
         "image_plain.png": "9d4bf07e67aed7762adbb9d9e2fd8bb1206f711d335456d211b183ea9fc127a3",
-        "questions.json": "bcde478f6925d5ebc6809de976bb1db2225c52f76983a9b247b1d351c9e6a2de",
-        "scene.json": "649a246f3447887538a4731c6dfa01ccd7a1749220d404340536e2d648bbd8f2"
+        "questions.json": "c20745e751cc29482f18ac5eb19eb2a3d7d792645998328b6ed4c73529cb5ed2",
+        "scene.json": "4a7c9e2d636071a213eddc7f0b87eee870086a6ac09411550d2b8a1dd95f0ab5"
       },
       "scene_id": "S-0067",
       "seed": 2092,
@@ -874,11 +874,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "b7362708b9af5f6fa95c8ece42a17fc974d77a54bbd7dfb1eae6f3d8056a4e89",
+        "ground_truth.json": "58dae2f162f72ad03c1efee99f3f4cdab0d2aa5ab38ec72e15e4384cee0dcdc5",
         "image_labelled.png": "5114e9f84b46602f0c77d89d33998bf700d5e806c88df2c653181f3a50d5a84f",
         "image_plain.png": "27401d4607b49baa1da878701d9085a75f85b5b0151e880afcd60059a536fd84",
-        "questions.json": "76c0eef59a500d168802b16426d9c844649b407ed16f6623a356516d2126dcfb",
-        "scene.json": "f033c41d1f5463971d01921d97f8a425d63030bc81522ea62389bad6e6a41f6d"
+        "questions.json": "3e0cdfe7879b5d7000e424e291f3a7a0af8b05fe17146f2647f8a18509bc2953",
+        "scene.json": "7e68e76d93fd3201b722534814d9811738d67a66efa3184e75f826760dbd0f8b"
       },
       "scene_id": "S-0068",
       "seed": 2093,
@@ -887,11 +887,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "7f569608a6d5e289c9f5d603f1325ce5f4d5d2ed76f15eec25fbfd0e78a1a03f",
+        "ground_truth.json": "4d4590a1f36cc1a7f599e011ec4510d3bf390f768af0255d0e4239a9d1a390f8",
         "image_labelled.png": "d8ae27398972b37b47950423f14b84d3d5ea10310ef29b9eea82eabf043756ef",
         "image_plain.png": "18b519649c43d64678ba7d910159de8ea5abc7818041ef97578fe6661ba3e9cb",
-        "questions.json": "aac7c4aaab24797e8bfc0bc35e1e17d9afab89623f55d708ab60f8033b33e15d",
-        "scene.json": "71b7d48d40662a6d2b91ae480a79689bd5982839c5f5cdb87cb8fb795074a52c"
+        "questions.json": "207310e58eeb70b1ef6f191601732029d7d49f09a3d750c19b660bdcb7be9aa0",
+        "scene.json": "8b67fd4a49f48cde45ad62b4e5e937edd4dd301d946c28eb0e90cbf42599ace4"
       },
       "scene_id": "S-0069",
       "seed": 2094,
@@ -900,11 +900,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "5b4f46bf0abfc7e8886030753bb308cf7efc94af8f654b032b4fd893f560a0da",
+        "ground_truth.json": "10262676b76e79bfb78f26ca60c076439586dd05b95d346da67f80d91d95b4d3",
         "image_labelled.png": "4c46f5d521defd25647a3f626335b892c7318a23de238413fda208a2bd17bbe7",
         "image_plain.png": "5a6194af7e54166182c2d78ff81082d9cb8b14cdbc1106f5b7deec9d949df218",
-        "questions.json": "1cd37f9164da44a798d9dcf247a7ec4144f325b64b459ec628ce668f7815c0b2",
-        "scene.json": "976027c14e1a95f3b29005d06c0a2d0d99ca2ae3885f0edf04504255293c0eb5"
+        "questions.json": "4512e008607d1b0918fd0c0f24e3df38fcbe446048022c845330c23a1585b492",
+        "scene.json": "22a66d31e8f3ceb6fde6258d82afbdf077988cf8da9f205e3ac16936e0974894"
       },
       "scene_id": "S-0070",
       "seed": 2095,
@@ -913,11 +913,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "ac63143f1827b7de153315948346fe92689127c710e4aa8a74f33e62b01c3112",
+        "ground_truth.json": "72f8a9901a7a694cff954be05a0a1ec676229203e0ca85e46ea5f41b401fc1b1",
         "image_labelled.png": "05e83dada494447b5e0e977f4553291c322da004128a3682dfa32e674afca80c",
         "image_plain.png": "783a2ebe65310c0197af029b9d5148ff586d29ab2adbef3f1b30ca1002fe3e55",
-        "questions.json": "db7a4d672c10a1cbee9f3b9b165344b7d0ea0db7558fc01635a1f93dd99eb0a0",
-        "scene.json": "f6b15d777129d84484b5cb99f9e2d9bf825449206392f908c76f06e8c6e70b61"
+        "questions.json": "d5fb45ab123bf6e23757c6dc6210b415bac25f74c6f16ee6360209598e7fb002",
+        "scene.json": "6c7cda1ecbd52f054d07ed732b0c1f35cae81710854a1c31dbf6f33ad67aae23"
       },
       "scene_id": "S-0071",
       "seed": 2096,
@@ -926,11 +926,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "bdefece9f8b405fc370295267b416ff07b1822283bccddd1d644ebb219748a89",
+        "ground_truth.json": "4a831434580f5cf0e802c38a0b2cd995ed4c23bdf9bd47fbf73ea904364edce1",
         "image_labelled.png": "64afd9c3ba97bd1856fa775dc6e3bff2cfc3cbd2080389cd2ee86211b0db314b",
         "image_plain.png": "2205c0be2d26fd10493167bf23b94b6508da8fe248dce670fa4ed440c8a42a32",
-        "questions.json": "c447ace55cf95abdc38eaf76b1c3b5867c1d57fcb6769e7c5d8e33bad0aa9aac",
-        "scene.json": "a130ed1e5c4078163191b0cfce6a04167ce73839a4fec7455720293318097656"
+        "questions.json": "d663889d9040f1b3fb45ee5cf6415e9bcf98666885659df0feaa0cf7250a35d4",
+        "scene.json": "add7d75cfe74736c6ca8de712584e694ce5335a8641eea80f60c934cf2de9bd0"
       },
       "scene_id": "S-0072",
       "seed": 2097,
@@ -939,11 +939,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "b6af18d46c77809412ff4731840609b77503a9890fceef1430376a75b59a7b5e",
+        "ground_truth.json": "7ce14a36d8829c93e04241c58573d70a85bf70419c04ddec396e6d782efb621f",
         "image_labelled.png": "82e715382033777a961e5ffeb5efd19c9c71e35aae4a307cf069c54218d97d9e",
         "image_plain.png": "ad5900ce11adb1fc03fa3a6782c70b5d5d4876c431c113a15f0bd0efeb2c9764",
-        "questions.json": "b39bd6da2815079b69d129719e7ff1225d75aa840ea72bfa3e05a011296cd573",
-        "scene.json": "ebe9947e7d618010462aeaff4701c681d3e164e30442bb4ea2844a3ec0f68343"
+        "questions.json": "1c1ee80e34c73ba87a2a3c4f605eb01d108afce788868f61065efef9b31cf9c8",
+        "scene.json": "2f63c464a13bd06e3ab00efddcc530e8507dc7aef3d562bc40e7b05243885e4e"
       },
       "scene_id": "S-0073",
       "seed": 2098,
@@ -952,11 +952,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "0e1df9d269dc1bf6f3661a586208087b15beaadf6334354b7c3454880c467a6d",
+        "ground_truth.json": "aa52c28d6be14fa4d1ed9312f06adf448ea4ca4668a11ba764a129bbcd7191e6",
         "image_labelled.png": "9c026ab411993a63931a0db7a52ba4107664a48bc5b1523a010560701a677a9c",
         "image_plain.png": "cd2e1936b97386c02ffa3d5d170981558dee99a051fc18c00ca278eac6cfc921",
-        "questions.json": "91ad72e30e3e6c17d3363cf80bcb5d194f67446680fb541e55283fd0c159afd4",
-        "scene.json": "bcda4994f805126e818ae894b017686f6804bbb3b875fc2d9c46efcffbda5267"
+        "questions.json": "82bb8eff1de828747fe41ea79bc8759fa21cc45bc7891ffb9d5af38b3b30d344",
+        "scene.json": "cea9c7b43724fe7b8786ecbff7b5ad9554f4071a4bf467b6d11f8c885f4b8769"
       },
       "scene_id": "S-0074",
       "seed": 2099,
@@ -965,11 +965,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "b6036cc9562581279d272dafc1b94154bb96b919895ef4b12202c60cb791e4ab",
+        "ground_truth.json": "3fb38662d02386fcd02285c0cbbf2eaf403e2d0a9277c59010f0f2d02fde79e9",
         "image_labelled.png": "303f2db229e346834ad9965295164bada2cbc62863cf759597ea0e58c72cdda8",
         "image_plain.png": "22466eb0fe41bd33791401f50cd4f52adb4a8c0ce3e3ccec1d1bc3d8b0f3e876",
-        "questions.json": "a112e1ab63b5fb50bf3e2ae8b8793c572c7d3f6427bbe35dbff9da2a509c9e19",
-        "scene.json": "fd2914bd9fcb60a26d7b231d387ad7eee2d2510c7e356528fd3d18c30ddba3d8"
+        "questions.json": "f2b9e5323d8cf32ff3fec48d33574a7202eac4ad9e1a6b3752da658f5a28f980",
+        "scene.json": "97973d73ef11374c60df077f3ff10efafd3e92639c18ba87414e32ea47676ab8"
       },
       "scene_id": "S-0075",
       "seed": 2100,
@@ -978,11 +978,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "7837156eabae89dfd7678aaea9ff75c1e5c9ac974172a3ba5f2041d750a6dc24",
+        "ground_truth.json": "8856caed4e22cf333fd15b89eeae23c28c0336c5f56b17ea50dfa6293b717235",
         "image_labelled.png": "cfe9a7d82729a5ffc7dab3ff207c8c74a393da27437184035f1a1aa19fb6a7fc",
         "image_plain.png": "1b8aaf0c7eb02e4d1fef978f7531fde705e852453282b0d1ab04a0be6f7fe95f",
-        "questions.json": "5288438cb5ab3bfeccd5620a5c2e7638ddb8bb2b34e6d4576a92ecf83ba2691d",
-        "scene.json": "c77ae4d4793c1a5cdfce99b2726962b3edaea00a9fca28ae3abbc7a5cab0d034"
+        "questions.json": "e3cfae34722ed6f49d8c0132cd45f8528b9a0337dc0412d7a65d185c235f89e1",
+        "scene.json": "ea886c2aab1f71ac59e92f49f0e6b9a9f1b34f0f1965159163b6b459b6304912"
       },
       "scene_id": "S-0076",
       "seed": 2101,
@@ -991,11 +991,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "8a31d7eef0b9f35dfd2af11c274aacf06b68a09d5003a0d1d64deec7c22c6975",
+        "ground_truth.json": "2b2677c8a5ddfd57f63d4ac45faf85298509de9301b2982e78129287f15485d2",
         "image_labelled.png": "33645bb094cb3057d6969733d8381c797171cd7aeec4806fe55d3af36ef5a6d0",
         "image_plain.png": "c2c469dccae532edf692e75905efa02258bbebedccf296f4d7193eb0d367f7ec",
-        "questions.json": "fe1cdad5113873b2a2acf1527656037efaf96924f95e72c81294954b7c4b3a64",
-        "scene.json": "da1073cdecbe1411878559e95eee3ef0ebca518a4df3356d700c65935c7dad3b"
+        "questions.json": "3b707cb793239c80e1fb19457f6dcea5f91503d493d2a938367092b5c3c28496",
+        "scene.json": "2904f0f7807c601db517fc3a3874c1638f4da8332e9618013780977449073183"
       },
       "scene_id": "S-0077",
       "seed": 2102,
@@ -1004,11 +1004,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "7a687a71efefc1d3ae30735db0fd68b62ae254f241a45a08889a695ebc1a18ad",
+        "ground_truth.json": "8d1515efb431ce1caa9432d5b52cefb93eda230134a91007fa2f16853bca9caa",
         "image_labelled.png": "7976e1cac4bcf4afc17c4147e36cfaefbcbfb5ebd64fc7c7f01ca2532b095c5a",
         "image_plain.png": "434541c89ff0dc77946db1f9865fdb014096674aeaf5003f18566320db840648",
-        "questions.json": "dc907044ccd5d0f9720162e16f7353fa1365d6c4353c4e23aebef6b5bbe1c269",
-        "scene.json": "5a86f8c8734949d98b3c23427432dc9e7ccb9bec941dfc6039f46ac386fe0f97"
+        "questions.json": "f6821bc8977cfd624ffcf75ac08218cca8e41b8e23fb74091ae36f88ea8c1874",
+        "scene.json": "40ba8d08f0ee6a4687132cd492e549618aae86390295f3d632dc0d791f4b4b02"
       },
       "scene_id": "S-0078",
       "seed": 2103,
@@ -1017,11 +1017,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "537e07f0bf7f32461ce50a3964fecdfbc2b2a1dc986413aa5c1699376f93ac03",
+        "ground_truth.json": "619bb875bd165748800bef045f5d0809a1429e7e1dee26b3591403e7b16b9b7d",
         "image_labelled.png": "d3919359da617cff78e83d2dc7979f26bc53d4e2f7215c6526a616261f44adc2",
         "image_plain.png": "8ed8633248985aa0c45b940c23a6b805cc150847bc4a88342f5386386882b9b3",
-        "questions.json": "88253c94d5e96bda7a3134069b0b2e9a94f980d5f26184c6f0cfd1e0897b561d",
-        "scene.json": "4a3520c0f54b12c94beef4c362466250ac7b530e82c477fcb5cebed81884d130"
+        "questions.json": "7a77c0e99c86938413cd3a2890e9874a11b5dab9edfc07b8dfb3164d3b9c49dc",
+        "scene.json": "70d217d8d6f6ec0c70b927cb730b3ea6771f5394e0d660885d97777eacf713b2"
       },
       "scene_id": "S-0079",
       "seed": 2104,
@@ -1030,11 +1030,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "3e76d50e6e15950e00d76c55d966481f5524a24c0656d306124fd7a0768cbbf6",
+        "ground_truth.json": "ce126840c6af6b2774938e24d6d31e737bdfdf2174ad9b73560c56d11fc28c83",
         "image_labelled.png": "dba32848a3e408a8a71cb7ae2c2ad40448fad9f5d5c0b2bd8bf141a64326cf3f",
         "image_plain.png": "e96497923674e024a6b7740b45ed46dead5cc5f0ad824344868a60dec13cae6d",
-        "questions.json": "490d4c9029a75a547058ba1ddb66a88113f9693efa26f21c75299a0e6a87cf89",
-        "scene.json": "9b2c1ef0d9a4b1373a1ea7156f07eb1acb20d20afc550bbbd0a382bc7f7cb592"
+        "questions.json": "e3d53ee2087d57f5ad309095c14627c7f1b05de3fa25a69f32686eb2b1f36295",
+        "scene.json": "a1e543fcb27d88bebadd0e84cf652b96b688cc137d5e1dd7330c7ae5fe028046"
       },
       "scene_id": "S-0080",
       "seed": 2105,
@@ -1043,11 +1043,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "aa1cc1c4e0df3ddbcc8e4ca7dc46582b8c9e702b2c3ffc5cdbeb5556d34756f1",
+        "ground_truth.json": "0ca4c71388311fc84e3624ecd59a646e55ddb383216c03a6540f5e9e3d027ed0",
         "image_labelled.png": "27ed9f2834e9fcad1c3a133aba5ee3b03befbcf9cca3d369fb2598df6b2fa1e8",
         "image_plain.png": "106c9acafb0437a01e1bd0706ec902a7d7f172aaad1b73906e9f5dffc2d0948d",
-        "questions.json": "9cdcbd64b856022e47763e93d4ac1e71a2060ed0d0fda3ad8aa4306e7abb23ff",
-        "scene.json": "5d350caa56e445698386aec2d8aa2fdc63c15772736d0542e7151f558b326b18"
+        "questions.json": "ac4e7cdf275b78751566b0830cb2c11753cd345c39ff17aaa02bcf56fac49711",
+        "scene.json": "c7c143d1a26a8b11dc4fcb9e113f4495798420dfce6fbbcd8fd0d24f2e53acff"
       },
       "scene_id": "S-0081",
       "seed": 2106,
@@ -1056,11 +1056,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "42af072d3694afb093b2e012d15642dd19fca348fb4841026dfe2396c104f9d8",
+        "ground_truth.json": "7cb37a1b11ba0416948c190e9ab536e0221a502e82fd4d4000680b55aca2bf83",
         "image_labelled.png": "e1c41ed652b46fb3410e76f35900740c904cde94e0b5d580e8cee05a8ce7cd6d",
         "image_plain.png": "7a0f6ab97a24e8371ce3a62c9c28fff56509063bee3e97af2d519bcdd0962d22",
-        "questions.json": "b5b829353b927c41be7366edd2fbaecf0ed0897df40df59cc7be943e81312dd6",
-        "scene.json": "ddb8430c1a7dea0e23d2b2874287aa66d9dfd724af601aa3cfc0b66465b2fb71"
+        "questions.json": "46da11d5888fa4df311c303a8ede706be9c492567486e5acbe8006d8bf023891",
+        "scene.json": "41c20a71cc3dba2bb2bd6614336f9db5c9005bd6d2a9e68481e9669aeb51e08e"
       },
       "scene_id": "S-0082",
       "seed": 2107,
@@ -1069,11 +1069,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "2b8ee5f514bfd62cf6753cab9d2093c0e2d8f0afaaa301ce7179cd937f31ded2",
+        "ground_truth.json": "0d7c34dc0fe2b2a16201910cbbc691de662a02047dd8bf61cdf4787e7508c2cf",
         "image_labelled.png": "d74b5e4f9439dbfc0aec02ddcbd2c15161fbb3529fbe69f01822a235d42be262",
         "image_plain.png": "0bee24c532221865d963dd22dd12c44d01ccd38b9b8894eb964e625ff7681f85",
-        "questions.json": "9e53917a321a9024ba1eb92932f888fea567e35cd33be44c91626f28790e99ac",
-        "scene.json": "a71c4860f8f995ff295779afb07f758415b6579ac93543f993e946c83f94b5bf"
+        "questions.json": "4c1ce758bc416fc39db25bf18a64365b2fabbf28d4c9b1f510366dcd44448b02",
+        "scene.json": "a481f3da9f2846f1035703f98157948d43edb33c04bf80be21ddb1548837ef08"
       },
       "scene_id": "S-0083",
       "seed": 2108,
@@ -1082,11 +1082,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "4407460a8f12ac1ada3fcef51c912b10a4f0337efcf072079a050a36ef3886bd",
+        "ground_truth.json": "8b4fe3e88a4d5ed41086b1089d5283bab849726ea62c01df52e3f7df728cde58",
         "image_labelled.png": "27f8098a8898188ca7e5b796e2e6f58330cd11ec8898c3e2e0dca7f50608ffe4",
         "image_plain.png": "c2c29da461db3892f2e423cf8544eb164fe76eeaa01b9a303a31894751a19604",
-        "questions.json": "21be326dda594bab9d62031ad4cbabcfca026acaa6bd96e14fe30243b9bffacc",
-        "scene.json": "b19dc2bc7a6b09dda3128912596ef8c8e8702217433cf8e34e91952eb0d69109"
+        "questions.json": "389538fa5bfca1652f7c4957b0e5b9f3cd7d845534b8d5f85eb12c01c1d9a0c8",
+        "scene.json": "7b8c0a52c8b0e1f58c76b1c7448ce11e901f450776c92e8272b57ea7c8673a20"
       },
       "scene_id": "S-0084",
       "seed": 2109,
@@ -1095,11 +1095,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "5bd7cf2cceea57061aad492f3785a0d33109470dd9f86d16ab336672ff17dd65",
+        "ground_truth.json": "2d4555188a124760ebbb321570f8351dc7b1bc236b567fad281253444a6163a1",
         "image_labelled.png": "a3ed66031e92d399bdf411146ec051386058424a2d87b77cca059ac77b445313",
         "image_plain.png": "278f9d60d3acd6e2be551c5635f0dc7464028a10270cf9b5ac46588a55e0666d",
-        "questions.json": "1f20e3cfe27cc250e93fa8a2f08a28e7615bd1d3e6418b2db08446dbe7d7f6ff",
-        "scene.json": "59ac2759d2f9660f33e2e686d1325ba696e4098c8f33e1cea7d8acc62127deb2"
+        "questions.json": "ca7161816bfe2c8e252358aabdbdfef44c6931ca7fa355a3b0b7a3b814e7d26a",
+        "scene.json": "d57eda3dcfaa5e4e2a90102d24ed8ec0b5c53b92d4c78c44a204237c921b3856"
       },
       "scene_id": "S-0085",
       "seed": 2110,
@@ -1108,11 +1108,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "5c68fe9ddfb863fda4a8d7e1dabbaf8d3b1cd722147356124ad6754fe3e85296",
+        "ground_truth.json": "5a744953e518e29d92bcdb9e26b765f84eee52b76e1dfa11b790b111fe201e7e",
         "image_labelled.png": "c4f1e0a3abfcb0e709263759009cb20afabb645bec4dc0a29f342be058e06db1",
         "image_plain.png": "e5f0e501b952291771c9e4c2ba047af1b753b674f067b86412122e529e9d6724",
-        "questions.json": "cace51dffd49b58173a2fc81f8bf2e4d6f05a543b1918b91915a6beb581d0f6f",
-        "scene.json": "486d6f993279a0a4972837aff217d83a652c778f0f8b53a82116f53490c14195"
+        "questions.json": "84e75949a1ecf29706dcbe7eb59f7412f09d891e995c4f33fc215b306ac0642d",
+        "scene.json": "2f3161e90e5995fe3747d44517d5bb6980cff402f3fe056e66fb91f55cdab558"
       },
       "scene_id": "S-0086",
       "seed": 2111,
@@ -1121,11 +1121,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "a54eafa3bb27faf31f2276d36437e7eb8bb6ae7a868a52b60f894ca2fa7ad6cc",
+        "ground_truth.json": "88724894ce83d3e4ffd551b2bb617f01ccc1f4a9de91c8d16fb2afac4c13aad3",
         "image_labelled.png": "5d764122c1d9f62d56838c7688e5165e68f7b3f7b53598d958c396f9b29f3e16",
         "image_plain.png": "c3f23e77eed061923d4912604ee159f173606c17688df56bda2ef47c08012244",
-        "questions.json": "54ebe8a0887ccee3ffe1e55e197ffcfefdeb963ecc1d0f65936ce30c39f53555",
-        "scene.json": "4177c1fdedf70f42b1b2753a6f5f77bbff343296778f8de17ed0be55c6b496e6"
+        "questions.json": "244d49e30219ddb787e0975f1a6bbaf249553bfb7d2034577a5da6966ea88a3c",
+        "scene.json": "c9bbf6fa5f9367e4b3fccfdedaf5d58d6e37206dadb81218b984f95860db00d2"
       },
       "scene_id": "S-0087",
       "seed": 2112,
@@ -1134,11 +1134,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "c484f34015ae9aec1fe021b98cac3521e05edb7490267f6119085be37e2b930a",
+        "ground_truth.json": "906841cff9458fc8a9ebd17372fde576b6db8550ba8ca116ca0034b00759a667",
         "image_labelled.png": "ea1037eec58a99e8786dd206eec461d120c79587c04834332da2507220afae54",
         "image_plain.png": "e1b2caa292229df9de4f00428795f637b1ad8666e6c976ae938f2f4936eae9b5",
-        "questions.json": "d82ea7649ad62f634c928930e480364ca73df8e19b62d05c77a59f94b1404b99",
-        "scene.json": "c5a965a93750631e409726ce4fd25f1ed070285fe5e0b918fb2e2870deca5ffb"
+        "questions.json": "865c516f3afea0b7e6a40b95025284e4fa576c8a972b9c0c79da0ea00c6f521a",
+        "scene.json": "5ce76fd492a903cf2d4706bc6c07673f30f5c8b2cd20c44de7c3e6b69743cb44"
       },
       "scene_id": "S-0088",
       "seed": 2113,
@@ -1147,11 +1147,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "8f36fcd4c6dc71ecd90d1b81d541264bea4915aae45b5748a5daea97b3f27430",
+        "ground_truth.json": "cee79e30874c229a77ec75fe76c77da270a3981e4794f975638ba23d31e291e9",
         "image_labelled.png": "047231833375ea41ff43bc9611cc079ac12517ac87ef5daa6c665f22b5756ad0",
         "image_plain.png": "0dd8b4a4b61b639488c296a313b61609c14cf4ab4e3ce79ef8bc2677e25cb6a9",
-        "questions.json": "61774fc4d3b6e966a389f68e6cba756d4d731ce12a4ea8c9a5d96fdd75a4524a",
-        "scene.json": "ec428949262c1d35cecf85aab79a37b5ad4583ed3a6e475493fbd7efa62782c2"
+        "questions.json": "abe67bea72b1bee9194920209efaa2841af3db7a2de9f810f13fc663e4ca0777",
+        "scene.json": "5ee50af07ee98850a161dbdd496eb24facae9af8ae3b6a30ba689a0a5a40406d"
       },
       "scene_id": "S-0089",
       "seed": 2114,
@@ -1160,11 +1160,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "2cc055bebfdf10990a1a3c774d301dac16a6c06aed0a3ca50d08d25df572d704",
+        "ground_truth.json": "7b86032f3d352badb1808ff30d554b3a52f90171880de1e60ff4a90ee3afcb50",
         "image_labelled.png": "bb953bad4bae4e2636ffde076950740db8bab6e92e3e46ae4f3d66c9b2a3efbc",
         "image_plain.png": "db96a988ec8092983c8fb294ce24d55f0083694097d0b4af88aa56641d705420",
-        "questions.json": "1cd7cbbe6e0d1ee706426867fe5dac02b0924aaf8184c8b9bd2ec663157e8fe2",
-        "scene.json": "ce0363537a9e47cda1f147b204e2f303ac46198a7e664e361e27882140e906e8"
+        "questions.json": "84daa80ce2904f8bae097667811874f4378fe3a94606205b1771a212b16d11ff",
+        "scene.json": "89e57e8382fe3e644d767b2efd893c2fa57922f4f752fb1800cbf85b0204fc26"
       },
       "scene_id": "S-0090",
       "seed": 2115,
@@ -1173,11 +1173,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "54377a3ed7ab332f09a39e854b14e07abfdc1f935aa394679c5da6dfd461ff5f",
+        "ground_truth.json": "7483894eb88c33bca9374d61fa376347b15daaeafad4ad5e02ae6dabf618b8d0",
         "image_labelled.png": "ee9e18f8d6222a3866496176f730042732fb182e37bf0eb8bd0e31951be9fcd2",
         "image_plain.png": "d55daf0f2d2119e49ddc817ed0705e771459737e03e42bf5123339b0ed83e587",
-        "questions.json": "97fbd868807cc9f12c4cdb71b2bbf75882f1df80edfad69a14f3937da6b74684",
-        "scene.json": "2cd9b1d9fea1de458572a62ee8d95f7883ea2d025007bda971d30825b9d88409"
+        "questions.json": "46b6d27c63fea1cd9deccdaaad1fc02f41cd3793fe55bf02abf38189f216bed5",
+        "scene.json": "4420f4b91a9b1d857d478f874ce7f902d15e78a0f7cfd0472fca0975a1ee2ae2"
       },
       "scene_id": "S-0091",
       "seed": 2116,
@@ -1186,11 +1186,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "a05e112ec424a7e416c11c28ab95dd669eb1a16942021f612a2b77a3180ee17e",
+        "ground_truth.json": "134d7f234300f40d0598029a62137977b6c9ba111e5b47bba2e133b37a682fbf",
         "image_labelled.png": "287057360927cdf05858a1e3e51e0425c61ad38103c63c9f0e90851e9f250347",
         "image_plain.png": "b4e881394cf3cdfe6f7c50ab6b995c9261774ec249e144cff79d2fdab04b7aa7",
-        "questions.json": "dbbd8a6690bec41d53be2de67b27d75f3f8c0a71143e01553f1e198fb307627b",
-        "scene.json": "379444aa396f914a8872a1e17b8ad34d5ea81362088c1b8bbe9426fb48374e0e"
+        "questions.json": "211f053e524bf717fe9535a5d99f51042846ca392cf282119b8f987f2ef4f641",
+        "scene.json": "d90ef09b3e5e6fb49b04ba82f39cf33822fb1b7ff29e2f5ba395af3652d56cca"
       },
       "scene_id": "S-0092",
       "seed": 2117,
@@ -1199,11 +1199,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "93a2ff32e49fa697d25b5a7edfb86e1bc0df74d02ec39b7e15926237518a366d",
+        "ground_truth.json": "6988ceec415fdfb3d2c851c42afe8d921f37c4d372ffda63540ae36d633db323",
         "image_labelled.png": "c5b082fc770e85cea60510d5069c0bb457676ef83a912ec3de9e11adff556c75",
         "image_plain.png": "078ca461edeadc247c428da456dc833403d969b1ae2ae67b6d7e140d8cd1bf83",
-        "questions.json": "375c455ef705eabcc93a914a432c392ece470390eaa9161ca2d4818f201cafb7",
-        "scene.json": "9cb8c80eefad04370200f5ea0719a74e5c0e564ad163de48b5e62cbfe6109345"
+        "questions.json": "83191b2c32abf35610f53d48079010ac63012ba59c928c6aa661264ee0379da8",
+        "scene.json": "a1b5e3d75ad5d24e8d0fb1f0d65603695009d0bc393c7fc63c46a1643a52082e"
       },
       "scene_id": "S-0093",
       "seed": 2118,
@@ -1212,11 +1212,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "11c482e92a3d340554ea77b54c6ba0ddad5b29fda00ab3bc669f03782e354ce1",
+        "ground_truth.json": "fe227e314bcdd4a1bd4ff00590da765d2886c2074a7aff5f392a8ed71b0d7004",
         "image_labelled.png": "99f03187c4749cea5702b953399ccfcd6892033268cf78aa1befbb9f56d7f963",
         "image_plain.png": "b69d96270d262833a1c14e0f598dfadff8e3bbddf767cc6363d9b65334684f34",
-        "questions.json": "73f46510da4dce65d29054861e01cfd9a34a57a30e36a91bda78593de35ac26e",
-        "scene.json": "dedb6e453e62f5bd22c61f836e848a71dda1b4b74a5038313adc458f005defa5"
+        "questions.json": "ab9f3fa9e921d6a41e873d6e9c8e4acbc7a727ebdae9980da650d342c49ef693",
+        "scene.json": "e29c506c7955edfa2abd0fb4046164baa3f322357bffe6deda00a18808c121b7"
       },
       "scene_id": "S-0094",
       "seed": 2119,
@@ -1225,11 +1225,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "b83d1fb8cfa4ca3360c35f5b577a62f7825b9068e4f768f2e0e1c8dea8888064",
+        "ground_truth.json": "961794840f5d92e2efa7700733c85ca5fa18ef67a536cfe838e44254bc84ab24",
         "image_labelled.png": "730adf4723bb629ae06d117b34eaa21409009c946a33413c4286e851c1af9593",
         "image_plain.png": "16a7aa302adce57e3ed5fa90baa83eb3879d64b2b367337c878a284c65ebc4b0",
-        "questions.json": "5887b05d0b1dba0735387f8a02578199d58b6cd9e188e4fdf8cda616426ed24a",
-        "scene.json": "8604f4a8f95698fed95bca9b9c3cb957a261df77b3af3d94476437eb9ad11e05"
+        "questions.json": "e15cb8ddb50542029a2b3ffa1602656b44216be0b3cb8f63bd7c28a49dfa3994",
+        "scene.json": "84c7c0c9efbd828735ce9a5b15a964e7c0e4be16cc13f43628caa602f927cd33"
       },
       "scene_id": "S-0095",
       "seed": 2120,
@@ -1238,11 +1238,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "a8b5b4eb7d2214e8a1da687df62bfb1430c80739e34593a01c4d1681a7ae76ee",
+        "ground_truth.json": "8dd6577f957821d3e03bcaca666b00b2ec5861221448294caf976963a745f812",
         "image_labelled.png": "dbcba9b940bc064ead0a72dc1ae52f243233ce4bb9aedc7b9c05c708ba1a0760",
         "image_plain.png": "0b539698209a7caf0c2ab8b5d08a5847225b601f7014e22dbe9918b7edd0205a",
-        "questions.json": "df4fcdaf05e61f33401f4526c0307f13b9c5cbdc5434e0d253535e93f4aaf7ee",
-        "scene.json": "1891c2fe117c92b12114bee8042cf951945cc6ec03189d8a5e575e12ffd37bac"
+        "questions.json": "7bdec07e3522e264776bdb18805eb90694bc772a14e45bd7271aaf182c043714",
+        "scene.json": "84c432cfcc3df424465ace4acc7f9ee2ef8525e816ccc24ae628e42780f067d8"
       },
       "scene_id": "S-0096",
       "seed": 2121,
@@ -1251,11 +1251,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "fc336f84ff6dc3635b9512be8c5d81c467c0c585193deee051006b050030ccf8",
+        "ground_truth.json": "80b740908ce085158efa48c54f3cf48249f9982b44a9f280d00507b172107aa5",
         "image_labelled.png": "c252fcdef31e96fa086a9e9037516b0022e489abca9a5a100c66b1126fd7b3b4",
         "image_plain.png": "002fec6a3878fae11fa5d5f8911072c1e82ba100cf7ff6b1713cba52d117f397",
-        "questions.json": "f5e66f49ae9d3d9d7627d59e745ac1b89031ced3ce0a06f4cbd64f3e865cf309",
-        "scene.json": "3997d888964d3135427c711cba7aedf0417137abc4907bd22445480a313956a1"
+        "questions.json": "f66bdfe5c2f1dbf2eed7825e9c5f2c488c5e3e084dbf7e5deb26c9df1917ac4b",
+        "scene.json": "ac52435e5b5e8a3d22f7330f83296de3da831573a0156392dec5e4e387f8e4a7"
       },
       "scene_id": "S-0097",
       "seed": 2122,
@@ -1264,11 +1264,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "3cc497a529f898c259b4dda2e6cddf3b86cbf1beee297b4e169112c1e57cf81c",
+        "ground_truth.json": "c371000ef7402eba13d20d7a18ac600f76b1c338f047385d1cb21f852072ddeb",
         "image_labelled.png": "e96fdcf4d7198efdcf976ad1df68fad8467d266c4437657db707876819b60ff8",
         "image_plain.png": "2d33a65767365611a3e345f3300c08152b7a747e69695d9f926ac356e061b029",
-        "questions.json": "c1bd0a40c61b79bd09923922e225a3074cea711812f5801f121703287aa410c1",
-        "scene.json": "f006e938f384287adddfb492203a87b965af5cb2a53acf8224147e785fa1f981"
+        "questions.json": "2c6e9fe2f547632adb87b388543382b5c476cd01796c1b92bcd940d0c53b0ecf",
+        "scene.json": "b4d7dc8355d6d0d5e92beded8cab6e55fd00dd5e3b9ced66402e550d92f12d45"
       },
       "scene_id": "S-0098",
       "seed": 2123,
@@ -1277,11 +1277,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "dcb0d1b5fffa408fc033538220204ccd4957781d8ba677d4b62ff34fe66c0854",
+        "ground_truth.json": "8e49f805c63e533f253a1079805061d383c87612a00167e9e0b0357775e8a1a7",
         "image_labelled.png": "6af6423fcff7535dbec9f889317069488f3f4113b0761f0a4f9d96c5779b72c9",
         "image_plain.png": "d1fb9b93ba63519deb0fa2846c1011f122072acde44c728d21a9435b1e891562",
-        "questions.json": "bee46b97df1fad1c284d8bb540d8679e7d51b78cd993333f44cc7f6bc5709bac",
-        "scene.json": "b6d1fb44eb31eef6393f55cc9f2b5baa436066387482f63537fbccebb4cc47ca"
+        "questions.json": "e55b00b8709373089ea37a0d70356019baeadae00515573b99acad01be54b1b7",
+        "scene.json": "8633e0bb223fbb94b63a97bf2928e813bf538034609fadc1e7e949f8abff9930"
       },
       "scene_id": "S-0099",
       "seed": 2124,
@@ -1290,11 +1290,11 @@
     {
       "difficulty": "hard",
       "file_hashes": {
-        "ground_truth.json": "2284bfd1796e46424f01d8d64ad00d8795ea1a5970b0bb1000b2b9cde59b2317",
+        "ground_truth.json": "ac266a0ad7d87b8ccd4f51e978a30e49c0ec7b5fa412add18c5d64923419ee27",
         "image_labelled.png": "18c3f7b3eba326e8b8e27c88bb799fbd9fbd395b6f4878d52975bfa4f7af3b77",
         "image_plain.png": "0f10d5c1fda3eb11025f2e98f22cbb740cb1e503096b48188d9689a3b852ef9e",
-        "questions.json": "1ed0805d3eb2807ac95941695cd5194f0dcbba4efb115a728d00d1d89fc3db0b",
-        "scene.json": "32d7145c5d4b025f0b63a16e57edf8e9fe5f806f1c69cd5d23d028db168336bf"
+        "questions.json": "8a72ce11715488be12a896553d9f7976cbe9f6cd116803c03b5a99721d0486e4",
+        "scene.json": "72c4ff26543d689f818f9297fe55962efaf5ed6a3026fcd0d6dcfc362d2ffe2a"
       },
       "scene_id": "S-0100",
       "seed": 2125,

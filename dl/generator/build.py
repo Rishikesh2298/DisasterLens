@@ -151,11 +151,11 @@ def build_dataset(
         gt_path = os.path.join(scene_dir, "ground_truth.json")
         q_path = os.path.join(scene_dir, "questions.json")
 
-        with open(scene_path, "w", encoding="utf-8") as f:
+        with open(scene_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(_canonical_json(scene.model_dump(mode="json")))
-        with open(gt_path, "w", encoding="utf-8") as f:
+        with open(gt_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(_canonical_json(gt.model_dump(mode="json")))
-        with open(q_path, "w", encoding="utf-8") as f:
+        with open(q_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(_canonical_json(qs.model_dump(mode="json")))
 
         # 7. Validate
@@ -225,12 +225,12 @@ def build_dataset(
     # Write manifest
     manifest = {"scenes": manifest_entries}
     manifest_path = os.path.join(output_root, "manifest.json")
-    with open(manifest_path, "w", encoding="utf-8") as f:
+    with open(manifest_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(_canonical_json(manifest))
 
     # Write stats
     stats_path = os.path.join(output_root, "stats.json")
-    with open(stats_path, "w", encoding="utf-8") as f:
+    with open(stats_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(_canonical_json(stats))
 
     elapsed = time.time() - start_time

@@ -167,7 +167,7 @@ def _place_near_miss(
 
         return poly
 
-    # Fallback: create a safe small polygon 12px away from seg center
+    # Fallback: create an isolated small polygon 12px away from seg center
     mid_x = (b[0] + b[2]) / 2
     mid_y = (b[1] + b[3]) / 2
     size = 20
