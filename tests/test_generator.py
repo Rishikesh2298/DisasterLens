@@ -20,18 +20,28 @@ import random as _random
 import pytest
 from shapely.geometry import Polygon as ShapelyPolygon
 
-from dl.contracts.scene import (
-    BBox, Difficulty, GroundTruth, Hazard, HazardType, Intersection, Park,
-    PlacementSpec, Point, QuestionType, RoadSegment, RoadStatus, Scene,
-    SegmentGroundTruth, Severity, Zone,
-)
 from dl.generator.city import generate_city
 from dl.generator.geometry import cross_section_coverage
 from dl.generator.ground_truth import compute_ground_truth
 from dl.generator.hazards import generate_hazards
+from dl.generator.models import (
+    BBox,
+    Difficulty,
+    Hazard,
+    HazardType,
+    Intersection,
+    PlacementSpec,
+    Point,
+    QuestionType,
+    RoadSegment,
+    RoadStatus,
+    Severity,
+    Zone,
+    to_contract_scene,
+    to_evaluation_record,
+)
 from dl.generator.questions import generate_questions
 from dl.generator.validate import validate_scene
-
 
 # ═══════════════════════════════════════════════════════════════════════════
 # A. DETERMINISM
@@ -59,15 +69,16 @@ class TestDeterminism:
     def test_repeated_build_deterministic_hashes(self):
         """Repeated generation of the same scene produces identical canonical JSON and SHA-256."""
         import hashlib
+
         from dl.generator.build import _canonical_json
 
         s1 = generate_city("S-0001", 2026, Difficulty.EASY)
         s1.hazards = generate_hazards(s1, _random.Random(2026))
-        gt1 = compute_ground_truth(s1)
+        compute_ground_truth(s1)
 
         s2 = generate_city("S-0001", 2026, Difficulty.EASY)
         s2.hazards = generate_hazards(s2, _random.Random(2026))
-        gt2 = compute_ground_truth(s2)
+        compute_ground_truth(s2)
 
         j1 = _canonical_json(s1.model_dump(mode="json"))
         j2 = _canonical_json(s2.model_dump(mode="json"))
@@ -227,7 +238,7 @@ class TestHazardSpecs:
         scene = generate_city("S-TEST", 5000, Difficulty.EASY)
         rng = _random.Random(5000)
         # Inject a block_full hazard on first segment
-        from dl.generator.hazards import _place_block_full, _poly_points, _bbox
+        from dl.generator.hazards import _bbox, _place_block_full, _poly_points
         seg = scene.road_segments[0]
         poly = _place_block_full(seg, rng, HazardType.FLOOD)
         hazard = Hazard(
@@ -244,7 +255,7 @@ class TestHazardSpecs:
         """block_partial placement → segment PARTIAL."""
         scene = generate_city("S-TEST", 5001, Difficulty.EASY)
         rng = _random.Random(5001)
-        from dl.generator.hazards import _place_block_partial, _poly_points, _bbox
+        from dl.generator.hazards import _bbox, _place_block_partial, _poly_points
         seg = scene.road_segments[0]
         poly = _place_block_partial(seg, rng, HazardType.DEBRIS)
         hazard = Hazard(
@@ -263,7 +274,7 @@ class TestHazardSpecs:
         """near_miss_decoy → road CLEAR, hazard doesn't touch road."""
         scene = generate_city("S-TEST", 5002, Difficulty.EASY)
         rng = _random.Random(5002)
-        from dl.generator.hazards import _place_near_miss, _poly_points, _bbox
+        from dl.generator.hazards import _bbox, _place_near_miss, _poly_points
         seg = scene.road_segments[0]
         poly = _place_near_miss(seg, rng, HazardType.DEBRIS)
         hazard = Hazard(
@@ -282,7 +293,7 @@ class TestHazardSpecs:
         if not scene.parks:
             pytest.skip("No parks generated")
         rng = _random.Random(5003)
-        from dl.generator.hazards import _place_water_on_park, _poly_points, _bbox
+        from dl.generator.hazards import _bbox, _place_water_on_park, _poly_points
         park = scene.parks[0]
         poly = _place_water_on_park(park, rng)
         hazard = Hazard(
@@ -321,7 +332,7 @@ class TestHazardSpecs:
     def test_road_damage_minor_partial(self):
         """road_damage with minor severity → at most PARTIAL."""
         scene = generate_city("S-TEST", 5005, Difficulty.EASY)
-        from dl.generator.hazards import _place_road_damage, _poly_points, _bbox
+        from dl.generator.hazards import _bbox, _place_road_damage, _poly_points
         rng = _random.Random(5005)
         seg = scene.road_segments[0]
         poly = _place_road_damage(seg, rng, Severity.MINOR)
@@ -407,7 +418,7 @@ class TestValidator:
         rng = _random.Random(7778)
 
         # Inject a known block_full hazard
-        from dl.generator.hazards import _place_block_full, _poly_points, _bbox
+        from dl.generator.hazards import _bbox, _place_block_full, _poly_points
         seg = scene.road_segments[0]
         poly = _place_block_full(seg, rng, HazardType.FLOOD)
         hazard = Hazard(
@@ -543,7 +554,7 @@ class TestIntegration:
         rng = _random.Random(2056)
         scene.hazards = generate_hazards(scene, rng)
         gt = compute_ground_truth(scene)
-        qs = generate_questions(scene, gt, _random.Random(2056))
+        generate_questions(scene, gt, _random.Random(2056))
 
         assert scene.grid_size == 5
         errors = validate_scene(scene, gt)
@@ -555,7 +566,7 @@ class TestIntegration:
         rng = _random.Random(2091)
         scene.hazards = generate_hazards(scene, rng)
         gt = compute_ground_truth(scene)
-        qs = generate_questions(scene, gt, _random.Random(2091))
+        generate_questions(scene, gt, _random.Random(2091))
 
         assert scene.grid_size == 6
         errors = validate_scene(scene, gt)
@@ -569,7 +580,6 @@ class TestIntegration:
 class TestDatasetComposition:
     def test_manifest_and_stats(self):
         """Verify the 100-scene dataset composition against master plan targets."""
-        import os
         import hashlib
         from pathlib import Path
 
@@ -620,3 +630,25 @@ class TestDatasetComposition:
                         for chunk in iter(lambda: f.read(8192), b""):
                             h.update(chunk)
                     assert h.hexdigest() == expected_hash, f"Hash mismatch for {sid}/{fname}"
+
+    def test_contract_scene_and_evaluation_adapter(self):
+        """Generated scenes convert cleanly into canonical Scene and EvaluationDatasetScene contracts."""
+        from dl.contracts.evaluation import EvaluationDatasetScene
+        from dl.contracts.scene import Scene as CanonicalScene
+
+        scene = generate_city("S-0001", 2026, Difficulty.MEDIUM)
+        rng = _random.Random(2026)
+        scene.hazards = generate_hazards(scene, rng)
+        gt = compute_ground_truth(scene)
+        qs = generate_questions(scene, gt, _random.Random(2026))
+
+        cs = to_contract_scene(scene, gt, qs, split="dev")
+        assert isinstance(cs, CanonicalScene)
+        assert cs.scene_id == "S-0001"
+        assert len(cs.nodes) == 25
+        assert len(cs.segments) == 40
+
+        eval_record = to_evaluation_record(scene, gt, qs, split="dev")
+        validated = EvaluationDatasetScene.model_validate(eval_record)
+        assert validated.scene_id == "S-0001"
+        assert validated.split == "dev"

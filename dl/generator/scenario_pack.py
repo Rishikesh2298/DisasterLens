@@ -11,16 +11,16 @@ import json
 import os
 import random as _random
 
-from dl.contracts.scene import Difficulty, HazardType, PlacementSpec, Severity
 from dl.generator.city import generate_city
 from dl.generator.ground_truth import compute_ground_truth
 from dl.generator.hazards import (
-    HazardPlan, generate_hazards, _place_block_full, _place_near_miss,
-    _place_block_partial, _poly_points, _bbox,
+    _bbox,
+    _place_block_full,
+    _place_near_miss,
+    _poly_points,
 )
+from dl.generator.models import Difficulty, Hazard, HazardType, PlacementSpec
 from dl.generator.render import render_scene
-from dl.contracts.scene import Hazard, BBox, Point
-
 
 DEMO_SEED = 20261127
 SCENARIO_DIR = "scenarios/demo_city"
@@ -76,6 +76,7 @@ def build_demo_city(output_dir: str = SCENARIO_DIR):
     os.makedirs(output_dir, exist_ok=True)
     from PIL import Image
     from shapely.ops import unary_union
+
     from dl.generator.hazards import _seg_poly
 
     rng = _random.Random(DEMO_SEED)
@@ -119,7 +120,7 @@ def build_demo_city(output_dir: str = SCENARIO_DIR):
     gt = compute_ground_truth(scene)
 
     # Render base city images
-    plain_path, labelled_path = render_scene(scene, output_dir, apply_hard_effects=False)
+    plain_path, _labelled_path = render_scene(scene, output_dir, apply_hard_effects=False)
 
     # Generate 4 quadrant camera images from plain view
     full_img = Image.open(plain_path)

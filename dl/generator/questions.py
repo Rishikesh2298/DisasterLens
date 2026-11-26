@@ -17,10 +17,14 @@ from __future__ import annotations
 
 import random as _random
 from collections import defaultdict
-from typing import Optional
 
-from dl.contracts.scene import (
-    GroundTruth, Question, QuestionSet, QuestionType, RoadStatus, Scene, Zone,
+from dl.generator.models import (
+    GroundTruth,
+    Question,
+    QuestionSet,
+    QuestionType,
+    RoadStatus,
+    Scene,
 )
 
 
@@ -37,7 +41,7 @@ def _find_path(
     adj: dict[str, list[tuple[str, str]]],
     start: str,
     end: str,
-) -> Optional[list[str]]:
+) -> list[str] | None:
     """BFS to find a path; returns list of segment IDs or None."""
     if start == end:
         return []
@@ -253,8 +257,8 @@ def generate_questions(
     zone_areas = gt.hazard_area_per_zone
     zones_sorted = sorted(zone_areas.items(), key=lambda x: x[1], reverse=True)
     # Pick two zones with different areas (exclude ties)
-    zone_a: Optional[str] = None
-    zone_b: Optional[str] = None
+    zone_a: str | None = None
+    zone_b: str | None = None
     for i in range(len(zones_sorted)):
         for j in range(i + 1, len(zones_sorted)):
             if abs(zones_sorted[i][1] - zones_sorted[j][1]) > 1.0:

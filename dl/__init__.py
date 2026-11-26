@@ -1,2 +1,1 @@
-# DisasterLens - Synthetic disaster-city benchmark
-"""DisasterLens core package."""
+"""DisasterLens application packages."""

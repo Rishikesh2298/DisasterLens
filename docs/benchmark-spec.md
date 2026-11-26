@@ -1,77 +1,78 @@
-# DisasterLens Benchmark Specification: Task Definitions & Scoring Protocol
+# DisasterLens benchmark specification
 
-**Track:** Visual Task Factory  
-**Version:** 1.0  
-**Owner:** Benchmark Task Owner (Tejash / Rishikesh)
+Version: 0.1.0  
+Scope: synthetic-scene generation, evaluation, and saved-run reporting
 
----
+## Purpose and limits
 
-## 1. Benchmark Overview
+The benchmark measures model outputs against synthetic scenes with known ground truth. Its results describe performance on those synthetic examples only. It is not an emergency-response or navigation system. A `clear` road result means only that the model detected no obstruction in the provided image ("No obstruction detected in imagery captured at time T").
 
-The DisasterLens benchmark evaluates the spatial reasoning capabilities of vision and multimodal language models in simulated disaster response contexts. Rather than testing generic object classification, it measures whether a model understands **functional obstruction**—the geometric relationship between physical hazards and transportation corridors.
+## Input format
 
-> [!WARNING]
-> Results obtained on this benchmark reflect model spatial reasoning on synthetic top-down vector layouts. They do not certify or validate model performance on real aerial, satellite, or drone imagery during actual emergency operations.
+Both input files are JSON documents with a `scenes` array. Scene IDs must be unique within each document and join exactly across files. Every dataset scene declares a `split` of `dev` or `test`; evaluation selects one split before scoring. Predictions outside the selected dataset are rejected, and scenes without predictions count as invalid outputs and receive uncertain road predictions. Dataset records are validated with the shared Pydantic contracts before scoring.
 
----
+Scene records contain:
 
-## 2. Six Benchmark Task Types
+- `scene_id`, `split`, and optional `difficulty` (`easy`, `medium`, `hard`).
+- `truth.hazards`: `{type, bbox}` records; `bbox` is `[x1, y1, x2, y2]` in top-left-origin pixels.
+- `truth.segments`: a map from segment ID to `blocked`, `partial`, or `clear`. The shared scene contract's `ground_truth.segment_status` shape is accepted and normalized to this field.
+- `truth.damaged_building_count`, `truth.water_regions`, `truth.routes`, and `truth.zone_comparisons`.
+- `road_graph.segments` and `road_graph.routes`: undirected graph edges and origin/destination pairs used for route impact.
 
-```
-Task 1: Blocked Road Segments  --> Set comparison (F1 / Precision / Recall)
-Task 2: Damaged Buildings       --> Exact count & Mean Absolute Error (MAE)
-Task 3: Standing Water Regions  --> Bounding Box IoU @ 0.50
-Task 4: Route Obstruction (Pos) --> Binary classification & blocking segment identification
-Task 5: Route Obstruction (Neg) --> Binary discrimination under near-miss distractor conditions
-Task 6: Zone Hazard Comparison  --> Pairwise area ranking (excluding exact ties)
-```
+Prediction records contain the same `scene_id` plus a `prediction` object with hazards, road segment statuses, building count, water regions, route answers, zone comparisons, optional confidence details, `valid_json`, and `latency_ms`. A vision `SceneAnalysis` using `segment_verdicts` is also accepted and adapted to road statuses and blocked-confidence probabilities. The top-level prediction document may declare `model_id`, `prompt_version`, and `is_mock`; scene-level metadata is inferred when consistent. Mixed model/prompt/mock runs are rejected. CLI flags can override model and prompt metadata, while `--mock` can mark any run as mock.
 
-### Task 1: Blocked Road Segments
-- **Prompt:** *"Which road segments are blocked in this scene?"*
-- **Model Output:** List of segment IDs (e.g. `["SEG-004", "SEG-012"]`).
-- **Ground Truth:** All segments with maximum cross-sectional coverage $\ge 0.90$.
+## Scoring
 
-### Task 2: Damaged Buildings
-- **Prompt:** *"How many buildings are visibly damaged in this scene?"*
-- **Model Output:** Non-negative integer count.
-- **Ground Truth:** Buildings flagged with `damaged_building_only` or `building_spill`.
+| Task | Definition |
+|---|---|
+| Hazard detection | Greedy, class-aware box matching in descending confidence order. Report aggregate and per-class precision, recall, F1 and macro-F1 at IoU 0.5 and 0.3. |
+| Road status | Confusion matrix over blocked, partial, clear and uncertain; per-class F1, macro-F1, false-clear share, blocked miss rate, false-block rate and uncertain rate. Missing segment answers become uncertain. |
+| Building count | Exact-match rate and mean absolute error. |
+| Standing water | IoU-based greedy matching, precision, recall, F1 and mean IoU of matched pairs. |
+| Route questions | Accuracy, obstructed-class F1 and accuracy on marked near-miss negatives. |
+| Zone comparison | Accuracy over non-tie comparisons. |
+| Calibration | Brier score for predicted blocked confidence and five fixed-width confidence bins. Lower Brier score is better. |
+| Reliability | Valid-JSON rate and mean response latency where supplied. |
+| Route impact | Reference shortest path after removing ground-truth blocks versus prediction-driven path; reports unsafe-route rate, unnecessary detour rate, extra distance and difficulty breakdown. |
 
-### Task 3: Water Regions
-- **Prompt:** *"Locate all regions with standing water in this scene."*
-- **Model Output:** Array of bounding boxes `[x_min, y_min, x_max, y_max]`.
-- **Ground Truth:** Bounding boxes of flood polygons on roads, blocks, or parks.
+The false-clear rate required by this benchmark is `(truly blocked and predicted clear) / all evaluated segments`. The conditional miss rate among truly blocked segments is separately reported as `blocked_miss_rate`.
 
-### Task 4 & 5: Route Obstruction (Positive & Near-Miss Negative)
-- **Positive Prompt:** *"Is the route from N1 to N16 obstructed? If yes, identify the blocking road segments."*
-- **Negative Prompt:** *"Is the route from N2 to N14 obstructed? If yes, identify the blocking road segments. Note: a hazard near a road does not necessarily block it."*
-- **Ground Truth:**
-  - Positive: $\ge 1$ segment on the route is `BLOCKED`. Expected answer: `{"obstructed": true, "blocking_segments": [...]}`.
-  - Negative: All segments on the route are `CLEAR`, but at least one segment has a neighboring near-miss hazard ($\ge 8\text{px}$ clearance). Expected answer: `{"obstructed": false, "blocking_segments": []}`.
-  - Near-miss cases compose $\ge 25\%$ of all route queries to test false-block tendencies.
+## Route-impact policy
 
-### Task 6: Zone Comparison
-- **Prompt:** *"Which zone has more visible hazard area: NW or SE?"*
-- **Model Output:** Zone identifier (`NW`, `NE`, `SW`, `SE`).
-- **Ground Truth:** Cumulative polygon area $\sum \text{Area}(H_z)$ per quadrant. Ties ($|\Delta| < 1.0\text{px}^2$) are excluded.
+The local evaluator uses an undirected Dijkstra implementation until the shared routing engine is integrated. Predicted blocked edges are removed; uncertain, unknown, stale and partial edges receive a configurable graph penalty. An unsafe route contains a ground-truth blocked segment. An unnecessary detour is over 10% longer than the reference path and omits a clear reference segment. Disconnected paths are not classified as unsafe routes; they produce no selected path.
 
----
+## Output contract
 
-## 3. Road Obstruction Classification Criteria
+Each run writes `summary.json`, `failures.json`, and `per_scene.json` to its output directory. `summary.json` validates as `EvaluationSummary` and records run name, model ID, prompt version, split, mock flag, timestamp, scene count, task metrics, route impact and failure cases. Mock and real runs must remain distinct.
+
+## Failure categories
+
+Supported tags include `near_miss_false_block`, `false_block`, `false_clear`, `partial_confusion`, `missed_small_hazard`, `false_hazard`, `invalid_output`, `count_error`, and `wrong_zone`. Each record includes scene ID, difficulty, question/item, prediction and truth where available.
+
+## Synthetic benchmark task generation
+
+Every generated scene includes six structured benchmark tasks in `questions.json` alongside plain (`image_plain.png`) and labelled (`image_labelled.png`) 1024×1024 images:
+
+1. **Blocked Road Segments:** Set of blocked segment IDs (`coverage >= 0.90`).
+2. **Damaged Buildings:** Exact integer count of buildings with `damaged_building_only` or `building_spill`.
+3. **Standing Water Regions:** Bounding boxes `[x1, y1, x2, y2]` of flood polygons.
+4. **Route Obstruction (Positive):** Binary obstruction status and blocking segment IDs for routes crossing blocked segments.
+5. **Route Obstruction (Near-Miss Negative):** Routes adjacent to near-miss decoys (`>= 8px` road clearance) that remain clear (`>= 25%` of route queries).
+6. **Zone Hazard Comparison:** Pairwise comparison of cumulative polygon hazard area across city quadrants (`NW`, `NE`, `SW`, `SE`), excluding ties.
+
+### Road obstruction thresholds
 
 | Status | Cross-Sectional Coverage ($\theta$) | Operational Semantic | App Display Wording |
 |---|---|---|---|
-| **BLOCKED** | $\theta \ge 0.90$ | Impassable corridor | **Blocked** |
-| **PARTIAL** | $0.30 \le \theta < 0.90$ | Single-lane blockage / caution | **Partial** |
-| **CLEAR** | $\theta < 0.30$ | Impairment below threshold | **No obstruction detected** |
-| **UNCERTAIN** | Conflicting model/heuristic | Disagreement or high variance | **Uncertain** |
-| **STALE** | Time delta exceeded | Outdated observation | **Stale** |
-| **UNKNOWN** | No camera observation | Unobserved | **Unknown** |
+| `blocked` | $\theta \ge 0.90$ | Impassable corridor | Blocked |
+| `partial` | $0.30 \le \theta < 0.90$ | Single-lane blockage / caution | Partial |
+| `clear` | $\theta < 0.30$ | Impairment below threshold | No obstruction detected |
+| `uncertain` | Conflicting model/heuristic | Disagreement or high variance | Uncertain |
+| `stale` | Time delta exceeded | Outdated observation | Stale |
+| `unknown` | No camera observation | Unobserved | Unknown |
 
----
+### Leakage prevention
 
-## 4. Leakage Prevention Protocol
-
-- `questions.json` stores hidden answers under `expected_answer` which is stripped before presentation to evaluation harnesses.
-- Prompt text contains zero quantitative coordinate hints or ground-truth segment statuses.
-- Ground truth is computed exclusively from vector primitives prior to image rendering.
-- `datasets/v1/manifest.json` provides cryptographic SHA-256 verification of all files to guarantee tamper-evident reproducibility.
+- `questions.json` stores `expected_answer` separately so evaluation runners strip ground truth before prompting models.
+- Prompt strings contain zero coordinate hints or segment statuses.
+- `datasets/v1/manifest.json` records SHA-256 hashes for all generated files for reproducible verification.

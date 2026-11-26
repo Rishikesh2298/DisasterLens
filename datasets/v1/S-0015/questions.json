@@ -22,6 +22,7 @@
     },
     {
       "expected_answer": {
+        "boxes": [],
         "water_regions": []
       },
       "id": "Q-003",

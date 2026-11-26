@@ -18,14 +18,20 @@ Grid sizes:
 from __future__ import annotations
 
 import random as _random
-from typing import Optional
 
-from shapely.geometry import box as shapely_box, Polygon as ShapelyPolygon
+from shapely.geometry import Polygon as ShapelyPolygon
+from shapely.geometry import box as shapely_box
 
-from dl.contracts.scene import (
-    Building, Difficulty, Intersection, Park, Point, RoadSegment, Scene, Zone,
+from dl.generator.models import (
+    Building,
+    Difficulty,
+    Intersection,
+    Park,
+    Point,
+    RoadSegment,
+    Scene,
+    Zone,
 )
-
 
 # ── Constants ─────────────────────────────────────────────────────────────
 
@@ -63,7 +69,7 @@ def generate_city(
     scene_id: str,
     seed: int,
     difficulty: Difficulty,
-    hazards: Optional[list] = None,
+    hazards: list | None = None,
 ) -> Scene:
     """Generate a deterministic synthetic city grid.
 

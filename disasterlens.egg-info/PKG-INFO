@@ -1,0 +1,150 @@
+Metadata-Version: 2.4
+Name: disasterlens
+Version: 0.1.0
+Summary: Synthetic disaster-scene benchmark and evaluation tools
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic<3,>=2.7
+Requires-Dist: fastapi<1,>=0.110
+Requires-Dist: uvicorn<1,>=0.29
+Requires-Dist: pillow>=10.0
+Requires-Dist: numpy>=1.24
+Requires-Dist: shapely>=2.0
+Provides-Extra: dev
+Requires-Dist: pytest<9,>=8; extra == "dev"
+Requires-Dist: ruff<1,>=0.5; extra == "dev"
+
+# DisasterLens
+
+DisasterLens is a synthetic-scene research benchmark for measuring hazard recognition and road-obstruction reasoning. It scores model predictions against exact generated-scene ground truth and shows how those predictions can affect route selection.
+
+> **Research prototype:** all included examples are synthetic. This is not a certified navigation or emergency-response system. A clear result means only that no obstruction was detected in the available imagery; it does not establish that a road or route is safe.
+
+## Current implementation
+
+- Versioned shared contracts in `dl/contracts`.
+- Shared scene, vision-analysis, observation, routing and evaluation models, with confidence caps encoded in validation.
+- Modular evaluation for hazard detection, road status, building counts, water regions, route questions, zone comparisons, confidence calibration, route impact and failure categories.
+- A JSON CLI that writes validated run summaries and a failure list.
+- Input validation for unique scene IDs, prediction/dataset ID alignment, missing outputs, split boundaries, and prediction-run metadata.
+- A read-only FastAPI benchmark-results API.
+- A React + TypeScript dashboard with React Router pages, cached API queries, run selection, model-vs-baseline comparison, difficulty charts, confusion matrix, per-scene failure review, CSV export, and mock/live data selection.
+- Pytest checks for hand-calculated metrics, oracle performance, false-clear behavior, route-impact cases and API endpoints.
+
+The generator, live vision adapters, full routing application, scene viewer and deployed hosting are not implemented yet. See the [main implementation plan](docs/implementation-plan/00_Main_Implementation_Plan.pdf) and [Rishikesh's implementation plan](docs/implementation-plan/individual/1_Rishikesh_Implementation_Plan.pdf).
+
+## Architecture
+
+```text
+Dataset + predictions (JSON)
+            │
+            ▼
+  dl.evaluation.run ─────► results/<run>/summary.json + failures.json
+            │                                           │
+            ▼                                           ▼
+      Pure task scorers                         FastAPI read API
+                                                        │
+                                                        ▼
+                                           React benchmark dashboard
+```
+
+Each scorer is a pure function over JSON-compatible scene records. Dataset scenes use `truth` (or the shared contract's `ground_truth`); prediction records use `prediction` or the shared vision `segment_verdicts` shape. Files are joined by `scene_id`, and scene-level model metadata is retained. The sample format is in [`fixtures/`](fixtures/).
+
+## Requirements
+
+- Python 3.11 or later
+- Node.js 20 or later and npm
+
+## Setup
+
+From the repository root:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+```
+
+Install and build the dashboard:
+
+```powershell
+cd frontend
+npm install
+npm run build
+```
+
+## Run the sample benchmark
+
+```powershell
+python -m dl.evaluation.run `
+  --dataset fixtures/sample_dataset.json `
+  --predictions fixtures/sample_predictions.json `
+  --output results/sample-oracle `
+  --run-name sample-oracle `
+  --model-id fixture-oracle `
+  --split dev `
+  --mock
+```
+
+The command writes `results/sample-oracle/summary.json`, `failures.json` and `per_scene.json`. The dataset and predictions are an oracle fixture, so supported prediction tasks should score perfectly; calibration is a probability quality measure, where lower is better. Model ID, prompt version and mock status are inferred from prediction-file metadata unless overridden by CLI options. Results record whether a run is mock data; do not combine mock and real model runs.
+
+## Run the API and dashboard
+
+In two terminals from the repository root:
+
+```powershell
+uvicorn dl.api.main:app --reload
+```
+
+```powershell
+cd frontend
+npm run dev
+```
+
+Open `http://localhost:5173`. The dashboard starts with mock sample data, including model and baseline comparison examples. Use the Mock data switch to change to saved API runs. To default to API mode, copy `frontend/.env.example` to `frontend/.env.local`; the backend reads run folders under `results/` by default. Copy `.env.example` if you need to override the results folder or CORS origins.
+
+API endpoints:
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/health` | Service health |
+| `GET /api/benchmark/runs` | Available saved runs |
+| `GET /api/benchmark/runs/{run_id}` | Validated run summary JSON |
+| `GET /api/benchmark/runs/{run_id}/failures` | Failures; optional `category` and `difficulty` filters |
+| `GET /api/benchmark/runs/{run_id}/scenes/{scene_id}` | Ground truth and prediction for one scene |
+
+Dashboard pages are available at `/benchmark`, `/compare`, and `/failures`. The failure browser filters by category and difficulty and opens a side-by-side truth/prediction detail for each scene.
+
+## Evaluation details
+
+- Hazard and water boxes use `[x1, y1, x2, y2]`; matching is greedy by descending prediction confidence and class, at IoU 0.5 and 0.3. Detection includes aggregate and per-hazard-class metrics.
+- Road classes are `blocked`, `partial`, `clear` and `uncertain`. Missing predictions are scored as `uncertain`; false-clear rate is the fraction of all roads that are truly blocked but predicted clear, with blocked miss rate also reported conditionally among truly blocked roads.
+- Building counts report exact-match rate and mean absolute error. Route questions include overall and near-miss accuracy. Zone ties are excluded.
+- Calibration reports the blocked-confidence Brier score and five bins.
+- Route impact compares a ground-truth route (truly blocked edges removed) with a prediction-driven route, reporting unsafe route rate, unnecessary detour rate, extra distance and difficulty breakdown.
+- Failure categories include false clear, near-miss false block, other false blocks, false hazard detections, partial confusion, missed hazard, invalid output, count error and wrong zone.
+
+## Checks
+
+```powershell
+python -m pytest -q
+python -m dl.contracts.check fixtures
+ruff check dl tests
+cd frontend
+npm run format:check
+npm audit --audit-level=moderate
+npm run build
+```
+
+GitHub Actions runs these backend checks and the frontend checks on pushes and pull requests. Contracts live in [`dl/contracts`](dl/contracts); their current version is `0.1.0`.
+
+The benchmark metric definitions and JSON record format are documented in [`docs/benchmark-spec.md`](docs/benchmark-spec.md). Ownership rules are in [CODEOWNERS](.github/CODEOWNERS); pull requests use the checklist template in [PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md).
+
+## Safety and limits
+
+Scenes are synthetic and simplified. They cannot establish water depth, hidden damage, structural integrity, official closures or real-world model performance. Freshness policy and route assumptions remain prototype rules. Results are research measurements, not travel or emergency advice.
+
+## Project plans
+
+- [Main implementation plan](docs/implementation-plan/00_Main_Implementation_Plan.pdf)
+- Individual plans: [Rishikesh](docs/implementation-plan/individual/1_Rishikesh_Implementation_Plan.pdf), [Tejash](docs/implementation-plan/individual/2_Tejash_Implementation_Plan.pdf), [Divyanshu](docs/implementation-plan/individual/3_Divyanshu_Implementation_Plan.pdf), [Rajneesh](docs/implementation-plan/individual/4_Rajneesh_Implementation_Plan.pdf)

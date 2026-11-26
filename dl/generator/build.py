@@ -27,14 +27,20 @@ import sys
 import time
 from pathlib import Path
 
-from dl.contracts.scene import Difficulty, QuestionType, RoadStatus
+from dl.contracts.evaluation import EvaluationDatasetScene
 from dl.generator.city import generate_city
 from dl.generator.ground_truth import compute_ground_truth
 from dl.generator.hazards import generate_hazards
+from dl.generator.models import (
+    Difficulty,
+    QuestionType,
+    RoadStatus,
+    to_contract_scene,
+    to_evaluation_record,
+)
 from dl.generator.questions import generate_questions
 from dl.generator.render import render_scene
 from dl.generator.validate import validate_scene
-
 
 # ── Difficulty assignment ─────────────────────────────────────────────────
 
@@ -92,7 +98,11 @@ def build_dataset(
         "total_scenes": n,
         "difficulty_counts": {"easy": 0, "medium": 0, "hard": 0},
         "hazard_type_counts": {},
-        "road_status_counts": {"BLOCKED": 0, "PARTIAL": 0, "CLEAR": 0},
+        "road_status_counts": {
+            RoadStatus.BLOCKED.value: 0,
+            RoadStatus.PARTIAL.value: 0,
+            RoadStatus.CLEAR.value: 0,
+        },
         "question_type_counts": {},
         "near_miss_route_questions": 0,
         "total_route_questions": 0,
@@ -149,8 +159,14 @@ def build_dataset(
             f.write(_canonical_json(qs.model_dump(mode="json")))
 
         # 7. Validate
+        split = "dev" if scene_num <= 30 else "test"
         if validate:
             errors = validate_scene(scene, gt, scene_dir)
+            # Validate canonical shared contracts
+            to_contract_scene(scene, gt, qs, split=split)
+            EvaluationDatasetScene.model_validate(
+                to_evaluation_record(scene, gt, qs, split=split)
+            )
             if errors:
                 all_errors.extend(errors)
                 print(f"    ⚠ {scene_id}: {len(errors)} validation error(s)")
@@ -183,7 +199,6 @@ def build_dataset(
                 stats["near_miss_route_questions"] += 1
 
         # 9. Manifest entry
-        split = "dev" if scene_num <= 30 else "test"
         file_hashes = {}
         for fname in ["scene.json", "image_plain.png", "image_labelled.png",
                        "ground_truth.json", "questions.json"]:

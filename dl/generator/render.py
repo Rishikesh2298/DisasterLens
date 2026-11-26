@@ -12,16 +12,14 @@ Hard scenes get Gaussian noise, blur, and JPEG artefacts (seeded).
 from __future__ import annotations
 
 import io
-import math
-from typing import Optional
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-from dl.contracts.scene import (
-    Difficulty, Hazard, HazardType, PlacementSpec, Scene,
+from dl.generator.models import (
+    HazardType,
+    Scene,
 )
-
 
 # Colours (R, G, B, A)
 COL_ROAD = (180, 180, 180, 255)
@@ -151,7 +149,7 @@ def _add_labels(img: Image.Image, scene: Scene, scale: float = 2.0) -> Image.Ima
     font_size = max(8, int(9 * scale))
     try:
         font = ImageFont.truetype("arial.ttf", font_size)
-    except (OSError, IOError):
+    except OSError:
         font = ImageFont.load_default()
 
     for seg in scene.road_segments:

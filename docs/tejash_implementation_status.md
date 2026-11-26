@@ -10,10 +10,9 @@
 
 ## 1. Audit Summary
 
-### Existing Repository State
-- **Root structure:** Repository initialized with docs, implementation plans (`docs/implementation-plan/`), `.gitignore`, and top-level `README.md`.
-- **Pre-existing Code:** No Python code or frontend code was present initially.
-- **Shared Contracts:** `dl/contracts/` was empty. Rishikesh is the team contract owner. A provisional contract `dl/contracts/scene.py` has been created adhering strictly to the specifications in the implementation plan.
+### Integration with `main` (Post-PR #3 Merge)
+- **Shared Contracts (`dl/contracts/`):** Adopted Rishikesh's canonical frozen contracts (`dl/contracts/scene.py`, `dl/contracts/enums.py`, `dl/contracts/evaluation.py`, `dl/contracts/observation.py`, `dl/contracts/routing.py`) untouched. Generator-internal models and contract adapters (`to_contract_scene`, `to_evaluation_record`) live in `dl/generator/models.py`.
+- **Frontend (`frontend/src/`):** Integrated `SceneCanvas.tsx`, `ScenarioPlayer.tsx`, `SceneViewerPage.tsx`, and `ScenarioPlayerPage.tsx` directly into `frontend/src/ui/App.tsx` (`/scene` and `/scenario` routes) matching the dashboard's React Router + CSS theme with zero extra npm dependencies.
 
 ### Files Created
 1. `dl/__init__.py`

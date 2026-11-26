@@ -18,12 +18,18 @@ from __future__ import annotations
 
 from shapely.geometry import Polygon as ShapelyPolygon
 
-from dl.contracts.scene import (
-    GroundTruth, Hazard, HazardType, PlacementSpec, RoadStatus, Scene,
-    SegmentGroundTruth, Severity, Zone,
-)
 from dl.generator.geometry import cross_section_coverage
-
+from dl.generator.models import (
+    GroundTruth,
+    Hazard,
+    HazardType,
+    PlacementSpec,
+    RoadStatus,
+    Scene,
+    SegmentGroundTruth,
+    Severity,
+    Zone,
+)
 
 BLOCKED_THRESHOLD = 0.90
 PARTIAL_THRESHOLD = 0.30

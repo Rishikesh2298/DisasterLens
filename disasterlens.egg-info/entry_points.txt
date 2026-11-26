@@ -1,0 +1,2 @@
+[console_scripts]
+disasterlens-evaluate = dl.evaluation.run:main

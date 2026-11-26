@@ -31,9 +31,9 @@
     "zone_comparison": 100
   },
   "road_status_counts": {
-    "BLOCKED": 190,
-    "CLEAR": 3836,
-    "PARTIAL": 194
+    "blocked": 190,
+    "clear": 3836,
+    "partial": 194
   },
   "total_route_questions": 200,
   "total_scenes": 100

@@ -9,10 +9,11 @@ from __future__ import annotations
 
 import math
 
-from shapely.geometry import LineString, Polygon as ShapelyPolygon
+from shapely.geometry import LineString
+from shapely.geometry import Polygon as ShapelyPolygon
 from shapely.ops import unary_union
 
-from dl.contracts.scene import Point, RoadSegment
+from dl.generator.models import Point, RoadSegment
 
 
 def _to_shapely(points: list[Point]) -> ShapelyPolygon:

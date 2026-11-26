@@ -27,15 +27,18 @@ Additional checks:
 from __future__ import annotations
 
 import os
-from typing import Optional
 
 import numpy as np
 from shapely.geometry import Polygon as ShapelyPolygon
 
-from dl.contracts.scene import (
-    GroundTruth, PlacementSpec, RoadStatus, Scene,
+from dl.generator.models import (
+    GroundTruth,
+    HazardType,
+    PlacementSpec,
+    RoadStatus,
+    Scene,
+    Severity,
 )
-
 
 BLOCKED_THRESHOLD = 0.90
 PARTIAL_THRESHOLD = 0.30
@@ -44,7 +47,6 @@ IMAGE_SIZE = 1024
 
 class ValidationError(Exception):
     """Raised when validation fails."""
-    pass
 
 
 def _poly_to_shapely(points) -> ShapelyPolygon:
@@ -95,7 +97,7 @@ def _classify_raster(coverage: float) -> RoadStatus:
 def validate_scene(
     scene: Scene,
     gt: GroundTruth,
-    scene_dir: Optional[str] = None,
+    scene_dir: str | None = None,
 ) -> list[str]:
     """Validate a scene and its ground truth. Returns list of error messages.
 
@@ -232,11 +234,11 @@ def validate_scene(
             x_end = sb[2]
             slice_width = (x_end - x_start) / n_slices
             for i in range(n_slices):
-                sx = int(round(x_start + (i + 0.5) * slice_width))
+                sx = round(x_start + (i + 0.5) * slice_width)
                 if 0 <= sx < IMAGE_SIZE:
                     # Get column slice within segment bounds
-                    y_lo = max(0, int(round(sb[1])))
-                    y_hi = min(IMAGE_SIZE, int(round(sb[3])) + 1)
+                    y_lo = max(0, round(sb[1]))
+                    y_hi = min(IMAGE_SIZE, round(sb[3]) + 1)
                     road_col = seg_mask[y_lo:y_hi, sx]
                     hazard_col = hazard_mask[y_lo:y_hi, sx]
                     road_px = road_col.sum()
@@ -250,10 +252,10 @@ def validate_scene(
             y_end = sb[3]
             slice_width = (y_end - y_start) / n_slices
             for i in range(n_slices):
-                sy = int(round(y_start + (i + 0.5) * slice_width))
+                sy = round(y_start + (i + 0.5) * slice_width)
                 if 0 <= sy < IMAGE_SIZE:
-                    x_lo = max(0, int(round(sb[0])))
-                    x_hi = min(IMAGE_SIZE, int(round(sb[2])) + 1)
+                    x_lo = max(0, round(sb[0]))
+                    x_hi = min(IMAGE_SIZE, round(sb[2]) + 1)
                     road_row = seg_mask[sy, x_lo:x_hi]
                     hazard_row = hazard_mask[sy, x_lo:x_hi]
                     road_px = road_row.sum()
@@ -265,7 +267,6 @@ def validate_scene(
         raster_status = _classify_raster(max_coverage)
 
         # Check for road_damage minor severity cap
-        from dl.contracts.scene import HazardType, Severity
         for h in road_affecting_hazards:
             if (h.affected_road == seg.id
                 and h.type == HazardType.ROAD_DAMAGE

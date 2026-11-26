@@ -21,14 +21,23 @@ Placement specs:
 from __future__ import annotations
 
 import random as _random
-from typing import Optional
 
-from shapely.geometry import box as shapely_box, Polygon as ShapelyPolygon
+from shapely.geometry import Polygon as ShapelyPolygon
+from shapely.geometry import box as shapely_box
 from shapely.ops import unary_union
 
-from dl.contracts.scene import (
-    BBox, Building, Difficulty, Hazard, HazardType, Park, PlacementSpec,
-    Point, RoadSegment, Scene, Severity, Zone,
+from dl.generator.models import (
+    BBox,
+    Building,
+    Difficulty,
+    Hazard,
+    HazardType,
+    Park,
+    PlacementSpec,
+    Point,
+    RoadSegment,
+    Scene,
+    Severity,
 )
 
 
@@ -112,7 +121,7 @@ def _place_near_miss(
     seg: RoadSegment,
     rng: _random.Random,
     htype: HazardType,
-    roads_buffered: Optional[ShapelyPolygon] = None,
+    roads_buffered: ShapelyPolygon | None = None,
 ) -> ShapelyPolygon:
     """Decoy hazard beside road with ≥8 px gap from ALL roads."""
     sp = _seg_poly(seg)
@@ -153,9 +162,8 @@ def _place_near_miss(
         if poly.is_empty or not poly.is_valid:
             continue
 
-        if roads_buffered is not None:
-            if poly.intersects(roads_buffered):
-                continue
+        if roads_buffered is not None and poly.intersects(roads_buffered):
+            continue
 
         return poly
 
@@ -240,9 +248,8 @@ def _place_road_damage(
     seg: RoadSegment, rng: _random.Random, severity: Severity,
 ) -> ShapelyPolygon:
     """Road cracks/craters. Minor → PARTIAL, Major → BLOCKED."""
-    sp = _seg_poly(seg)
-    b = sp.bounds
-    hz = _is_horizontal(seg)
+    _seg_poly(seg)
+    _is_horizontal(seg)
 
     if severity == Severity.MAJOR:
         # Cover full width, 30+ px extent → BLOCKED
@@ -261,10 +268,10 @@ class HazardPlan:
         self,
         htype: HazardType,
         placement: PlacementSpec,
-        target_seg_idx: Optional[int] = None,
-        target_park_idx: Optional[int] = None,
-        target_building_idx: Optional[int] = None,
-        severity: Optional[Severity] = None,
+        target_seg_idx: int | None = None,
+        target_park_idx: int | None = None,
+        target_building_idx: int | None = None,
+        severity: Severity | None = None,
     ):
         self.htype = htype
         self.placement = placement
@@ -399,9 +406,9 @@ def generate_hazards(scene: Scene, rng: _random.Random) -> list[Hazard]:
 
     for idx, plan in enumerate(plans):
         haz_id = f"H-{idx + 1:03d}"
-        poly: Optional[ShapelyPolygon] = None
-        affected_road: Optional[str] = None
-        affected_building: Optional[str] = None
+        poly: ShapelyPolygon | None = None
+        affected_road: str | None = None
+        affected_building: str | None = None
 
         if plan.placement == PlacementSpec.WATER_ON_PARK:
             if plan.target_park_idx is not None and plan.target_park_idx < len(scene.parks):

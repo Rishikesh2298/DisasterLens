@@ -1,19 +1,41 @@
 export type RoadStatus =
-  | 'BLOCKED'
-  | 'PARTIAL'
-  | 'CLEAR'
-  | 'UNCERTAIN'
-  | 'STALE'
-  | 'UNKNOWN';
+  | "blocked"
+  | "partial"
+  | "clear"
+  | "uncertain"
+  | "stale"
+  | "unknown"
+  | "BLOCKED"
+  | "PARTIAL"
+  | "CLEAR"
+  | "UNCERTAIN"
+  | "STALE"
+  | "UNKNOWN";
+
+export type NormalizedRoadStatus =
+  "BLOCKED" | "PARTIAL" | "CLEAR" | "UNCERTAIN" | "STALE" | "UNKNOWN";
+
+export function normalizeStatus(status?: string): NormalizedRoadStatus {
+  switch ((status ?? "unknown").toUpperCase()) {
+    case "BLOCKED":
+      return "BLOCKED";
+    case "PARTIAL":
+      return "PARTIAL";
+    case "CLEAR":
+      return "CLEAR";
+    case "UNCERTAIN":
+      return "UNCERTAIN";
+    case "STALE":
+      return "STALE";
+    default:
+      return "UNKNOWN";
+  }
+}
 
 export type HazardType =
-  | 'flood'
-  | 'debris'
-  | 'fallen_tree'
-  | 'road_damage'
-  | 'damaged_building';
+  "flood" | "debris" | "fallen_tree" | "road_damage" | "damaged_building";
 
-export type Zone = 'NW' | 'NE' | 'SW' | 'SE';
+export type Zone = "NW" | "NE" | "SW" | "SE";
 
 export interface Point {
   x: number;
@@ -63,7 +85,7 @@ export interface Hazard {
   placement?: string;
   polygon: Point[];
   bbox: BBox;
-  severity?: 'minor' | 'major';
+  severity?: "minor" | "major";
   affected_road?: string;
   affected_building?: string;
 }
@@ -74,6 +96,7 @@ export interface SegmentState {
   max_coverage?: number;
   blocking_hazards?: string[];
   captured_at?: string;
+  age_hours?: number;
   source?: string;
   confidence?: number;
 }
@@ -81,7 +104,7 @@ export interface SegmentState {
 export interface SceneData {
   scene_id: string;
   seed: number;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: "easy" | "medium" | "hard";
   grid_size: number;
   image_width: number;
   image_height: number;
