@@ -12,7 +12,7 @@ from datetime import datetime
 from typing import Any
 
 from dl.contracts.observation import SegmentObservation
-from dl.contracts.scene import GroundTruth, Scene, Zone
+from dl.generator.models import GroundTruth, Scene, Zone
 from dl.vision.mock import MockVisionProvider
 
 

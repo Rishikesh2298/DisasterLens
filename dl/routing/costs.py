@@ -7,7 +7,7 @@ Fresh BLOCKED roads are excluded from routing graphs.
 
 from __future__ import annotations
 
-from dl.contracts.scene import RoadStatus
+from dl.contracts.observation import RoadStatus
 from dl.routing.freshness import EffectiveRoadStatus
 
 # Multipliers mandated by the routing specification:

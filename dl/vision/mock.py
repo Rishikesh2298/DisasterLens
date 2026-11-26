@@ -11,8 +11,22 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
-from dl.contracts.observation import SegmentObservation
-from dl.contracts.scene import GroundTruth, HazardType, RoadStatus, Scene, Zone
+from dl.contracts.observation import RoadStatus, SegmentObservation
+from dl.generator.models import GroundTruth, HazardType, Scene, Zone
+
+
+def _normalize_verdict(val: Any) -> RoadStatus:
+    """Normalizes string or enum road status values to backend uppercase RoadStatus."""
+    if isinstance(val, RoadStatus):
+        return val
+    raw = val.value if hasattr(val, "value") else str(val)
+    return RoadStatus(raw.strip().upper())
+
+
+def _normalize_optional_verdict(val: Any) -> RoadStatus | None:
+    if val is None:
+        return None
+    return _normalize_verdict(val)
 
 
 class MockVisionProvider:
@@ -47,10 +61,10 @@ class MockVisionProvider:
         Constructs a validated SegmentObservation tagged as mock data.
         """
         zone_enum = Zone(zone) if isinstance(zone, str) else zone
-        verdict_enum = RoadStatus(verdict) if isinstance(verdict, str) else verdict
+        verdict_enum = _normalize_verdict(verdict)
         hazard_enum = HazardType(hazard_type) if isinstance(hazard_type, str) else hazard_type
-        dir_v = RoadStatus(direct_verdict) if isinstance(direct_verdict, str) else direct_verdict
-        map_v = RoadStatus(mapped_verdict) if isinstance(mapped_verdict, str) else mapped_verdict
+        dir_v = _normalize_optional_verdict(direct_verdict)
+        map_v = _normalize_optional_verdict(mapped_verdict)
 
         # Near miss safety rule: near-miss hazards do not block the corridor
         if near_miss:

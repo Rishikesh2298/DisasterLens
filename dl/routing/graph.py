@@ -12,7 +12,7 @@ from typing import Any
 
 import networkx as nx
 
-from dl.contracts.scene import Intersection, RoadSegment, Scene
+from dl.generator.models import Intersection, RoadSegment, Scene
 
 
 class RoadGraph:

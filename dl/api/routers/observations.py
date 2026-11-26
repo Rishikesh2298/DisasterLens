@@ -20,8 +20,8 @@ from dl.api.dependencies import get_clock_service, get_observation_service, get_
 from dl.api.services.clock_service import ClockService
 from dl.api.services.observation_service import ObservationService
 from dl.api.storage import ImageStorageService
-from dl.contracts.observation import SegmentObservation
-from dl.contracts.scene import HazardType, RoadStatus, Zone
+from dl.contracts.observation import RoadStatus, SegmentObservation
+from dl.generator.models import HazardType, Zone
 from dl.routing.freshness import normalize_datetime
 from dl.vision.provider import VisionProviderError, get_vision_provider
 

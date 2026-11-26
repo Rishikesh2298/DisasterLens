@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CameraView,
   Observation,
@@ -7,16 +7,7 @@ import {
   ScenarioEvent,
   SegmentState,
 } from "../../types/scene";
-import {
-  Clock,
-  RotateCcw,
-  Send,
-  AlertCircle,
-  CheckCircle2,
-  Camera,
-  Server,
-  Radio,
-} from "lucide-react";
+import "../scene/scene.css";
 
 export interface ScenarioPlayerProps {
   scenario?: ScenarioData;
@@ -29,7 +20,6 @@ export interface ScenarioPlayerProps {
   className?: string;
 }
 
-// Built-in fixture data for demo city if scenario prop not provided
 const DEFAULT_DEMO_SCENARIO: ScenarioData = {
   scenario_id: "demo_city",
   description:
@@ -66,21 +56,20 @@ const DEFAULT_DEMO_SCENARIO: ScenarioData = {
     {
       time_step: "T0",
       timestamp: null,
-      description:
-        "Initial state: No observations yet. All road statuses UNKNOWN.",
+      description: "No observations yet. All road statuses UNKNOWN.",
       observations: [],
     },
     {
       time_step: "T1",
       timestamp: "2026-11-27T08:00:00+05:30",
       description:
-        "Flood detected across main NW corridor. Expected status: BLOCKED. Route alerts trigger.",
+        "Flood detected across SEG-001. Expected outcome: BLOCKED. Saved route raises an alert.",
       observations: [
         {
           source: "synthetic_camera_1",
           capture_time: "2026-11-27T08:00:00+05:30",
           zone: "NW",
-          affected_segments: ["SEG-001", "SEG-007"],
+          affected_segments: ["SEG-001"],
           hazard_type: "flood",
           image: "/scenarios/demo_city/camera_1.png",
         },
@@ -90,13 +79,13 @@ const DEFAULT_DEMO_SCENARIO: ScenarioData = {
       time_step: "T2",
       timestamp: "2026-11-27T09:00:00+05:30",
       description:
-        "Debris detected beside road in NE (near-miss decoy). Expected: road remains CLEAR. No false block.",
+        "Debris detected beside SEG-005 (near-miss). Expected outcome: road remains unblocked (CLEAR). No false block.",
       observations: [
         {
           source: "synthetic_camera_2",
           capture_time: "2026-11-27T09:00:00+05:30",
           zone: "NE",
-          affected_segments: ["SEG-003"],
+          affected_segments: ["SEG-005"],
           hazard_type: "debris",
           near_miss: true,
           image: "/scenarios/demo_city/camera_2.png",
@@ -107,16 +96,16 @@ const DEFAULT_DEMO_SCENARIO: ScenarioData = {
       time_step: "T3",
       timestamp: "2026-11-27T10:00:00+05:30",
       description:
-        "NW flood area re-imaged with floodwaters receded. Recovery requires verification -> UNCERTAIN.",
+        "Same NW corridor (SEG-001) re-observed with flood receded. Recovery requires stronger evidence -> UNCERTAIN.",
       observations: [
         {
           source: "synthetic_camera_1",
           capture_time: "2026-11-27T10:00:00+05:30",
           zone: "NW",
-          affected_segments: ["SEG-001", "SEG-007"],
+          affected_segments: ["SEG-001"],
           hazard_type: null,
           recovery: true,
-          image: "/scenarios/demo_city/camera_1.png",
+          image: "/scenarios/demo_city/camera_1_t3.png",
         },
       ],
     },
@@ -125,17 +114,23 @@ const DEFAULT_DEMO_SCENARIO: ScenarioData = {
   ground_truth_file: "ground_truth.json",
 };
 
-// Calculate simulated freshness
-function calculateFreshness(captureTimeStr: string, simulatedClockStr: string) {
-  const cap = new Date(captureTimeStr).getTime();
-  const sim = new Date(simulatedClockStr).getTime();
-  const diffHours = (sim - cap) / (1000 * 60 * 60);
+function formatIstIso(epochMs: number): string {
+  const istOffsetMs = 5.5 * 3600 * 1000;
+  const d = new Date(epochMs + istOffsetMs);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}+05:30`;
+}
 
-  if (diffHours < 0) return { ageHours: 0, status: "FRESH" as const };
-  if (diffHours <= 3) return { ageHours: diffHours, status: "FRESH" as const };
-  if (diffHours <= 12)
-    return { ageHours: diffHours, status: "AGEING" as const };
-  return { ageHours: diffHours, status: "STALE" as const };
+function calculateFreshness(
+  captureTimeStr: string,
+  simulatedClockMs: number,
+): { ageHours: number; freshness: "FRESH" | "AGEING" | "STALE" } {
+  const cap = new Date(captureTimeStr).getTime();
+  const diffHours = Math.max(0, (simulatedClockMs - cap) / (1000 * 60 * 60));
+
+  if (diffHours <= 3) return { ageHours: diffHours, freshness: "FRESH" };
+  if (diffHours <= 12) return { ageHours: diffHours, freshness: "AGEING" };
+  return { ageHours: diffHours, freshness: "STALE" };
 }
 
 export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
@@ -151,50 +146,39 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
-
-  // Simulated clock (hours from 08:00 IST on 2026-11-27)
-  // Range: 0 hours (08:00) to 24 hours (next day 08:00)
   const [simulatedHourOffset, setSimulatedHourOffset] = useState(0);
-
-  const baseTime = new Date("2026-11-27T08:00:00+05:30").getTime();
-  const currentSimulatedTime = new Date(
-    baseTime + simulatedHourOffset * 3600 * 1000,
-  );
-  const simulatedClockIso = currentSimulatedTime
-    .toISOString()
-    .replace("Z", "+05:30");
-
-  // Observation submission history
   const [submittedObservations, setSubmittedObservations] = useState<
     Observation[]
   >([]);
 
-  // Current event
+  const baseTimeMs = new Date("2026-11-27T08:00:00+05:30").getTime();
+  const currentClockMs = baseTimeMs + simulatedHourOffset * 3600 * 1000;
+  const simulatedClockIso = formatIstIso(currentClockMs);
+
   const currentEvent: ScenarioEvent =
     scenario.events[currentStepIdx] || scenario.events[0];
   const activeCamera: CameraView =
     scenario.cameras.find((c) => c.camera_id === activeCameraId) ||
     scenario.cameras[0];
 
-  // Notify parent on clock change
   useEffect(() => {
-    // Recompute road states based on submitted observations and current simulated clock
     const updatedStates: Record<string, SegmentState> = {};
 
     submittedObservations.forEach((obs) => {
-      const freshness = calculateFreshness(obs.capture_time, simulatedClockIso);
-      let status: RoadStatus = "UNKNOWN";
+      const { ageHours, freshness } = calculateFreshness(
+        obs.capture_time,
+        currentClockMs,
+      );
+      let status: RoadStatus = "unknown";
 
-      if (obs.hazard_type === "flood" || obs.hazard_type === "debris") {
-        if (obs.near_miss) {
-          status = "CLEAR";
-        } else {
-          status = freshness.status === "STALE" ? "STALE" : "BLOCKED";
-        }
+      if (obs.near_miss) {
+        status = freshness === "STALE" ? "stale" : "clear";
       } else if (obs.recovery) {
-        status = "UNCERTAIN";
+        status = ageHours > 12 ? "unknown" : "uncertain";
+      } else if (obs.hazard_type === "flood" || obs.hazard_type === "debris") {
+        status = ageHours > 24 ? "stale" : "blocked";
       } else {
-        status = freshness.status === "STALE" ? "STALE" : "CLEAR";
+        status = freshness === "STALE" ? "stale" : "clear";
       }
 
       obs.affected_segments.forEach((segId) => {
@@ -202,29 +186,43 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
           segment_id: segId,
           status,
           captured_at: obs.capture_time,
+          age_hours: ageHours,
           source: obs.source,
         };
       });
     });
 
     onClockChanged?.(simulatedClockIso, updatedStates);
-  }, [simulatedHourOffset, submittedObservations]);
+  }, [
+    simulatedHourOffset,
+    submittedObservations,
+    currentClockMs,
+    simulatedClockIso,
+  ]);
 
-  // Submit next observation
   const handleSubmitObservation = async () => {
+    if (isSubmitting) return;
     const nextIdx = currentStepIdx + 1;
     if (nextIdx >= scenario.events.length) {
-      setApiError("All scenario events (T0–T3) have been submitted.");
+      setApiError("All scenario events (T0–T3) have already been submitted.");
       return;
     }
 
     const nextEvent = scenario.events[nextIdx];
-    if (nextEvent.observations.length === 0) {
+    if (!nextEvent.observations.length) {
+      setApiError("Selected event contains no observations to submit.");
       setCurrentStepIdx(nextIdx);
       return;
     }
 
     const obsToSubmit = nextEvent.observations[0];
+    if (!obsToSubmit.source || !obsToSubmit.capture_time) {
+      setApiError(
+        "Invalid observation payload: missing source or capture_time.",
+      );
+      return;
+    }
+
     setIsSubmitting(true);
     setApiError(null);
     setApiSuccess(null);
@@ -236,25 +234,26 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(obsToSubmit),
         });
-
         if (!resp.ok) {
           throw new Error(
             `Backend API returned HTTP ${resp.status}: ${resp.statusText}`,
           );
         }
         await resp.json();
-        setApiSuccess(`Live observation ingested via ${obsToSubmit.source}`);
-      } catch (err: any) {
+        setApiSuccess(
+          `Live API accepted observation from ${obsToSubmit.source}.`,
+        );
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
         setApiError(
-          `API Failure: ${err.message}. Check if Rajneesh's backend is running.`,
+          `Backend API failure: ${msg}. Switch to Local Simulation Mode or start the backend server.`,
         );
         setIsSubmitting(false);
-        return; // Don't advance on live API failure
+        return;
       }
     } else {
-      // Mock / local simulation adapter
       setApiSuccess(
-        `[Local Mock Mode] Observation ingested for ${obsToSubmit.source}`,
+        `[Local Simulation Adapter] Observation ingested from ${obsToSubmit.source}.`,
       );
     }
 
@@ -263,7 +262,6 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
     setSubmittedObservations((prev) => [...prev, obsToSubmit]);
     onObservationSubmitted?.(obsToSubmit, simulatedClockIso);
 
-    // Auto-select the camera view for this observation
     const cam = scenario.cameras.find(
       (c) => c.camera_id === obsToSubmit.source,
     );
@@ -275,269 +273,204 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
     setSubmittedObservations([]);
     setSimulatedHourOffset(0);
     setApiError(null);
-    setApiSuccess("Timeline reset to T0.");
+    setApiSuccess("Timeline reset to T0 (all roads UNKNOWN).");
   };
 
+  const activeObs = currentEvent.observations[0];
+  const camNum = activeCamera.camera_id.split("_").pop() ?? "1";
+  const cameraImageSrc =
+    activeObs?.source === activeCamera.camera_id && activeObs.image
+      ? activeObs.image.startsWith("/")
+        ? activeObs.image
+        : `/scenarios/demo_city/${activeObs.image}`
+      : `/scenarios/demo_city/camera_${camNum}.png`;
+
   return (
-    <div
-      className={`bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-2xl flex flex-col gap-5 ${className}`}
-    >
-      {/* Header & Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+    <div className={`dl-player-card ${className}`}>
+      <div className="dl-player-head">
         <div>
-          <div className="flex items-center gap-2">
-            <Radio className="w-5 h-5 text-sky-400 animate-pulse" />
-            <h2 className="text-lg font-bold text-slate-100">
-              Scenario Timeline Player
-            </h2>
-          </div>
-          <p className="text-xs text-slate-400 mt-0.5">
-            6×6 Demo City • 4 Autonomous Camera Feeds • T0–T3 Disaster Evolution
-          </p>
+          <h2>Scenario Timeline Player</h2>
+          <p>6×6 Demo City · 4 Camera Views · T0–T3 Evolution</p>
         </div>
 
-        {/* Backend mode switch */}
-        <div className="flex items-center gap-2 bg-slate-950 p-1.5 rounded-lg border border-slate-800 text-xs">
-          <Server className="w-4 h-4 text-slate-400" />
-          <span className="text-slate-400">Mode:</span>
+        <div className="dl-mode-switch" role="group" aria-label="Backend mode">
           <button
+            type="button"
             onClick={() => setUseLiveApi(false)}
-            className={`px-2.5 py-1 rounded font-medium transition ${
-              !useLiveApi
-                ? "bg-sky-600 text-white shadow"
-                : "text-slate-400 hover:text-white"
-            }`}
+            className={`dl-mode-btn ${!useLiveApi ? "active" : ""}`}
           >
-            Local Mock
+            Local Simulation
           </button>
           <button
+            type="button"
             onClick={() => setUseLiveApi(true)}
-            className={`px-2.5 py-1 rounded font-medium transition ${
-              useLiveApi
-                ? "bg-emerald-600 text-white shadow"
-                : "text-slate-400 hover:text-white"
-            }`}
+            className={`dl-mode-btn ${useLiveApi ? "active" : ""}`}
           >
             Live Backend
           </button>
         </div>
       </div>
 
-      {/* T0–T3 Stepper */}
-      <div className="grid grid-cols-4 gap-2">
+      <div className="dl-steps-grid">
         {scenario.events.map((evt, idx) => {
           const isActive = idx === currentStepIdx;
           const isPassed = idx < currentStepIdx;
           return (
-            <div
+            <button
+              type="button"
               key={evt.time_step}
               onClick={() => setCurrentStepIdx(idx)}
-              className={`p-3 rounded-lg border cursor-pointer transition flex flex-col gap-1 ${
-                isActive
-                  ? "bg-sky-950/70 border-sky-500 shadow-md ring-1 ring-sky-500/50"
-                  : isPassed
-                    ? "bg-slate-800/60 border-slate-700 text-slate-300"
-                    : "bg-slate-900/40 border-slate-800 text-slate-500 hover:border-slate-700"
-              }`}
+              className={`dl-step-btn ${isActive ? "active" : isPassed ? "passed" : ""}`}
             >
-              <div className="flex items-center justify-between">
-                <span
-                  className={`font-mono font-bold text-sm ${isActive ? "text-sky-400" : ""}`}
-                >
-                  {evt.time_step}
-                </span>
-                {isPassed && (
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                )}
-              </div>
-              <span className="text-[11px] truncate text-slate-300">
+              <span className="dl-step-code">{evt.time_step}</span>
+              <span style={{ fontSize: 10 }}>
                 {evt.timestamp
-                  ? new Date(evt.timestamp).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })
-                  : "Initial"}
+                  ? evt.timestamp.slice(11, 16) + " IST"
+                  : "Baseline"}
               </span>
-            </div>
+            </button>
           );
         })}
       </div>
 
-      {/* Current Step Description Card */}
-      <div className="bg-slate-950/70 border border-slate-800 rounded-lg p-4 flex flex-col gap-2">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-sky-400">
-            Step {currentEvent.time_step} Overview
-          </span>
-          <span className="text-slate-500">
-            {currentEvent.timestamp
-              ? `${currentEvent.timestamp}`
-              : "Baseline State"}
+      <div className="dl-box">
+        <div className="dl-box-row">
+          <strong>Step {currentEvent.time_step}</strong>
+          <span style={{ fontFamily: "monospace", color: "#65776c" }}>
+            {currentEvent.timestamp ?? "No observations"}
           </span>
         </div>
-        <p className="text-sm text-slate-200">{currentEvent.description}</p>
-
-        {currentEvent.observations.length > 0 && (
-          <div className="mt-2 bg-slate-900/90 border border-slate-800/80 rounded p-2.5 text-xs space-y-1">
-            <div className="flex items-center justify-between text-slate-400 font-mono text-[11px]">
-              <span>Camera Feed: {currentEvent.observations[0].source}</span>
-              <span>Zone: {currentEvent.observations[0].zone}</span>
-            </div>
-            <div className="text-slate-300">
-              Affected segments:{" "}
-              <span className="font-mono text-amber-300">
-                {currentEvent.observations[0].affected_segments.join(", ") ||
-                  "None"}
-              </span>
-            </div>
+        <p style={{ fontSize: 12, color: "#2d3b33", lineHeight: 1.45 }}>
+          {currentEvent.description}
+        </p>
+        {activeObs && (
+          <div style={{ fontSize: 11, color: "#55665c", marginTop: 4 }}>
+            Source: <code>{activeObs.source}</code> · Zone{" "}
+            <strong>{activeObs.zone}</strong> · Affected:{" "}
+            <code>{activeObs.affected_segments.join(", ") || "None"}</code>
           </div>
         )}
       </div>
 
-      {/* Simulated Clock Slider */}
-      <div className="bg-slate-950/60 border border-slate-800/80 rounded-lg p-4 flex flex-col gap-3">
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-slate-300 font-medium">
-            <Clock className="w-4 h-4 text-amber-400" />
-            <span>Simulated System Clock (IST):</span>
-          </div>
-          <span className="font-mono text-sm font-bold text-amber-300 bg-amber-950/50 px-2.5 py-0.5 rounded border border-amber-600/40">
-            {currentSimulatedTime.toLocaleTimeString()} (+{simulatedHourOffset}h
-            elapsed)
+      <div className="dl-box">
+        <div className="dl-box-row">
+          <strong>Simulated System Clock (+05:30 IST)</strong>
+          <span
+            style={{
+              fontFamily: "monospace",
+              fontWeight: 700,
+              color: "#297b59",
+            }}
+          >
+            {simulatedClockIso} (+{simulatedHourOffset}h)
           </span>
         </div>
-
-        <div className="space-y-1">
-          <input
-            type="range"
-            min="0"
-            max="24"
-            step="0.5"
-            value={simulatedHourOffset}
-            onChange={(e) => setSimulatedHourOffset(parseFloat(e.target.value))}
-            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
-          />
-          <div className="flex justify-between text-[10px] text-slate-500 font-mono">
-            <span>T1 (08:00)</span>
-            <span>+6h (14:00 - Fresh)</span>
-            <span>+12h (20:00 - Ageing)</span>
-            <span>+24h (Next day - STALE)</span>
-          </div>
+        <input
+          type="range"
+          min="0"
+          max="26"
+          step="0.5"
+          value={simulatedHourOffset}
+          onChange={(e) => setSimulatedHourOffset(parseFloat(e.target.value))}
+          aria-label="Simulated clock slider"
+          className="dl-clock-slider"
+        />
+        <div className="dl-clock-ticks">
+          <span>+0h (08:00)</span>
+          <span>+3h (Fresh limit)</span>
+          <span>+12h (Stale clear)</span>
+          <span>+24h (Stale block)</span>
         </div>
       </div>
 
-      {/* Camera Feeds & Viewport Selector */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
-            <Camera className="w-4 h-4 text-sky-400" />
-            <span>Select Autonomous Camera View:</span>
-          </div>
-          <span className="text-[11px] text-slate-500 font-mono">
-            Active: {activeCamera.camera_id} ({activeCamera.zone})
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div className="dl-box-row">
+          <strong style={{ fontSize: 11 }}>
+            Camera View ({activeCamera.zone})
+          </strong>
+          <span
+            style={{ fontFamily: "monospace", fontSize: 10, color: "#65776c" }}
+          >
+            {activeCamera.camera_id}
           </span>
         </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {scenario.cameras.map((cam) => {
-            const isSelected = cam.camera_id === activeCameraId;
-            return (
-              <button
-                key={cam.camera_id}
-                onClick={() => setActiveCameraId(cam.camera_id)}
-                className={`p-2.5 rounded-lg border text-xs text-left transition flex flex-col gap-1 ${
-                  isSelected
-                    ? "bg-sky-950/80 border-sky-500 text-sky-200"
-                    : "bg-slate-950/50 border-slate-800 text-slate-400 hover:border-slate-700"
-                }`}
-              >
-                <span className="font-mono font-semibold">{cam.camera_id}</span>
-                <span className="text-[10px] text-slate-400">
-                  Zone {cam.zone} • {cam.covered_segments.length} Segments
-                </span>
-              </button>
-            );
-          })}
+        <div className="dl-cam-grid">
+          {scenario.cameras.map((cam) => (
+            <button
+              type="button"
+              key={cam.camera_id}
+              onClick={() => setActiveCameraId(cam.camera_id)}
+              className={`dl-cam-btn ${cam.camera_id === activeCameraId ? "active" : ""}`}
+            >
+              <span style={{ fontFamily: "monospace", fontWeight: 700 }}>
+                {cam.camera_id}
+              </span>
+              <span style={{ fontSize: 10, color: "#65776c" }}>
+                Zone {cam.zone} · {cam.covered_segments.length} segments
+              </span>
+            </button>
+          ))}
         </div>
+        <img
+          src={cameraImageSrc}
+          alt={`${activeCamera.camera_id} feed`}
+          className="dl-cam-preview"
+        />
       </div>
 
-      {/* Status Messages */}
-      {apiError && (
-        <div className="bg-red-950/50 border border-red-600/50 text-red-300 p-3 rounded-lg text-xs flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
-          <span>{apiError}</span>
-        </div>
-      )}
-      {apiSuccess && (
-        <div className="bg-emerald-950/40 border border-emerald-600/40 text-emerald-300 p-2.5 rounded-lg text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
-          <span>{apiSuccess}</span>
-        </div>
-      )}
+      {apiError && <div className="dl-alert-err">{apiError}</div>}
+      {apiSuccess && <div className="dl-alert-ok">{apiSuccess}</div>}
 
-      {/* Action Buttons */}
-      <div className="flex items-center gap-3 pt-2">
+      <div className="dl-actions-row">
         <button
+          type="button"
           onClick={handleSubmitObservation}
           disabled={
             isSubmitting || currentStepIdx >= scenario.events.length - 1
           }
-          className="flex-1 bg-sky-600 hover:bg-sky-500 disabled:bg-slate-800 disabled:text-slate-600 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow-lg disabled:cursor-not-allowed"
+          className="dl-primary-btn"
         >
-          {isSubmitting ? (
-            <span className="animate-spin mr-2">◌</span>
-          ) : (
-            <Send className="w-4 h-4" />
-          )}
-          <span>
-            {currentStepIdx >= scenario.events.length - 1
-              ? "Scenario Replay Complete"
-              : `Submit Next Observation (Step T${currentStepIdx + 1})`}
-          </span>
+          {isSubmitting
+            ? "Submitting observation…"
+            : currentStepIdx >= scenario.events.length - 1
+              ? "Scenario Replay Complete (T3)"
+              : `Submit Next Observation (T${currentStepIdx + 1})`}
         </button>
-
         <button
+          type="button"
           onClick={handleReset}
-          className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-2.5 px-4 rounded-lg text-sm transition flex items-center gap-1.5 border border-slate-700"
-          title="Reset scenario timeline"
+          className="secondary-button"
         >
-          <RotateCcw className="w-4 h-4" />
-          <span>Reset</span>
+          Reset
         </button>
       </div>
 
-      {/* Observation History */}
-      <div className="border-t border-slate-800 pt-3">
-        <span className="text-xs font-semibold text-slate-400">
-          Observation History ({submittedObservations.length} ingested):
-        </span>
+      <div style={{ borderTop: "1px solid #edf1ee", paddingTop: 10 }}>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            marginBottom: 6,
+            color: "#46564c",
+          }}
+        >
+          Observation History ({submittedObservations.length})
+        </div>
         {submittedObservations.length === 0 ? (
-          <p className="text-slate-500 text-xs italic mt-1">
+          <div style={{ fontSize: 11, color: "#849089" }}>
             No observations submitted yet.
-          </p>
+          </div>
         ) : (
-          <div className="mt-2 space-y-1.5 max-h-36 overflow-y-auto pr-1">
-            {submittedObservations.map((obs, i) => (
-              <div
-                key={i}
-                className="bg-slate-950/50 border border-slate-800/80 rounded px-2.5 py-1.5 text-xs flex items-center justify-between text-slate-300"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-sky-400 font-semibold">
-                    {obs.source}
-                  </span>
-                  <span className="text-slate-400 text-[10px]">
-                    Zone {obs.zone}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-[11px] text-amber-300">
-                    {obs.affected_segments.join(", ")}
-                  </span>
-                  <span className="text-slate-500 text-[10px]">
-                    {new Date(obs.capture_time).toLocaleTimeString()}
-                  </span>
-                </div>
+          <div className="dl-history-list">
+            {submittedObservations.map((obs, idx) => (
+              <div key={idx} className="dl-history-item">
+                <span>
+                  <code>{obs.source}</code> ({obs.zone})
+                </span>
+                <span>
+                  <code>{obs.affected_segments.join(", ")}</code> ·{" "}
+                  {obs.capture_time.slice(11, 16)} IST
+                </span>
               </div>
             ))}
           </div>
@@ -546,4 +479,5 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
     </div>
   );
 };
+
 export default ScenarioPlayer;

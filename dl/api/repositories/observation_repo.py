@@ -10,8 +10,8 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from dl.api.models import Observation
-from dl.contracts.observation import SegmentObservation
-from dl.contracts.scene import HazardType, RoadStatus, Zone
+from dl.contracts.observation import RoadStatus, SegmentObservation
+from dl.generator.models import HazardType, Zone
 from dl.routing.freshness import normalize_datetime
 
 

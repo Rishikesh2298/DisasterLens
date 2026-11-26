@@ -10,7 +10,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from dl.contracts.scene import RoadStatus
+from dl.contracts.observation import RoadStatus
 
 
 class RoutePath(BaseModel):

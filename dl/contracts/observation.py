@@ -7,12 +7,25 @@ Independent of FastAPI and database frameworks.
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from enum import Enum
 from typing import Any
 from uuid import uuid4
 
 from pydantic import AliasChoices, BaseModel, Field
 
-from dl.contracts.scene import HazardType, RoadStatus, Zone
+from dl.contracts.enums import HazardType
+from dl.generator.models import Zone
+
+
+class RoadStatus(str, Enum):
+    """Operational backend and routing status values (uppercase contract)."""
+
+    BLOCKED = "BLOCKED"
+    PARTIAL = "PARTIAL"
+    CLEAR = "CLEAR"
+    UNCERTAIN = "UNCERTAIN"
+    STALE = "STALE"
+    UNKNOWN = "UNKNOWN"
 
 
 class SegmentObservation(BaseModel):

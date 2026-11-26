@@ -8,8 +8,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from dl.contracts.observation import SegmentObservation
-from dl.contracts.scene import HazardType, RoadStatus, Zone
+from dl.contracts.observation import RoadStatus, SegmentObservation
+from dl.generator.models import HazardType, Zone
 from dl.routing.fusion import ObservationFusionEngine
 
 

@@ -10,7 +10,7 @@ from pathlib import Path
 import networkx as nx
 import pytest
 
-from dl.contracts.scene import Scene
+from dl.generator.models import Scene
 from dl.routing.graph import RoadGraph
 
 DEMO_SCENE_PATH = Path(__file__).parent.parent / "scenarios" / "demo_city" / "scene.json"

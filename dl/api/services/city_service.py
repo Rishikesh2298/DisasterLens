@@ -16,16 +16,16 @@ from dl.api.models import City
 from dl.api.models import Intersection as IntersectionModel
 from dl.api.models import RoadSegment as RoadSegmentModel
 from dl.api.repositories.city_repo import CityRepository
-from dl.contracts.scene import (
+from dl.generator.models import (
     Difficulty,
     Point,
     Scene,
     Zone,
 )
-from dl.contracts.scene import (
+from dl.generator.models import (
     Intersection as IntersectionContract,
 )
-from dl.contracts.scene import (
+from dl.generator.models import (
     RoadSegment as RoadSegmentContract,
 )
 from dl.routing.freshness import EffectiveRoadStatus

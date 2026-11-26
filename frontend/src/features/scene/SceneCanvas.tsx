@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Building,
   Hazard,
   Intersection,
+  NormalizedRoadStatus,
   RoadSegment,
-  RoadStatus,
   SegmentState,
+  normalizeStatus,
 } from "../../types/scene";
-import { Layers, ShieldCheck, Zap } from "lucide-react";
+import "./scene.css";
 
 export interface SceneCanvasProps {
   sceneImageUrl: string;
@@ -25,73 +26,88 @@ export interface SceneCanvasProps {
   destNode?: string;
   onNodeClick?: (nodeId: string) => void;
   onSegmentClick?: (segmentId: string) => void;
+  imageWidth?: number;
+  imageHeight?: number;
   className?: string;
 }
 
-const STATUS_COLORS: Record<
-  RoadStatus,
-  { stroke: string; fill: string; label: string; bg: string }
+const STATUS_META: Record<
+  NormalizedRoadStatus,
+  {
+    stroke: string;
+    fill: string;
+    label: string;
+    pillBg: string;
+    pillFg: string;
+  }
 > = {
   BLOCKED: {
     stroke: "#ef4444",
     fill: "rgba(239, 68, 68, 0.45)",
     label: "Blocked",
-    bg: "bg-red-500/20 text-red-300 border-red-500/40",
+    pillBg: "rgba(239, 68, 68, 0.2)",
+    pillFg: "#fca5a5",
   },
   PARTIAL: {
     stroke: "#f97316",
     fill: "rgba(249, 115, 22, 0.40)",
     label: "Partial",
-    bg: "bg-orange-500/20 text-orange-300 border-orange-500/40",
+    pillBg: "rgba(249, 115, 22, 0.2)",
+    pillFg: "#fdba74",
   },
   CLEAR: {
     stroke: "#22c55e",
     fill: "rgba(34, 197, 94, 0.35)",
     label: "No obstruction detected",
-    bg: "bg-green-500/20 text-green-300 border-green-500/40",
+    pillBg: "rgba(34, 197, 94, 0.2)",
+    pillFg: "#86efac",
   },
   UNCERTAIN: {
     stroke: "#a855f7",
     fill: "rgba(168, 85, 247, 0.40)",
     label: "Uncertain",
-    bg: "bg-purple-500/20 text-purple-300 border-purple-500/40",
+    pillBg: "rgba(168, 85, 247, 0.2)",
+    pillFg: "#d8b4fe",
   },
   STALE: {
     stroke: "#eab308",
-    fill: "rgba(234, 179, 8, 0.40)",
+    fill: "rgba(234, 179, 8, 0.38)",
     label: "Stale",
-    bg: "bg-yellow-500/20 text-yellow-300 border-yellow-500/40",
+    pillBg: "rgba(234, 179, 8, 0.2)",
+    pillFg: "#fde047",
   },
   UNKNOWN: {
-    stroke: "#64748b",
-    fill: "rgba(100, 116, 139, 0.30)",
+    stroke: "#94a3b8",
+    fill: "rgba(148, 163, 184, 0.30)",
     label: "Unknown",
-    bg: "bg-slate-500/20 text-slate-300 border-slate-500/40",
+    pillBg: "rgba(148, 163, 184, 0.2)",
+    pillFg: "#cbd5e1",
   },
 };
 
 const HAZARD_FILLS: Record<string, string> = {
-  flood: "rgba(59, 130, 246, 0.65)",
-  debris: "rgba(180, 83, 9, 0.70)",
-  fallen_tree: "rgba(22, 101, 52, 0.75)",
+  flood: "rgba(59, 130, 246, 0.55)",
+  debris: "rgba(180, 83, 9, 0.60)",
+  fallen_tree: "rgba(22, 101, 52, 0.70)",
   road_damage: "rgba(30, 41, 59, 0.85)",
-  damaged_building: "rgba(220, 38, 38, 0.70)",
+  damaged_building: "rgba(220, 38, 38, 0.60)",
 };
 
-// Robust point parser supporting both {x, y} and [x, y]
-const parsePoint = (p: any): { x: number; y: number } => {
+const parsePoint = (p: unknown): { x: number; y: number } => {
   if (Array.isArray(p)) return { x: Number(p[0]) || 0, y: Number(p[1]) || 0 };
-  if (p && typeof p === "object")
-    return { x: Number(p.x) || 0, y: Number(p.y) || 0 };
+  if (p && typeof p === "object") {
+    const obj = p as { x?: unknown; y?: unknown };
+    return { x: Number(obj.x) || 0, y: Number(obj.y) || 0 };
+  }
   return { x: 0, y: 0 };
 };
 
-const parsePoints = (pts: any[]): Array<{ x: number; y: number }> => {
+const parsePoints = (pts: unknown[]): Array<{ x: number; y: number }> => {
   if (!Array.isArray(pts)) return [];
   return pts.map(parsePoint);
 };
 
-const toSvgPoints = (pts: any[]): string => {
+const toSvgPoints = (pts: unknown[]): string => {
   return parsePoints(pts)
     .map((p) => `${p.x},${p.y}`)
     .join(" ");
@@ -113,9 +129,10 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
   destNode,
   onNodeClick,
   onSegmentClick,
+  imageWidth = 1024,
+  imageHeight = 1024,
   className = "",
 }) => {
-  // Layer toggles
   const [showRoads, setShowRoads] = useState(true);
   const [showHazards, setShowHazards] = useState(true);
   const [showBuildings, setShowBuildings] = useState(true);
@@ -123,11 +140,14 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
   const [viewMode, setViewMode] = useState<"ground_truth" | "prediction">(
     "ground_truth",
   );
+  const [imageStatus, setImageStatus] = useState<"loading" | "ready" | "error">(
+    sceneImageUrl ? "loading" : "error",
+  );
 
-  // Image load error fallback state
-  const [imageError, setImageError] = useState(false);
+  useEffect(() => {
+    setImageStatus(sceneImageUrl ? "loading" : "error");
+  }, [sceneImageUrl]);
 
-  // Tooltip & hover state
   const [hoveredSegment, setHoveredSegment] = useState<RoadSegment | null>(
     null,
   );
@@ -135,7 +155,6 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
     null,
   );
 
-  // Active states based on view mode
   const activeStates =
     viewMode === "prediction" && predictedStates
       ? predictedStates
@@ -152,105 +171,96 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
   };
 
   return (
-    <div
-      className={`flex flex-col bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl ${className}`}
-    >
-      {/* Control bar / Toggles */}
-      <div className="bg-slate-800/90 border-b border-slate-700/60 px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-sm">
-        <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-sky-400" />
-          <span className="font-semibold text-slate-200">Scene Overlays</span>
+    <div className={`dl-scene-card ${className}`}>
+      <div className="dl-scene-toolbar">
+        <div className="dl-toolbar-title">
+          <span>Scene Overlays</span>
         </div>
 
-        {/* Layer checkboxes */}
-        <div className="flex items-center gap-4 text-xs">
-          <label className="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
+        <div
+          className="dl-toggle-group"
+          role="group"
+          aria-label="Layer toggles"
+        >
+          <label className="dl-toggle-label">
             <input
               type="checkbox"
               checked={showRoads}
               onChange={(e) => setShowRoads(e.target.checked)}
-              className="rounded bg-slate-700 border-slate-600 text-sky-500 focus:ring-0"
             />
             Roads
           </label>
-          <label className="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
+          <label className="dl-toggle-label">
             <input
               type="checkbox"
               checked={showHazards}
               onChange={(e) => setShowHazards(e.target.checked)}
-              className="rounded bg-slate-700 border-slate-600 text-sky-500 focus:ring-0"
             />
             Hazards
           </label>
-          <label className="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
+          <label className="dl-toggle-label">
             <input
               type="checkbox"
               checked={showBuildings}
               onChange={(e) => setShowBuildings(e.target.checked)}
-              className="rounded bg-slate-700 border-slate-600 text-sky-500 focus:ring-0"
             />
             Buildings
           </label>
-          <label className="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
+          <label className="dl-toggle-label">
             <input
               type="checkbox"
               checked={showLabels}
               onChange={(e) => setShowLabels(e.target.checked)}
-              className="rounded bg-slate-700 border-slate-600 text-sky-500 focus:ring-0"
             />
             Labels
           </label>
         </div>
 
-        {/* View Mode Toggle: Ground Truth vs Prediction */}
-        <div className="flex items-center bg-slate-900/80 p-0.5 rounded-lg border border-slate-700">
+        <div
+          className="dl-mode-switch"
+          role="group"
+          aria-label="Ground truth versus prediction"
+        >
           <button
+            type="button"
             onClick={() => setViewMode("ground_truth")}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === "ground_truth"
-                ? "bg-sky-600 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
-            }`}
+            className={`dl-mode-btn ${viewMode === "ground_truth" ? "active" : ""}`}
           >
-            <ShieldCheck className="w-3.5 h-3.5" />
             Ground Truth
           </button>
           <button
+            type="button"
             onClick={() => setViewMode("prediction")}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition ${
-              viewMode === "prediction"
-                ? "bg-purple-600 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
-            }`}
+            className={`dl-mode-btn ${viewMode === "prediction" ? "active-pred" : ""}`}
           >
-            <Zap className="w-3.5 h-3.5" />
             AI Prediction
           </button>
         </div>
       </div>
 
-      {/* Canvas Viewport */}
-      <div className="relative aspect-square w-full bg-slate-950 flex items-center justify-center overflow-hidden">
-        {/* Base Scene Image with Graceful Error Fallback */}
-        {sceneImageUrl && !imageError ? (
+      <div className="dl-canvas-viewport">
+        {sceneImageUrl && imageStatus !== "error" ? (
           <img
+            key={sceneImageUrl}
             src={sceneImageUrl}
-            alt="Disaster Scene"
-            onError={() => setImageError(true)}
-            className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
+            alt="Synthetic disaster scene"
+            className="dl-canvas-img"
+            onLoad={() => setImageStatus("ready")}
+            onError={() => setImageStatus("error")}
           />
-        ) : (
-          <div className="absolute inset-0 w-full h-full bg-slate-950 flex flex-col items-center justify-center select-none pointer-events-none">
-            {/* Subtle Cartographic Grid Pattern */}
-            <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:32px_32px] opacity-40" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:128px_128px] opacity-25" />
-          </div>
+        ) : null}
+
+        {!sceneImageUrl && (
+          <div className="dl-canvas-empty">No scene image selected.</div>
+        )}
+        {sceneImageUrl && imageStatus === "loading" && (
+          <div className="dl-canvas-empty">Loading scene imagery…</div>
         )}
 
-        {/* Interactive SVG Overlay */}
         <svg
-          viewBox="0 0 1024 1024"
-          className="absolute inset-0 w-full h-full cursor-crosshair"
+          viewBox={`0 0 ${imageWidth} ${imageHeight}`}
+          className="dl-canvas-svg"
+          aria-label="Interactive scene geometry overlay"
           onMouseMove={handleMouseMove}
           onMouseLeave={() => {
             setHoveredSegment(null);
@@ -267,9 +277,9 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                   key={bldg.id}
                   points={pointsStr}
                   fill="rgba(148, 163, 184, 0.18)"
-                  stroke="rgba(148, 163, 184, 0.40)"
+                  stroke="rgba(148, 163, 184, 0.45)"
                   strokeWidth="1.5"
-                  className="pointer-events-none"
+                  pointerEvents="none"
                 />
               );
             })}
@@ -279,17 +289,16 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
             segments.map((seg) => {
               const pointsStr = toSvgPoints(seg.polygon);
               if (!pointsStr) return null;
-
               const state = activeStates[seg.id];
-              const status: RoadStatus = state?.status || "UNKNOWN";
-              const conf = STATUS_COLORS[status] || STATUS_COLORS.UNKNOWN;
+              const status = normalizeStatus(state?.status);
+              const meta = STATUS_META[status];
               const isSelected = selectedRoutePath.includes(seg.id);
               const isRecommended = recommendedRoutePath.includes(seg.id);
               const isBaseline = baselineRoutePath.includes(seg.id);
               const isHovered = hoveredSegment?.id === seg.id;
 
-              let fill = conf.fill;
-              let stroke = isHovered ? "#ffffff" : conf.stroke;
+              let fill = meta.fill;
+              let stroke = isHovered ? "#ffffff" : meta.stroke;
               let strokeWidth = isHovered ? "3" : "1.5";
               let strokeDasharray: string | undefined = undefined;
 
@@ -312,8 +321,7 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               const cl = parsePoints(seg.centerline);
 
               return (
-                <g key={seg.id} className="cursor-pointer">
-                  {/* Road Polygon */}
+                <g key={seg.id} style={{ cursor: "pointer" }}>
                   <polygon
                     points={pointsStr}
                     fill={fill}
@@ -322,19 +330,17 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                     strokeDasharray={strokeDasharray}
                     onMouseEnter={() => setHoveredSegment(seg)}
                     onClick={() => onSegmentClick?.(seg.id)}
-                    className="transition-colors duration-150"
                   />
-                  {/* Segment Centerline Indicator */}
                   {cl.length >= 2 && (
                     <line
                       x1={cl[0].x}
                       y1={cl[0].y}
                       x2={cl[1].x}
                       y2={cl[1].y}
-                      stroke={conf.stroke}
+                      stroke={meta.stroke}
                       strokeWidth="1.2"
                       strokeOpacity="0.75"
-                      className="pointer-events-none"
+                      pointerEvents="none"
                     />
                   )}
                 </g>
@@ -343,8 +349,7 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
 
           {/* Dedicated Route Path Corridor Traces */}
           {showRoads && (
-            <g className="pointer-events-none">
-              {/* Baseline Path Trace (Amber dashed line) */}
+            <g pointerEvents="none">
               {baselineRoutePath.map((segId) => {
                 const seg = segments.find((s) => s.id === segId);
                 if (!seg) return null;
@@ -365,7 +370,6 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                 );
               })}
 
-              {/* Recommended Route Trace (Glowing emerald green solid line) */}
               {recommendedRoutePath.map((segId) => {
                 const seg = segments.find((s) => s.id === segId);
                 if (!seg) return null;
@@ -385,7 +389,6 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                 );
               })}
 
-              {/* Selected Inspection Route Trace (Sky blue dashed line) */}
               {selectedRoutePath.map((segId) => {
                 const seg = segments.find((s) => s.id === segId);
                 if (!seg) return null;
@@ -413,16 +416,18 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
             activeHazards.map((h) => {
               const pointsStr = toSvgPoints(h.polygon);
               if (!pointsStr) return null;
-              const fill = HAZARD_FILLS[h.type] || "rgba(239, 68, 68, 0.6)";
+              const fill = HAZARD_FILLS[h.type] || "rgba(239, 68, 68, 0.5)";
+              const isPred = viewMode === "prediction";
               return (
                 <polygon
                   key={h.id}
                   points={pointsStr}
                   fill={fill}
-                  stroke="#ffffff"
-                  strokeWidth="1.8"
-                  strokeOpacity="0.9"
-                  className="pointer-events-none"
+                  stroke={isPred ? "#c084fc" : "#ffffff"}
+                  strokeWidth={isPred ? "2" : "1.5"}
+                  strokeDasharray={isPred ? "5,3" : undefined}
+                  strokeOpacity="0.85"
+                  pointerEvents="none"
                 />
               );
             })}
@@ -437,7 +442,8 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               return (
                 <g
                   key={`lbl-${seg.id}`}
-                  className="pointer-events-none select-none"
+                  pointerEvents="none"
+                  style={{ userSelect: "none" }}
                 >
                   <rect
                     x={mx - 22}
@@ -445,7 +451,7 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                     width="44"
                     height="16"
                     rx="3"
-                    fill="rgba(15, 23, 42, 0.88)"
+                    fill="rgba(17, 26, 24, 0.86)"
                     stroke="rgba(255, 255, 255, 0.3)"
                     strokeWidth="0.8"
                   />
@@ -471,7 +477,7 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
             const isSelected = selectedRoutePath.includes(node.id);
 
             let nodeFill = "#cbd5e1";
-            let nodeStroke = "#0f172a";
+            let nodeStroke = "#111a18";
             let radius = 6;
 
             if (isOrigin) {
@@ -488,8 +494,7 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
             }
 
             return (
-              <g key={node.id} className="cursor-pointer">
-                {/* Outer Ring for Origin/Destination */}
+              <g key={node.id} style={{ cursor: "pointer" }}>
                 {(isOrigin || isDest) && (
                   <circle
                     cx={node.x}
@@ -499,10 +504,8 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                     stroke={isOrigin ? "#22c55e" : "#ef4444"}
                     strokeWidth="2"
                     strokeDasharray="4,2"
-                    className="animate-spin origin-center"
                   />
                 )}
-                {/* Node Circle */}
                 <circle
                   cx={node.x}
                   cy={node.y}
@@ -511,11 +514,9 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                   stroke={nodeStroke}
                   strokeWidth="2"
                   onClick={() => onNodeClick?.(node.id)}
-                  className="hover:scale-125 transition-transform"
                 />
-                {/* Node Label / Origin / Destination Badges */}
                 {(showLabels || isOrigin || isDest) && (
-                  <g className="pointer-events-none select-none">
+                  <g pointerEvents="none" style={{ userSelect: "none" }}>
                     <rect
                       x={node.x - 14}
                       y={node.y - (isOrigin || isDest ? 24 : 18)}
@@ -527,7 +528,7 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                           ? "#15803d"
                           : isDest
                             ? "#b91c1c"
-                            : "rgba(15, 23, 42, 0.9)"
+                            : "rgba(17, 26, 24, 0.9)"
                       }
                       stroke={
                         isOrigin
@@ -556,67 +557,73 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
           })}
         </svg>
 
-        {/* Hover Tooltip */}
         {hoveredSegment && mousePos && (
           <div
-            className="absolute pointer-events-none z-30 bg-slate-900/95 border border-slate-700/80 rounded-lg p-3 shadow-2xl text-xs space-y-1.5 backdrop-blur-md max-w-xs"
+            className="dl-tooltip"
             style={{
-              left: Math.min(mousePos.x + 12, 750),
-              top: Math.min(mousePos.y + 12, 850),
+              left: Math.max(8, Math.min(mousePos.x + 12, 340)),
+              top: Math.max(8, Math.min(mousePos.y + 12, 380)),
             }}
           >
-            <div className="flex items-center justify-between gap-3 border-b border-slate-800 pb-1.5">
-              <span className="font-mono font-bold text-sky-400 text-sm">
+            <div className="dl-tooltip-head">
+              <strong style={{ fontFamily: "monospace", color: "#86efac" }}>
                 {hoveredSegment.id}
-              </span>
-              <span className="text-slate-400 text-[10px]">
-                Zone {hoveredSegment.zone} • {hoveredSegment.length_m}m
+              </strong>
+              <span style={{ fontSize: 10, color: "#a6b3ac" }}>
+                Zone {hoveredSegment.zone} · {hoveredSegment.length_m}m
               </span>
             </div>
 
-            {/* Status with Safety-Compliant Wording */}
             {(() => {
               const state = activeStates[hoveredSegment.id];
-              const status = state?.status || "UNKNOWN";
-              const conf = STATUS_COLORS[status];
+              const status = normalizeStatus(state?.status);
+              const meta = STATUS_META[status];
               return (
-                <div className="space-y-1 pt-0.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400">Status:</span>
+                <div>
+                  <div className="dl-tooltip-row">
+                    <span>Status:</span>
                     <span
-                      className={`px-2 py-0.5 rounded border text-[11px] font-semibold ${conf.bg}`}
+                      className="dl-status-pill"
+                      style={{ background: meta.pillBg, color: meta.pillFg }}
                     >
-                      {conf.label}
+                      {meta.label}
                     </span>
                   </div>
 
                   {state?.max_coverage !== undefined && (
-                    <div className="flex items-center justify-between text-slate-300">
-                      <span>Max Cross-Section:</span>
-                      <span className="font-mono">
+                    <div className="dl-tooltip-row">
+                      <span>Max cross-section:</span>
+                      <span style={{ fontFamily: "monospace" }}>
                         {(state.max_coverage * 100).toFixed(1)}%
                       </span>
                     </div>
                   )}
 
+                  {state?.age_hours !== undefined && (
+                    <div className="dl-tooltip-row">
+                      <span>Observation age:</span>
+                      <span style={{ fontFamily: "monospace" }}>
+                        {state.age_hours.toFixed(1)}h
+                      </span>
+                    </div>
+                  )}
+
                   {state?.source && (
-                    <div className="flex items-center justify-between text-slate-400 text-[10px]">
+                    <div className="dl-tooltip-row">
                       <span>Source:</span>
                       <span>{state.source}</span>
                     </div>
                   )}
 
                   {state?.captured_at && (
-                    <div className="flex items-center justify-between text-slate-400 text-[10px]">
+                    <div className="dl-tooltip-row">
                       <span>Captured:</span>
-                      <span>
-                        {new Date(state.captured_at).toLocaleTimeString()}
-                      </span>
+                      <span>{state.captured_at}</span>
                     </div>
                   )}
 
                   {state?.confidence !== undefined && (
-                    <div className="flex items-center justify-between text-slate-400 text-[10px]">
+                    <div className="dl-tooltip-row">
                       <span>AI Confidence:</span>
                       <span>{(state.confidence * 100).toFixed(0)}%</span>
                     </div>
@@ -625,17 +632,16 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               );
             })()}
 
-            <div className="border-t border-slate-800/80 pt-1 text-[9px] text-amber-400/80 italic">
-              Synthetic benchmark data — not for actual navigation.
+            <div className="dl-tooltip-note">
+              Synthetic scenes only — not real-world disaster performance.
             </div>
           </div>
         )}
       </div>
 
-      {/* Legend footer */}
-      <div className="bg-slate-800/80 border-t border-slate-700/60 px-4 py-2 flex flex-wrap items-center justify-between gap-4 text-xs">
-        <div className="flex items-center gap-3">
-          <span className="text-slate-400 font-medium">Road Legend:</span>
+      <div className="dl-scene-legend">
+        <div className="dl-legend-items">
+          <strong>Legend:</strong>
           {(
             [
               "BLOCKED",
@@ -644,22 +650,20 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               "UNCERTAIN",
               "STALE",
               "UNKNOWN",
-            ] as RoadStatus[]
+            ] as NormalizedRoadStatus[]
           ).map((st) => (
-            <div key={st} className="flex items-center gap-1.5">
+            <span key={st} className="dl-legend-item">
               <span
-                className="w-2.5 h-2.5 rounded-full inline-block"
-                style={{ backgroundColor: STATUS_COLORS[st].stroke }}
+                className="dl-legend-dot"
+                style={{ backgroundColor: STATUS_META[st].stroke }}
               />
-              <span className="text-slate-300 text-[11px]">
-                {STATUS_COLORS[st].label}
-              </span>
-            </div>
+              <span>{STATUS_META[st].label}</span>
+            </span>
           ))}
         </div>
-        <div className="text-slate-500 text-[11px]">
-          Click segment or node to interact
-        </div>
+        <span>
+          Mode: {viewMode === "prediction" ? "AI Prediction" : "Ground Truth"}
+        </span>
       </div>
     </div>
   );

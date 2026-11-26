@@ -7,8 +7,8 @@ Validates topological connectivity, endpoint consistency, and safety constraints
 
 from __future__ import annotations
 
+from dl.contracts.observation import RoadStatus
 from dl.contracts.routing import RouteAlternative, RouteVerification
-from dl.contracts.scene import RoadStatus
 from dl.routing.freshness import EffectiveRoadStatus
 from dl.routing.graph import RoadGraph
 

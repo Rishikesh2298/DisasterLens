@@ -1,11 +1,11 @@
 # DisasterLens benchmark specification
 
 Version: 0.1.0  
-Scope: synthetic-scene evaluation and saved-run reporting
+Scope: synthetic-scene generation, evaluation, and saved-run reporting
 
 ## Purpose and limits
 
-The benchmark measures model outputs against synthetic scenes with known ground truth. Its results describe performance on those synthetic examples only. It is not an emergency-response or navigation system. A `clear` road result means only that the model detected no obstruction in the provided image.
+The benchmark measures model outputs against synthetic scenes with known ground truth. Its results describe performance on those synthetic examples only. It is not an emergency-response or navigation system. A `clear` road result means only that the model detected no obstruction in the provided image ("No obstruction detected in imagery captured at time T").
 
 ## Input format
 
@@ -48,3 +48,31 @@ Each run writes `summary.json`, `failures.json`, and `per_scene.json` to its out
 ## Failure categories
 
 Supported tags include `near_miss_false_block`, `false_block`, `false_clear`, `partial_confusion`, `missed_small_hazard`, `false_hazard`, `invalid_output`, `count_error`, and `wrong_zone`. Each record includes scene ID, difficulty, question/item, prediction and truth where available.
+
+## Synthetic benchmark task generation
+
+Every generated scene includes six structured benchmark tasks in `questions.json` alongside plain (`image_plain.png`) and labelled (`image_labelled.png`) 1024×1024 images:
+
+1. **Blocked Road Segments:** Set of blocked segment IDs (`coverage >= 0.90`).
+2. **Damaged Buildings:** Exact integer count of buildings with `damaged_building_only` or `building_spill`.
+3. **Standing Water Regions:** Bounding boxes `[x1, y1, x2, y2]` of flood polygons.
+4. **Route Obstruction (Positive):** Binary obstruction status and blocking segment IDs for routes crossing blocked segments.
+5. **Route Obstruction (Near-Miss Negative):** Routes adjacent to near-miss decoys (`>= 8px` road clearance) that remain clear (`>= 25%` of route queries).
+6. **Zone Hazard Comparison:** Pairwise comparison of cumulative polygon hazard area across city quadrants (`NW`, `NE`, `SW`, `SE`), excluding ties.
+
+### Road obstruction thresholds
+
+| Status | Cross-Sectional Coverage ($\theta$) | Operational Semantic | App Display Wording |
+|---|---|---|---|
+| `blocked` | $\theta \ge 0.90$ | Impassable corridor | Blocked |
+| `partial` | $0.30 \le \theta < 0.90$ | Single-lane blockage / caution | Partial |
+| `clear` | $\theta < 0.30$ | Impairment below threshold | No obstruction detected |
+| `uncertain` | Conflicting model/heuristic | Disagreement or high variance | Uncertain |
+| `stale` | Time delta exceeded | Outdated observation | Stale |
+| `unknown` | No camera observation | Unobserved | Unknown |
+
+### Leakage prevention
+
+- `questions.json` stores `expected_answer` separately so evaluation runners strip ground truth before prompting models.
+- Prompt strings contain zero coordinate hints or segment statuses.
+- `datasets/v1/manifest.json` records SHA-256 hashes for all generated files for reproducible verification.

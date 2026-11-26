@@ -9,7 +9,8 @@ from pathlib import Path
 
 import pytest
 
-from dl.contracts.scene import GroundTruth, HazardType, RoadStatus, Scene, Zone
+from dl.contracts.observation import RoadStatus
+from dl.generator.models import GroundTruth, HazardType, Scene, Zone
 from dl.vision.mock import MockVisionProvider
 
 DEMO_SCENE_PATH = Path(__file__).parent.parent / "scenarios" / "demo_city" / "scene.json"

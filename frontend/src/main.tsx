@@ -25,6 +25,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/benchmark" element={<BenchmarkApp />} />
           <Route path="/compare" element={<BenchmarkApp />} />
           <Route path="/failures" element={<BenchmarkApp />} />
+          <Route path="/scene" element={<BenchmarkApp />} />
+          <Route path="/scenario" element={<BenchmarkApp />} />
           <Route path="*" element={<RouteApp />} />
         </Routes>
       </BrowserRouter>

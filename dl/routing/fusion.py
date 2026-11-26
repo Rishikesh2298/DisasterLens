@@ -13,11 +13,11 @@ from typing import Any
 
 from dl.contracts.observation import (
     AffectedSegments,
+    RoadStatus,
     RouteAlert,
     RouteAlerts,
     SegmentObservation,
 )
-from dl.contracts.scene import RoadStatus
 from dl.routing.freshness import (
     EffectiveRoadStatus,
     compute_effective_status,

@@ -37,7 +37,7 @@ from dl.api.models import (
 from dl.api.models import (
     ScenarioEvent as ScenarioEventModel,
 )
-from dl.contracts.scene import Scene
+from dl.generator.models import Scene
 from dl.routing.freshness import normalize_datetime
 
 

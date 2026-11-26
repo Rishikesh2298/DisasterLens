@@ -14,7 +14,7 @@ from typing import Any
 
 import yaml
 
-from dl.contracts.scene import RoadStatus
+from dl.contracts.observation import RoadStatus
 
 # Default freshness configuration path
 DEFAULT_CONFIG_PATH = Path(__file__).parent / "freshness.yaml"

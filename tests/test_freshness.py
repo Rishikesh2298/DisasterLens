@@ -8,7 +8,7 @@ from datetime import UTC, datetime, timedelta, timezone
 
 import pytest
 
-from dl.contracts.scene import RoadStatus
+from dl.contracts.observation import RoadStatus
 from dl.routing.costs import compute_edge_cost, get_cost_multiplier
 from dl.routing.freshness import (
     compute_effective_status,

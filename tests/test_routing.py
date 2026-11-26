@@ -9,11 +9,12 @@ from pathlib import Path
 
 import pytest
 
+from dl.contracts.observation import RoadStatus
 from dl.contracts.routing import (
     RouteAlternative,
     RouteRecommendation,
 )
-from dl.contracts.scene import Intersection, Point, RoadSegment, RoadStatus, Scene, Zone
+from dl.generator.models import Intersection, Point, RoadSegment, Scene, Zone
 from dl.routing.freshness import EffectiveRoadStatus
 from dl.routing.graph import RoadGraph
 from dl.routing.recommend import recommend

@@ -8,8 +8,8 @@ uses 'No obstruction detected' for CLEAR, and includes prototype disclaimers).
 
 from __future__ import annotations
 
+from dl.contracts.observation import RoadStatus
 from dl.contracts.routing import RouteAlternative
-from dl.contracts.scene import RoadStatus
 from dl.routing.freshness import EffectiveRoadStatus
 
 

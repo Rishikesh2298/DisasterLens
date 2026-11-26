@@ -1,5 +1,36 @@
 export type RoadStatus =
+  | "blocked"
+  | "partial"
+  | "clear"
+  | "uncertain"
+  | "stale"
+  | "unknown"
+  | "BLOCKED"
+  | "PARTIAL"
+  | "CLEAR"
+  | "UNCERTAIN"
+  | "STALE"
+  | "UNKNOWN";
+
+export type NormalizedRoadStatus =
   "BLOCKED" | "PARTIAL" | "CLEAR" | "UNCERTAIN" | "STALE" | "UNKNOWN";
+
+export function normalizeStatus(status?: string): NormalizedRoadStatus {
+  switch ((status ?? "unknown").toUpperCase()) {
+    case "BLOCKED":
+      return "BLOCKED";
+    case "PARTIAL":
+      return "PARTIAL";
+    case "CLEAR":
+      return "CLEAR";
+    case "UNCERTAIN":
+      return "UNCERTAIN";
+    case "STALE":
+      return "STALE";
+    default:
+      return "UNKNOWN";
+  }
+}
 
 export type HazardType =
   "flood" | "debris" | "fallen_tree" | "road_damage" | "damaged_building";
@@ -65,6 +96,7 @@ export interface SegmentState {
   max_coverage?: number;
   blocking_hazards?: string[];
   captured_at?: string;
+  age_hours?: number;
   source?: string;
   confidence?: number;
 }

@@ -13,13 +13,13 @@ from datetime import UTC, datetime
 
 import networkx as nx
 
+from dl.contracts.observation import RoadStatus
 from dl.contracts.routing import (
     RouteAlternative,
     RouteRecommendation,
     RouteStep,
     RouteVerification,
 )
-from dl.contracts.scene import RoadStatus
 from dl.routing.costs import get_cost_multiplier
 from dl.routing.explain import build_route_explanation, build_route_warnings
 from dl.routing.freshness import EffectiveRoadStatus

@@ -14,6 +14,7 @@ __pycache__/
 *.pyc
 *.db
 *.sqlite3
+*.egg-info/
 .pytest_cache/
 .ruff_cache/
 *.tsbuildinfo
@@ -28,5 +29,17 @@ dist/
 datasets/v1/*
 !datasets/v1/manifest.json
 !datasets/v1/stats.json
-*.egg-info/
+!datasets/v1/S-000[1-9]/
+!datasets/v1/S-000[1-9]/**
+!datasets/v1/S-001[0-9]/
+!datasets/v1/S-001[0-9]/**
+!datasets/v1/S-0020/
+!datasets/v1/S-0020/**
+
+# Frontend public assets (keep lightweight demo)
+frontend/public/datasets/v1/*
+!frontend/public/datasets/v1/S-000[1-5]/
+!frontend/public/datasets/v1/S-000[1-5]/**
+
+# Runtime uploads
 uploads/
