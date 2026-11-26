@@ -1,3 +1,3 @@
 """
-DisasterLens Web API package.
+DisasterLens Web API package for benchmark evaluation results, scenario playback, and routing.
 """

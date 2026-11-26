@@ -1,19 +1,10 @@
 export type RoadStatus =
-  | 'BLOCKED'
-  | 'PARTIAL'
-  | 'CLEAR'
-  | 'UNCERTAIN'
-  | 'STALE'
-  | 'UNKNOWN';
+  "BLOCKED" | "PARTIAL" | "CLEAR" | "UNCERTAIN" | "STALE" | "UNKNOWN";
 
 export type HazardType =
-  | 'flood'
-  | 'debris'
-  | 'fallen_tree'
-  | 'road_damage'
-  | 'damaged_building';
+  "flood" | "debris" | "fallen_tree" | "road_damage" | "damaged_building";
 
-export type Zone = 'NW' | 'NE' | 'SW' | 'SE';
+export type Zone = "NW" | "NE" | "SW" | "SE";
 
 export interface Point {
   x: number;
@@ -63,7 +54,7 @@ export interface Hazard {
   placement?: string;
   polygon: Point[];
   bbox: BBox;
-  severity?: 'minor' | 'major';
+  severity?: "minor" | "major";
   affected_road?: string;
   affected_building?: string;
 }
@@ -81,7 +72,7 @@ export interface SegmentState {
 export interface SceneData {
   scene_id: string;
   seed: number;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: "easy" | "medium" | "hard";
   grid_size: number;
   image_width: number;
   image_height: number;

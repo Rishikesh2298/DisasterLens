@@ -1,3 +1,3 @@
 """
-DisasterLens API routers.
+Feature routers for the DisasterLens HTTP API.
 """

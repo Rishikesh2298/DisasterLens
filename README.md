@@ -1,205 +1,166 @@
 # DisasterLens
 
-**Disaster-Scene and Route-Obstruction Understanding** — A Visual Task Factory Hackathon Project.
+**Disaster-Scene Benchmark, Evaluation Engine, and Route-Obstruction Understanding** — A Visual Task Factory Hackathon Project.
 
-> **Status:** **Core Implementation Complete (Phases 1–6).**
-> The backend foundation, road graph network, table-driven freshness decay, multi-observation fusion engine, condition-aware route recommendation engine, RESTful API, and interactive React route screen are fully implemented and verified with 106 passing regression tests, 96.1% routing engine coverage, clean Ruff linting, and production Vite/TypeScript builds.
+DisasterLens is a synthetic-scene research benchmark and route-reasoning platform for measuring hazard recognition and road-obstruction understanding. It scores model predictions against exact generated-scene ground truth and demonstrates how observations, freshness decay, and recovery gates shape emergency route recommendations.
 
 > **Safety Notice & Research Prototype Disclaimer:**
-> DisasterLens is a research prototype that operates strictly on **synthetic (computer-generated) disaster scenes**. It is **not** a certified navigation, emergency dispatch, or life-safety system. It never claims that a road or route is "safe". It reports only that *no obstruction was detected in imagery captured at a given timestamp*. An image cannot establish water depth, roadbed stability, structural integrity, or official road closure mandates.
+> DisasterLens is a research prototype that operates strictly on **synthetic (computer-generated) disaster scenes**. It is **not** a certified navigation, emergency dispatch, or life-safety system. A clear result indicates only that *no obstruction was detected in imagery captured at a given timestamp*; it does not establish water depth, roadbed stability, hidden damage, structural integrity, official road closures, or that a road or route is "safe".
 
 ---
 
-## 1. Project Overview
+## Current Implementation
 
-DisasterLens addresses a critical gap in computer vision applications for disaster response: **spatial reasoning about road obstruction versus proximity**. When disaster strikes, piles of debris or floodwaters near a road should not trigger false blockages, while full-width road inundations must be reliably detected and detoured around.
+- **Shared Data Contracts (`dl/contracts`):** Versioned (`0.1.0`) Pydantic v2 schemas for scenes, vision analysis, observations, freshness state, route recommendations, and evaluation datasets/summaries.
+- **Modular Benchmark & Evaluation Engine (`dl/evaluation`):** Pure task scorers for hazard detection (IoU 0.5 & 0.3), road segment status, building counts, water regions, route obstruction, zone comparison, confidence calibration, route impact, and failure taxonomy (`false_clear`, `near_miss_false_block`, `invalid_output`, etc.), plus CLI `dl.evaluation.run`.
+- **Backend Foundation & Persistence (`dl/api`):** FastAPI service with SQLAlchemy (SQLite/PostgreSQL), idempotent demo-city seeding, structured image upload storage, benchmark run endpoints (`/api/benchmark/*`), and scenario/clock/routing endpoints (`/api/*`).
+- **Road Graph, Freshness, Fusion & Routing (`dl/routing`):** NetworkX road network builder, table-driven freshness decay (`freshness.yaml`), multi-observation temporal fusion (`captured_at`-ordered with recovery confidence/visibility gates), condition-aware Dijkstra & k-shortest alternatives, path verifier, and templated explanations.
+- **Frontend Workspace (`frontend`):**
+  - **Route Screen & Demo Player (`/`):** Condition-aware routing explorer, T0–T3 scenario timeline playback, and interactive SVG scene canvas.
+  - **Benchmark Dashboard (`/benchmark`, `/compare`, `/failures`):** Model-vs-baseline comparison, difficulty breakdown charts, confusion matrix, failure browser, CSV export, and mock/live API switch.
 
-The platform links benchmark evaluation with decision support:
-1. **Part A — Benchmark:** Evaluates vision models on controlled synthetic disaster-city scenes with exact ground truth (generated with raster cross-section analysis).
-2. **Part B — Time-Aware Routing Engine & Dispatch Screen:** Integrates road topology, multi-source observations, exponential freshness decay, and conservative recovery gates to recommend emergency routes that detour around confirmed blockages.
+---
+
+## Architecture
 
 ```mermaid
 flowchart LR
-  G[Synthetic Generator<br/>scenes + ground truth] --> V[Vision AI Engine<br/>mock oracle / live adapter]
-  V --> B[Backend API<br/>FastAPI + SQLite/Postgres]
-  B --> R[Routing Engine<br/>NetworkX + Freshness]
-  B --> F[Frontend Route Screen<br/>React 18 + SceneCanvas]
-  G --> F
+  G["Synthetic Generator / Fixtures<br/>(scenes + ground truth)"] --> V["Vision Engine<br/>(mock oracle / adapter)"]
+  G --> E["Evaluation CLI (dl.evaluation.run)<br/>-> results/<run>/summary.json"]
+  E --> B["Unified FastAPI Backend<br/>(/api/benchmark/* + /api/*)"]
+  V --> B
+  B --> R["Pure Routing Engine<br/>(NetworkX + Freshness + Fusion)"]
+  R --> B
+  B --> F["Frontend App (React 18 + Vite)<br/>/ (Route Screen) & /benchmark"]
 ```
 
 ---
 
-## 2. Team and Architecture Responsibilities
+## Team Responsibilities
 
 | Member | Module / Domain | Responsibilities & Ownership |
 | :--- | :--- | :--- |
-| **Rishikesh** | System Lead & Evaluation | Repository coordination, evaluation metrics engine, benchmark dashboard, cloud deployment orchestration. |
-| **Tejash** | Synthetic Scene Generation | Scene generator, ground truth generation, raster cross-section validation, scene viewer, scenario player. |
-| **Divyanshu** | Vision AI Engine | Vision model adapter, prompt runners, hazard-to-road mapper, safety guards. |
-| **Rajneesh** | Backend Foundation & Routing | Road graph, freshness decay, observation fusion, route recommendation engine, REST API, frontend Route Screen, automated test suite. |
+| **Rishikesh** | System Lead & Evaluation | Repository coordination, shared contracts, modular evaluation engine, benchmark API (`/api/benchmark/*`), benchmark dashboard, deployment orchestration. |
+| **Tejash** | Synthetic Scene Generation | Scene generator, ground-truth derivation, raster cross-section rules, SceneCanvas viewer, ScenarioPlayer, `demo_city` dataset. |
+| **Divyanshu** | Vision AI Engine | Vision model adapter, prompt execution, hazard-to-road mapping, safety guards against false clear. |
+| **Rajneesh** | Backend & Routing Engine | Road graph, freshness decay, observation fusion, route recommendation & verifier, REST API (`/api/*`), Route Screen frontend, backend & routing tests. |
 
 ---
 
-## 3. Technology Stack
+## Prerequisites & Clean-Clone Setup
 
-- **Backend:** Python 3.11 / 3.12, FastAPI, Pydantic v2, SQLAlchemy 2.0, NetworkX, PyYAML.
-- **Frontend:** React 18, TypeScript 5, Vite, Tailwind CSS, TanStack Query v5, Lucide Icons.
-- **Testing & Quality:** Pytest, Ruff linter, TypeScript compiler (`tsc --noEmit`).
-- **Database:** SQLite (default for development and testing), PostgreSQL compatible via SQLAlchemy.
-
----
-
-## 4. Getting Started from a Clean Clone
-
-### Prerequisites
 - **Python:** 3.11 or 3.12
-- **Node.js:** 18.x or 20.x (with `npm`)
-- **Git**
+- **Node.js:** 20 or later (with `npm`)
 
-### 1. Repository Setup
+### 1. Backend Setup
 ```bash
 git clone https://github.com/Rishikesh2298/DisasterLens.git
 cd DisasterLens
-```
-
-### 2. Backend Setup
-Create and activate a local Python virtual environment:
-```bash
 python3 -m venv .venv
-source .venv/bin/activate
-```
-
-Install the backend package with development dependencies in editable mode:
-```bash
-pip install --upgrade pip
-pip install -e '.[dev]'
-```
-
-Configure your environment variables:
-```bash
+source .venv/bin/activate   # Windows: .\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
 cp .env.example .env
 ```
-*(Default settings use `VISION_MODE=mock`, SQLite database, and port 8000).*
 
-### 3. Frontend Setup
-In a separate terminal tab:
+### 2. Frontend Setup
 ```bash
 cd frontend
 npm install
 ```
+*(Optional: copy `frontend/.env.example` to `frontend/.env.local` to point the benchmark dashboard at the live local backend with mock mode disabled).*
 
 ---
 
-## 5. Running the Application
+## Running Locally
 
-### Start the Backend API Server
-With the Python `.venv` activated:
+### Start the Unified Backend API
 ```bash
 uvicorn dl.api.main:app --reload --host 0.0.0.0 --port 8000
 ```
-- API Base URL: `http://localhost:8000/api`
-- Interactive OpenAPI Docs (Swagger UI): `http://localhost:8000/docs`
-- Health Endpoint: `http://localhost:8000/api/health`
+- OpenAPI Docs (Swagger UI): `http://localhost:8000/docs`
+- Health Check: `http://localhost:8000/api/health`
 
-### Start the Frontend Web Application
+### Start the Frontend App
 ```bash
 cd frontend
 npm run dev
 ```
-Open `http://localhost:5173` (or `http://localhost:3000`) in your browser to view:
-- **Emergency Routing Engine:** Condition-aware route calculation, baseline comparisons, interactive map overlays, and timeline controls.
-- **Disaster Scenario Simulation:** Step-by-step camera playback through T0–T3 events.
-- **Benchmark Dataset Viewer:** Inspection of synthetic scenes, buildings, and ground-truth hazards.
+Open `http://localhost:5173`:
+- **`/`**: Emergency Route Screen, T0–T3 Scenario Player, and Synthetic Scene Viewer.
+- **`/benchmark`**, **`/compare`**, **`/failures`**: Benchmark Overview, Model Comparison, and Failure Browser.
 
----
-
-## 6. Running Tests & Quality Verification
-
-All tests run fully sandboxed without external network or API keys:
-
+### Run the Sample Benchmark Evaluation CLI
 ```bash
-# Run backend test suite (81 tests)
-.venv/bin/pytest -v
-
-# Run Ruff linter and code formatting check
-.venv/bin/ruff check dl tests
-
-# Run frontend TypeScript type-checking and production Vite build
-cd frontend && npm run build
+python -m dl.evaluation.run \
+  --dataset fixtures/sample_dataset.json \
+  --predictions fixtures/sample_predictions.json \
+  --output results/sample-oracle \
+  --run-name sample-oracle \
+  --model-id fixture-oracle \
+  --split dev \
+  --mock
 ```
 
 ---
 
-## 7. Implemented REST API Endpoints
+## API Endpoints
 
-The backend provides 12 endpoints under `/api`. Complete request/response schemas, error codes, and field definitions are documented in [`docs/api-contracts.md`](docs/api-contracts.md).
+### Benchmark Results API (`/api/benchmark/*`)
+| Method | Path | Purpose |
+| :--- | :--- | :--- |
+| `GET` | `/api/benchmark/health` | Benchmark service liveness (`synthetic_only: true`). |
+| `GET` | `/api/benchmark/runs` | List available evaluated runs in `results/`. |
+| `GET` | `/api/benchmark/runs/{run_id}` | Validated run summary JSON. |
+| `GET` | `/api/benchmark/runs/{run_id}/failures` | Failure cases filtered by optional `category` and `difficulty`. |
+| `GET` | `/api/benchmark/runs/{run_id}/scenes/{scene_id}` | Ground truth and prediction for a specific scene. |
 
-| Category | Method | Path | Description |
-| :--- | :--- | :--- | :--- |
-| **System** | `GET` | `/api/health` | Service health, DB connectivity, and safety disclaimer. |
-| **Cities** | `GET` | `/api/cities` | List seeded cities (`DEMO-001`). |
-| **Cities** | `GET` | `/api/cities/{city_id}` | Full topological graph (36 nodes, 60 edges, hazards). |
-| **Segments** | `GET` | `/api/cities/{city_id}/segments` | Effective road conditions and freshness at `as_of`. |
-| **Segments** | `GET` | `/api/segments/{segment_id}/history` | Persistent chronological observation audit trail. |
-| **Observations** | `POST` | `/api/observations` | Ingest JSON or multipart image observation; emits route alerts. |
-| **Routing** | `POST` | `/api/routes/recommend` | Condition-aware route with baseline, verifier, and explanation. |
-| **Scenarios** | `GET` | `/api/scenarios` | List demonstration disaster scenarios. |
-| **Scenarios** | `GET` | `/api/scenarios/{scenario_id}` | Scenario timeline steps and camera viewports. |
-| **Scenarios** | `POST` | `/api/scenarios/{scenario_id}/advance`| Advance timeline (T0–T3), sync simulated clock, ingest events. |
-| **Clock** | `GET` | `/api/clock` | Current simulated and wall-clock times. |
-| **Clock** | `POST` | `/api/clock` | Manually configure or reset simulated clock time. |
+### Application, Observation, Scenario & Routing API (`/api/*`)
+Full request/response contracts are documented in [`docs/api-contracts.md`](docs/api-contracts.md).
 
----
-
-## 8. T0–T3 Scenario Demonstration Workflow
-
-The included demonstration scenario (`demo_city`) showcases how the engine handles evolving disaster conditions:
-
-1. **Step T0 — Baseline State (Unobserved):**
-   - Simulated Clock: `wall-clock` (`simulated_time: null`).
-   - Observations: None. All road segments evaluate as `UNKNOWN` (3.0× exploration penalty).
-   - Route: Direct shortest baseline route is selected with an advisory warning noting unverified segments.
-
-2. **Step T1 — Flood Detection (Confirmed Obstruction):**
-   - Simulated Clock: `2026-11-27T08:00:00+05:30`.
-   - Event: Synthetic camera 1 detects a major flood covering $\ge$90% of corridor `SEG-001`.
-   - Engine Verdict: `SEG-001` becomes `BLOCKED`.
-   - Routing: Baseline route contains `SEG-001` and is marked invalid. Recommended route safely detours around `SEG-001`. Emits `PRIMARY_NOW_BLOCKED` route alert.
-
-3. **Step T2 — Near-Miss Debris (No False Blockage):**
-   - Simulated Clock: `2026-11-27T09:00:00+05:30`.
-   - Event: Synthetic camera 2 detects debris adjacent to `SEG-005` (near-miss).
-   - Engine Verdict: Near-miss rule applies. Road status is `CLEAR` (No obstruction detected). The corridor is not falsely blocked.
-
-4. **Step T3 — Receding Water (Conservative Recovery Gate):**
-   - Simulated Clock: `2026-11-27T10:00:00+05:30`.
-   - Event: Camera 1 re-observes `SEG-001` with floodwater receding, but confidence is 0.65 (< 0.70 threshold) with partial visibility.
-   - Engine Verdict: Recovery gate rejects immediate unblock. `SEG-001` transitions to `UNCERTAIN` (4.0× penalty). Advisory warning is emitted.
-
-5. **Backward Navigation (T3 → T1 or Reset to T0):**
-   - The frontend synchronizes the simulated clock, invalidates stale query caches, and immediately eliminates T3's advisory warnings when navigating back to T1 or T0.
+| Method | Path | Purpose |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Service health, DB status, active `VISION_MODE`, clock state, disclaimer. |
+| `GET` | `/api/cities` | List seeded cities (`DEMO-001`). |
+| `GET` | `/api/cities/{city_id}` | Full graph topology, zones, geometry, and scene image URLs. |
+| `GET` | `/api/cities/{city_id}/segments` | Effective segment statuses, age, and freshness at `as_of`. |
+| `GET` | `/api/segments/{segment_id}/history` | Chronological observation audit history for a segment. |
+| `POST` | `/api/observations` | Ingest JSON or multipart image observation; returns `affected_segments` and alerts. |
+| `POST` | `/api/routes/recommend` | Shortest baseline vs condition-aware recommended route, alternatives, verifier, explanation. |
+| `GET` | `/api/scenarios` | List demonstration disaster scenarios (`demo_city`). |
+| `GET` | `/api/scenarios/{scenario_id}` | Scenario timeline steps and camera viewports. |
+| `POST` | `/api/scenarios/{scenario_id}/advance` | Advance timeline (T0–T3), sync simulated clock, ingest observations. |
+| `GET` | `/api/clock` | Current simulated and wall-clock reference times. |
+| `POST` | `/api/clock` | Set or reset simulated clock time. |
 
 ---
 
-## 9. Vision Mode Architecture & Status
+## Verification & Quality Checks
 
-Configured in `.env` via `VISION_MODE`:
-- `mock` (**Default & Fully Operational**): Deterministic mock oracle. Re-creates exact observations from synthetic scenes and timeline steps. Fully tagged with `is_mock: true`.
-- `cached` (**Unavailable / Stubbed**): Reserved for future pre-recorded vision cache repositories. Returns HTTP 500 `VisionProviderError`.
-- `live` (**Unavailable / Stubbed**): Reserved for future live vision model APIs (e.g. Gemini 1.5 Flash). Returns HTTP 500 `VisionProviderError` unless live API keys and network adapters are provided.
-*Note: Ground-truth mock output is never silently substituted for live model inference.*
-
----
-
-## 10. Deployment Blueprint
-
-Render deployment configuration is provided in [`render.yaml`](render.yaml). Production infrastructure and Render hosting accounts are owned and managed by the team lead (**Rishikesh**).
+```bash
+python -m pytest -q
+python -m dl.contracts.check fixtures
+ruff check dl tests
+cd frontend
+npm run format:check
+npm audit --audit-level=moderate
+npm run build
+```
 
 ---
 
-## 11. Limitations & Research Boundary
+## Vision Mode Status & Deployment
 
-- Scenes and hazard intrusions are synthetic; results do not establish real-world disaster reliability.
-- Freshness decay thresholds are heuristic prototype assumptions, not empirically measured disaster lifespans.
-- The routing engine assumes camera views map to known road segment IDs.
-- Never use this software for live emergency navigation or search-and-rescue dispatch.
+- **`VISION_MODE=mock`** *(Operational default)*: Deterministic mock oracle tagged with `is_mock: true`.
+- **`VISION_MODE=cached` / `live`** *(Stubbed until live adapter / cache integration)*: Explicitly raises `VisionProviderError` (HTTP 500) rather than silently substituting mock results.
+- **Deployment Config:** Backend deployment is configured in [`render.yaml`](render.yaml) (Render) and frontend in `frontend/` (Vercel). Configure `CORS_ORIGINS` on Render and `VITE_API_BASE_URL` on Vercel.
+- **Docs & Plans:**
+  - [`docs/api-contracts.md`](docs/api-contracts.md) & [`docs/benchmark-spec.md`](docs/benchmark-spec.md)
+  - [Main implementation plan](docs/implementation-plan/00_Main_Implementation_Plan.pdf)
+  - Individual plans: [Rishikesh](docs/implementation-plan/individual/1_Rishikesh_Implementation_Plan.pdf), [Tejash](docs/implementation-plan/individual/2_Tejash_Implementation_Plan.pdf), [Divyanshu](docs/implementation-plan/individual/3_Divyanshu_Implementation_Plan.pdf), [Rajneesh](docs/implementation-plan/individual/4_Rajneesh_Implementation_Plan.pdf)
+
+---
+
+## Limitations & Safety Boundary
+
+Scenes are synthetic and simplified. They cannot establish water depth, hidden damage, structural integrity, official road closures, or real-world vision model reliability. Freshness thresholds and route multipliers are prototype heuristics. Results are research measurements only and must never be used for live emergency response or navigation.

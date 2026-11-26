@@ -1,43 +1,48 @@
-import React from 'react';
-import { RoadStatus } from '../../types/scene';
+import React from "react";
+import { RoadStatus } from "../../types/scene";
 
 export const RouteLegend: React.FC = () => {
-  const statusLegend: Array<{ status: RoadStatus; label: string; color: string; desc: string }> = [
+  const statusLegend: Array<{
+    status: RoadStatus;
+    label: string;
+    color: string;
+    desc: string;
+  }> = [
     {
-      status: 'CLEAR',
-      label: 'No obstruction detected',
-      color: '#22c55e',
-      desc: 'Active observation confirms clear carriageway (age <= 3h).',
+      status: "CLEAR",
+      label: "No obstruction detected",
+      color: "#22c55e",
+      desc: "Active observation confirms clear carriageway (age <= 3h).",
     },
     {
-      status: 'BLOCKED',
-      label: 'Blocked',
-      color: '#ef4444',
-      desc: 'Confirmed hazard intrusion blocking carriageway. Excluded from routing.',
+      status: "BLOCKED",
+      label: "Blocked",
+      color: "#ef4444",
+      desc: "Confirmed hazard intrusion blocking carriageway. Excluded from routing.",
     },
     {
-      status: 'PARTIAL',
-      label: 'Partial',
-      color: '#f97316',
-      desc: 'Partial obstruction detected. Traversable with penalty multiplier.',
+      status: "PARTIAL",
+      label: "Partial",
+      color: "#f97316",
+      desc: "Partial obstruction detected. Traversable with penalty multiplier.",
     },
     {
-      status: 'UNCERTAIN',
-      label: 'Uncertain',
-      color: '#a855f7',
-      desc: 'Direct vs mapped conflict or incomplete recovery evidence. High penalty.',
+      status: "UNCERTAIN",
+      label: "Uncertain",
+      color: "#a855f7",
+      desc: "Direct vs mapped conflict or incomplete recovery evidence. High penalty.",
     },
     {
-      status: 'STALE',
-      label: 'Stale (Aged Data)',
-      color: '#eab308',
-      desc: 'Prior observation exceeds freshness threshold. Highly penalized.',
+      status: "STALE",
+      label: "Stale (Aged Data)",
+      color: "#eab308",
+      desc: "Prior observation exceeds freshness threshold. Highly penalized.",
     },
     {
-      status: 'UNKNOWN',
-      label: 'Unknown (No Sensor)',
-      color: '#64748b',
-      desc: 'No observation recorded. Evaluated with cautious baseline penalty.',
+      status: "UNKNOWN",
+      label: "Unknown (No Sensor)",
+      color: "#64748b",
+      desc: "No observation recorded. Evaluated with cautious baseline penalty.",
     },
   ];
 
@@ -58,8 +63,12 @@ export const RouteLegend: React.FC = () => {
               style={{ backgroundColor: color }}
             />
             <div className="space-y-0.5">
-              <div className="font-semibold text-xs text-slate-200">{label}</div>
-              <div className="text-[10px] text-slate-400 leading-tight">{desc}</div>
+              <div className="font-semibold text-xs text-slate-200">
+                {label}
+              </div>
+              <div className="text-[10px] text-slate-400 leading-tight">
+                {desc}
+              </div>
             </div>
           </div>
         ))}

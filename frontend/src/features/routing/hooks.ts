@@ -2,7 +2,7 @@
  * TanStack Query v5 hooks for DisasterLens routing and scenario state.
  */
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   advanceScenario,
   fetchCities,
@@ -13,19 +13,19 @@ import {
   fetchScenarios,
   recommendRoute,
   setClock,
-} from './api';
-import { RouteRecommendRequest } from './types';
+} from "./api";
+import { RouteRecommendRequest } from "./types";
 
 export function useCities() {
   return useQuery({
-    queryKey: ['cities'],
+    queryKey: ["cities"],
     queryFn: fetchCities,
   });
 }
 
 export function useCity(cityId: string) {
   return useQuery({
-    queryKey: ['city', cityId],
+    queryKey: ["city", cityId],
     queryFn: () => fetchCity(cityId),
     enabled: Boolean(cityId),
   });
@@ -33,7 +33,7 @@ export function useCity(cityId: string) {
 
 export function useCitySegments(cityId: string, asOf?: string | null) {
   return useQuery({
-    queryKey: ['citySegments', cityId, asOf],
+    queryKey: ["citySegments", cityId, asOf],
     queryFn: () => fetchCitySegments(cityId, asOf),
     enabled: Boolean(cityId),
   });
@@ -41,14 +41,14 @@ export function useCitySegments(cityId: string, asOf?: string | null) {
 
 export function useScenarios() {
   return useQuery({
-    queryKey: ['scenarios'],
+    queryKey: ["scenarios"],
     queryFn: fetchScenarios,
   });
 }
 
 export function useScenario(scenarioId: string) {
   return useQuery({
-    queryKey: ['scenario', scenarioId],
+    queryKey: ["scenario", scenarioId],
     queryFn: () => fetchScenario(scenarioId),
     enabled: Boolean(scenarioId),
   });
@@ -56,7 +56,7 @@ export function useScenario(scenarioId: string) {
 
 export function useClock() {
   return useQuery({
-    queryKey: ['clock'],
+    queryKey: ["clock"],
     queryFn: fetchClock,
     refetchInterval: 10000,
     staleTime: 0,
@@ -72,13 +72,20 @@ export function useRecommendRoute() {
 export function useAdvanceScenario() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ scenarioId, timeStep }: { scenarioId: string; timeStep?: string }) =>
-      advanceScenario(scenarioId, timeStep),
+    mutationFn: ({
+      scenarioId,
+      timeStep,
+    }: {
+      scenarioId: string;
+      timeStep?: string;
+    }) => advanceScenario(scenarioId, timeStep),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['citySegments'] });
-      queryClient.invalidateQueries({ queryKey: ['scenarios'] });
-      queryClient.invalidateQueries({ queryKey: ['scenario', variables.scenarioId] });
-      queryClient.invalidateQueries({ queryKey: ['clock'] });
+      queryClient.invalidateQueries({ queryKey: ["citySegments"] });
+      queryClient.invalidateQueries({ queryKey: ["scenarios"] });
+      queryClient.invalidateQueries({
+        queryKey: ["scenario", variables.scenarioId],
+      });
+      queryClient.invalidateQueries({ queryKey: ["clock"] });
     },
   });
 }
@@ -88,8 +95,8 @@ export function useSetClock() {
   return useMutation({
     mutationFn: (simulatedTime: string | null) => setClock(simulatedTime),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clock'] });
-      queryClient.invalidateQueries({ queryKey: ['citySegments'] });
+      queryClient.invalidateQueries({ queryKey: ["clock"] });
+      queryClient.invalidateQueries({ queryKey: ["citySegments"] });
     },
   });
 }

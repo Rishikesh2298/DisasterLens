@@ -25,6 +25,7 @@ class SegmentObservation(BaseModel):
         default_factory=lambda: f"obs_{uuid4().hex[:8]}",
         description="Unique identifier for this observation instance",
     )
+    scene_id: str | None = Field(default=None, description="Optional synthetic scene identifier")
     segment_id: str = Field(..., pattern=r"^SEG-\d{3}$", description="Road segment ID (e.g. SEG-001)")
     source: str = Field(..., description="Camera ID or contributor label, e.g. synthetic_camera_1")
     zone: Zone = Field(..., description="Geographic zone: NW, NE, SW, SE")
@@ -97,6 +98,7 @@ class SegmentState(BaseModel):
         default=False, description="True if STALE road was originally observed as BLOCKED"
     )
     as_of: datetime = Field(..., description="Query time used to calculate this state")
+    warning: str | None = Field(default=None, description="Optional advisory warning")
 
 
 class AffectedSegments(BaseModel):

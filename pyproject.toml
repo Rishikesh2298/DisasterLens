@@ -1,22 +1,20 @@
 [build-system]
-requires = ["setuptools>=68.0", "wheel"]
+requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
-
-[tool.setuptools.packages.find]
-include = ["dl*"]
 
 [project]
 name = "disasterlens"
 version = "0.1.0"
-description = "Synthetic disaster-city benchmark and demonstration application"
+description = "Synthetic disaster-city benchmark, evaluation tools, and routing application"
+readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "pillow>=10.0",
     "numpy>=1.24",
     "shapely>=2.0",
-    "pydantic>=2.0",
+    "pydantic>=2.7,<3",
     "fastapi>=0.110.0",
-    "uvicorn[standard]>=0.28.0",
+    "uvicorn[standard]>=0.29.0",
     "pydantic-settings>=2.0",
     "sqlalchemy>=2.0",
     "networkx>=3.0",
@@ -28,8 +26,14 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
-    "ruff>=0.1",
+    "ruff>=0.5",
 ]
+
+[project.scripts]
+disasterlens-evaluate = "dl.evaluation.run:main"
+
+[tool.setuptools.packages.find]
+include = ["dl*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

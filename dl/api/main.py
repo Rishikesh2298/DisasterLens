@@ -1,8 +1,8 @@
 """
 DisasterLens FastAPI Application Entrypoint.
 
-Provides the REST API for scenario playback, observation ingestion, road network state,
-and condition-aware route recommendations.
+Provides the unified REST API for benchmark evaluation results, scenario playback,
+observation ingestion, road network state, and condition-aware route recommendations.
 """
 
 from __future__ import annotations
@@ -17,9 +17,23 @@ from fastapi.responses import JSONResponse
 from dl.api.config import settings
 from dl.api.database import SessionLocal, init_db
 from dl.api.dependencies import app_fusion_engine
-from dl.api.routers import cities, clock, health, observations, routes, scenarios, segments
+from dl.api.routers import cities, clock, observations, routes, scenarios, segments
+from dl.api.routers import health as health_router
+from dl.api.routers.benchmark import router as benchmark_router
 from dl.api.seed import seed_demo_city
 from dl.api.services.observation_service import ObservationService
+
+# Export configured CORS origins at module level for inspection and compatibility
+origins: list[str] = (
+    settings.CORS_ORIGINS
+    if isinstance(settings.CORS_ORIGINS, list)
+    else [settings.CORS_ORIGINS]
+)
+
+
+def health() -> dict[str, object]:
+    """Liveness payload for benchmark API compatibility checks."""
+    return {"status": "ok", "service": "benchmark", "synthetic_only": True}
 
 
 @asynccontextmanager
@@ -60,14 +74,13 @@ def create_app() -> FastAPI:
         version="0.1.0",
         description=(
             "Synthetic disaster-city benchmark and demonstration application. "
-            "Backend supporting road graph construction, observation fusion, freshness decay, "
-            "and condition-aware route recommendation."
+            "Backend supporting benchmark results, road graph construction, observation fusion, "
+            "freshness decay, and condition-aware route recommendation."
         ),
         lifespan=lifespan,
     )
 
     # CORS configuration
-    origins = settings.CORS_ORIGINS if isinstance(settings.CORS_ORIGINS, list) else [settings.CORS_ORIGINS]
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
@@ -76,15 +89,21 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # Mount API routers under /api
+    # Mount backend API routers under /api
     prefix = settings.API_PREFIX or "/api"
-    app.include_router(health.router, prefix=prefix)
+    app.include_router(health_router.router, prefix=prefix)
     app.include_router(cities.router, prefix=prefix)
     app.include_router(segments.router, prefix=prefix)
     app.include_router(observations.router, prefix=prefix)
     app.include_router(routes.router, prefix=prefix)
     app.include_router(scenarios.router, prefix=prefix)
     app.include_router(clock.router, prefix=prefix)
+
+    # Mount benchmark results router (already prefixed with /api/benchmark)
+    app.include_router(benchmark_router)
+    app.add_api_route(
+        "/api/benchmark/health", health, methods=["GET"], tags=["benchmark"]
+    )
 
     # Global structured error handling
     @app.exception_handler(Exception)

@@ -1,0 +1,18 @@
+{
+  "model_id": "fixture-oracle",
+  "is_mock": true,
+  "scenes": [
+    {
+      "scene_id": "S-0001",
+      "prediction": {
+        "hazards": [{"type": "flood", "bbox": [30, 40, 80, 90], "confidence": 1}],
+        "segments": {"SEG-001": "blocked", "SEG-002": "clear", "SEG-003": "partial"},
+        "segment_details": {"SEG-001": {"blocked_confidence": 1}, "SEG-002": {"blocked_confidence": 0}, "SEG-003": {"blocked_confidence": 0}},
+        "damaged_building_count": 1,
+        "water_regions": [{"bbox": [30, 40, 80, 90]}],
+        "routes": {"N1-N3": "obstructed", "N1-N2": "clear"},
+        "zone_comparisons": {"west-east": "west"}
+      }
+    }
+  ]
+}

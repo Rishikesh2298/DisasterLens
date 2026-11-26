@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.1.0",
+  "run_name": "demo-baselines",
+  "model_id": "mock-vision",
+  "prompt_version": "demo-v1",
+  "split": "dev",
+  "is_mock": true,
+  "created_at": "2026-11-22T10:00:00Z",
+  "scene_count": 30,
+  "metrics": {
+    "detection": {
+      "task": "detection",
+      "metrics": { "precision": 0.82, "recall": 0.76, "f1": 0.79 },
+      "details": {}
+    },
+    "segments": {
+      "task": "segments",
+      "metrics": {
+        "accuracy": 0.84,
+        "macro_f1": 0.78,
+        "false_clear_rate": 0.12,
+        "false_block_rate": 0.08,
+        "uncertain_rate": 0.05
+      },
+      "details": {
+        "per_class": {
+          "blocked": { "f1": 0.8 },
+          "partial": { "f1": 0.65 },
+          "clear": { "f1": 0.88 },
+          "uncertain": { "f1": 0.6 }
+        },
+        "confusion_matrix": {
+          "blocked": {
+            "blocked": 11,
+            "partial": 1,
+            "clear": 1,
+            "uncertain": 0
+          },
+          "partial": { "blocked": 1, "partial": 5, "clear": 1, "uncertain": 1 },
+          "clear": { "blocked": 2, "partial": 0, "clear": 24, "uncertain": 1 },
+          "uncertain": {
+            "blocked": 0,
+            "partial": 0,
+            "clear": 0,
+            "uncertain": 2
+          }
+        }
+      }
+    },
+    "counts": {
+      "task": "counts",
+      "metrics": { "exact_match": 0.87, "mae": 0.17 },
+      "details": {}
+    },
+    "water": {
+      "task": "water",
+      "metrics": {
+        "precision": 0.9,
+        "recall": 0.82,
+        "f1": 0.86,
+        "mean_iou": 0.72
+      },
+      "details": {}
+    },
+    "routes": {
+      "task": "routes",
+      "metrics": {
+        "accuracy": 0.83,
+        "near_miss_accuracy": 0.9,
+        "count": 60,
+        "near_miss_count": 10
+      },
+      "details": { "obstructed": { "f1": 0.79 } }
+    },
+    "zones": {
+      "task": "zones",
+      "metrics": { "accuracy": 0.88, "count": 30 },
+      "details": {}
+    },
+    "calibration": {
+      "task": "calibration",
+      "metrics": { "brier_score": 0.14, "count": 70 },
+      "details": { "bins": [] }
+    },
+    "reliability": {
+      "task": "reliability",
+      "metrics": {
+        "valid_json_rate": 0.97,
+        "mean_latency_ms": 845,
+        "scene_count": 30,
+        "latency_count": 30
+      },
+      "details": {}
+    }
+  },
+  "route_impact": {
+    "route_count": 90,
+    "unsafe_route_rate": 0.08,
+    "unnecessary_detour_rate": 0.04,
+    "mean_extra_distance_percent": 6.2,
+    "by_difficulty": {
+      "easy": { "unsafe_rate": 0.03 },
+      "medium": { "unsafe_rate": 0.08 },
+      "hard": { "unsafe_rate": 0.16 }
+    }
+  },
+  "failures": []
+}

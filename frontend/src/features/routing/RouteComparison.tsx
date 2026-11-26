@@ -1,6 +1,6 @@
-import React from 'react';
-import { RouteAlternative, RouteRecommendation } from './types';
-import { Check, ShieldAlert, Sparkles, Navigation } from 'lucide-react';
+import React from "react";
+import { RouteAlternative, RouteRecommendation } from "./types";
+import { Check, ShieldAlert, Sparkles, Navigation } from "lucide-react";
 
 interface RouteComparisonProps {
   recommendation: RouteRecommendation | null;
@@ -17,7 +17,11 @@ export const RouteComparison: React.FC<RouteComparisonProps> = ({
     return null;
   }
 
-  const { baseline_route, recommended_route, alternatives = [] } = recommendation;
+  const {
+    baseline_route,
+    recommended_route,
+    alternatives = [],
+  } = recommendation;
 
   const routesList: Array<{
     key: string;
@@ -27,24 +31,24 @@ export const RouteComparison: React.FC<RouteComparisonProps> = ({
     route: RouteAlternative | null;
   }> = [
     {
-      key: 'recommended',
-      title: 'Recommended Route',
-      badge: 'Condition-Aware',
-      badgeClass: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40',
+      key: "recommended",
+      title: "Recommended Route",
+      badge: "Condition-Aware",
+      badgeClass: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
       route: recommended_route,
     },
     {
-      key: 'baseline',
-      title: 'Baseline Route',
-      badge: 'Shortest Distance',
-      badgeClass: 'bg-slate-800 text-slate-300 border-slate-700',
+      key: "baseline",
+      title: "Baseline Route",
+      badge: "Shortest Distance",
+      badgeClass: "bg-slate-800 text-slate-300 border-slate-700",
       route: baseline_route,
     },
     ...alternatives.map((alt, idx) => ({
       key: `alt-${alt.rank || idx + 2}`,
       title: `Alternative Path ${alt.rank || idx + 2}`,
       badge: `Rank ${alt.rank || idx + 2}`,
-      badgeClass: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/40',
+      badgeClass: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40",
       route: alt,
     })),
   ];
@@ -54,7 +58,9 @@ export const RouteComparison: React.FC<RouteComparisonProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-sky-400" />
-          <h3 className="font-bold text-sm text-white">Route Alternatives & Comparison</h3>
+          <h3 className="font-bold text-sm text-white">
+            Route Alternatives & Comparison
+          </h3>
         </div>
         <span className="text-xs text-slate-400">
           Click any card to inspect path on map canvas
@@ -73,14 +79,16 @@ export const RouteComparison: React.FC<RouteComparisonProps> = ({
               onClick={() => onSelectRoute(key, route)}
               className={`p-4 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${
                 isSelected
-                  ? 'bg-gradient-to-b from-sky-950/60 to-slate-900 border-sky-400 ring-2 ring-sky-500/40 shadow-xl'
-                  : 'bg-slate-950/60 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'
+                  ? "bg-gradient-to-b from-sky-950/60 to-slate-900 border-sky-400 ring-2 ring-sky-500/40 shadow-xl"
+                  : "bg-slate-950/60 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40"
               }`}
             >
               <div>
                 {/* Header: Badge & Selected Tag */}
                 <div className="flex items-center justify-between mb-2.5">
-                  <span className={`text-[11px] font-mono font-medium px-2.5 py-0.5 rounded border ${badgeClass}`}>
+                  <span
+                    className={`text-[11px] font-mono font-medium px-2.5 py-0.5 rounded border ${badgeClass}`}
+                  >
                     {badge}
                   </span>
                   {isSelected ? (
@@ -110,24 +118,32 @@ export const RouteComparison: React.FC<RouteComparisonProps> = ({
                     </div>
 
                     <div className="flex items-center justify-between py-1 border-b border-slate-800/60">
-                      <span className="text-slate-400">Weighted Routing Cost:</span>
+                      <span className="text-slate-400">
+                        Weighted Routing Cost:
+                      </span>
                       <span className="font-mono font-bold text-emerald-400">
                         {route.total_cost.toFixed(1)}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between py-1 border-b border-slate-800/60">
-                      <span className="text-slate-400">Segments Traversed:</span>
+                      <span className="text-slate-400">
+                        Segments Traversed:
+                      </span>
                       <span className="font-mono text-slate-200">
                         {route.segment_path.length} segments
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between py-1 border-b border-slate-800/60">
-                      <span className="text-slate-400">Unverified Segments:</span>
+                      <span className="text-slate-400">
+                        Unverified Segments:
+                      </span>
                       <span
                         className={`font-mono font-semibold ${
-                          route.unverified_segments_count > 0 ? 'text-amber-400' : 'text-emerald-400'
+                          route.unverified_segments_count > 0
+                            ? "text-amber-400"
+                            : "text-emerald-400"
                         }`}
                       >
                         {route.unverified_segments_count}
@@ -147,7 +163,9 @@ export const RouteComparison: React.FC<RouteComparisonProps> = ({
                           Passes Structural Check
                         </span>
                       ) : (
-                        <span className="text-amber-400 font-semibold">Contains Warnings</span>
+                        <span className="text-amber-400 font-semibold">
+                          Contains Warnings
+                        </span>
                       )}
                     </div>
                   </div>

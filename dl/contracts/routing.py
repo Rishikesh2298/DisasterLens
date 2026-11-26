@@ -8,9 +8,18 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from dl.contracts.scene import RoadStatus
+
+
+class RoutePath(BaseModel):
+    """Compact path representation compatible with benchmark route-impact schemas."""
+
+    model_config = ConfigDict(extra="forbid")
+    node_ids: list[str]
+    segment_ids: list[str]
+    distance: float = Field(ge=0)
 
 SYNTHETIC_DATA_DISCLAIMER = (
     "DisasterLens is a research prototype evaluating synthetic disaster scenes. "

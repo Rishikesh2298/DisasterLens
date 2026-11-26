@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { SceneCanvas } from '../scene/SceneCanvas';
-import { RouteControls } from './RouteControls';
-import { RouteSummary } from './RouteSummary';
-import { RouteComparison } from './RouteComparison';
-import { RouteLegend } from './RouteLegend';
-import { RouteWarnings } from './RouteWarnings';
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { SceneCanvas } from "../scene/SceneCanvas";
+import { RouteControls } from "./RouteControls";
+import { RouteSummary } from "./RouteSummary";
+import { RouteComparison } from "./RouteComparison";
+import { RouteLegend } from "./RouteLegend";
+import { RouteWarnings } from "./RouteWarnings";
 import {
   useCity,
   useCitySegments,
@@ -13,15 +13,15 @@ import {
   useClock,
   useRecommendRoute,
   useAdvanceScenario,
-} from './hooks';
-import { fetchClock } from './api';
-import { RouteAlternative, RouteRecommendation, RouteAlertItem } from './types';
-import { RoadSegment, SceneData } from '../../types/scene';
-import { Navigation, RefreshCw } from 'lucide-react';
+} from "./hooks";
+import { fetchClock } from "./api";
+import { RouteAlternative, RouteRecommendation, RouteAlertItem } from "./types";
+import { RoadSegment, SceneData } from "../../types/scene";
+import { Navigation, RefreshCw } from "lucide-react";
 
 export const RouteScreen: React.FC = () => {
-  const cityId = 'DEMO-001';
-  const scenarioId = 'demo_city';
+  const cityId = "DEMO-001";
+  const scenarioId = "demo_city";
   const queryClient = useQueryClient();
   const timelineSeqRef = useRef(0);
 
@@ -30,7 +30,7 @@ export const RouteScreen: React.FC = () => {
   const { data: clock } = useClock();
   const { data: segmentStates = {} } = useCitySegments(
     cityId,
-    clock?.simulated_time
+    clock?.simulated_time,
   );
   const { data: scenario } = useScenario(scenarioId);
 
@@ -38,7 +38,7 @@ export const RouteScreen: React.FC = () => {
   const [sceneData, setSceneData] = useState<SceneData | null>(null);
 
   useEffect(() => {
-    fetch('/scenarios/demo_city/scene.json')
+    fetch("/scenarios/demo_city/scene.json")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data) setSceneData(data);
@@ -51,10 +51,11 @@ export const RouteScreen: React.FC = () => {
   const advanceMutation = useAdvanceScenario();
 
   // Component state
-  const [origin, setOrigin] = useState('N1');
-  const [destination, setDestination] = useState('N36');
-  const [recommendation, setRecommendation] = useState<RouteRecommendation | null>(null);
-  const [activeRouteKey, setActiveRouteKey] = useState<string>('recommended');
+  const [origin, setOrigin] = useState("N1");
+  const [destination, setDestination] = useState("N36");
+  const [recommendation, setRecommendation] =
+    useState<RouteRecommendation | null>(null);
+  const [activeRouteKey, setActiveRouteKey] = useState<string>("recommended");
   const [activeRoute, setActiveRoute] = useState<RouteAlternative | null>(null);
   const [latestAlerts, setLatestAlerts] = useState<RouteAlertItem[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -63,34 +64,38 @@ export const RouteScreen: React.FC = () => {
   const handleCalculateRoute = useCallback(
     async (targetAsOf?: string | null) => {
       if (!origin || !destination) {
-        setErrorMessage('Please select both origin and destination nodes.');
+        setErrorMessage("Please select both origin and destination nodes.");
         return;
       }
       const currentSeq = ++timelineSeqRef.current;
       setErrorMessage(null);
       try {
         const effectiveAsOf =
-        typeof targetAsOf === 'string' || targetAsOf === null
-          ? targetAsOf
-          : clock?.simulated_time;
+          typeof targetAsOf === "string" || targetAsOf === null
+            ? targetAsOf
+            : clock?.simulated_time;
         const result = await recommendMutation.mutateAsync({
           city_id: cityId,
           origin,
           destination,
           as_of: effectiveAsOf,
-          save_as: 'ROUTE-ACTIVE-DISPLAY',
+          save_as: "ROUTE-ACTIVE-DISPLAY",
           route_name: `Active Display (${origin}->${destination})`,
         });
         if (currentSeq !== timelineSeqRef.current) return;
         setRecommendation(result);
-        setActiveRouteKey('recommended');
-        setActiveRoute(result.recommended_route || result.baseline_route || null);
+        setActiveRouteKey("recommended");
+        setActiveRoute(
+          result.recommended_route || result.baseline_route || null,
+        );
       } catch (err: any) {
         if (currentSeq !== timelineSeqRef.current) return;
-        setErrorMessage(err.message || 'Failed to calculate route recommendation.');
+        setErrorMessage(
+          err.message || "Failed to calculate route recommendation.",
+        );
       }
     },
-    [origin, destination, cityId, clock?.simulated_time, recommendMutation]
+    [origin, destination, cityId, clock?.simulated_time, recommendMutation],
   );
 
   // Initial calculation on load
@@ -117,28 +122,28 @@ export const RouteScreen: React.FC = () => {
 
       // Synchronously fetch and wait for updated clock response
       const updatedClock = await queryClient.fetchQuery({
-        queryKey: ['clock'],
+        queryKey: ["clock"],
         queryFn: fetchClock,
       });
 
       if (currentSeq !== timelineSeqRef.current) return;
 
       // Optimistically update scenario step in cache for instant UI feedback
-      queryClient.setQueryData(['scenario', scenarioId], (old: any) =>
+      queryClient.setQueryData(["scenario", scenarioId], (old: any) =>
         old
           ? {
               ...old,
               current_time_step: res.time_step,
               current_simulated_time: res.timestamp,
             }
-          : old
+          : old,
       );
 
       // Invalidate queries so segment state badges and scenario update
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['citySegments'] }),
-        queryClient.invalidateQueries({ queryKey: ['scenario', scenarioId] }),
-        queryClient.invalidateQueries({ queryKey: ['scenarios'] }),
+        queryClient.invalidateQueries({ queryKey: ["citySegments"] }),
+        queryClient.invalidateQueries({ queryKey: ["scenario", scenarioId] }),
+        queryClient.invalidateQueries({ queryKey: ["scenarios"] }),
       ]);
 
       if (currentSeq !== timelineSeqRef.current) return;
@@ -147,7 +152,7 @@ export const RouteScreen: React.FC = () => {
       await handleCalculateRoute(updatedClock.simulated_time);
     } catch (err: any) {
       if (currentSeq !== timelineSeqRef.current) return;
-      setErrorMessage(err.message || 'Failed to advance scenario.');
+      setErrorMessage(err.message || "Failed to advance scenario.");
     }
   };
 
@@ -155,7 +160,7 @@ export const RouteScreen: React.FC = () => {
   const handleNodeClick = (nodeId: string) => {
     if (!origin || (origin && destination)) {
       setOrigin(nodeId);
-      setDestination('');
+      setDestination("");
     } else {
       setDestination(nodeId);
     }
@@ -189,7 +194,9 @@ export const RouteScreen: React.FC = () => {
   // Authentic synthetic hazards from scene data
   const sceneHazards = sceneData?.hazards || [];
   const sceneBuildings = sceneData?.buildings || [];
-  const canvasIntersections = (city?.intersections || sceneData?.intersections || []) as any;
+  const canvasIntersections = (city?.intersections ||
+    sceneData?.intersections ||
+    []) as any;
 
   return (
     <div className="space-y-6">
@@ -204,7 +211,8 @@ export const RouteScreen: React.FC = () => {
               Emergency Dispatch & Corridor Route Evaluation
             </h2>
             <p className="text-[11px] text-slate-400">
-              Condition-aware routing engine avoiding confirmed blockages with table-driven cost penalties.
+              Condition-aware routing engine avoiding confirmed blockages with
+              table-driven cost penalties.
             </p>
           </div>
         </div>
@@ -214,7 +222,9 @@ export const RouteScreen: React.FC = () => {
           disabled={recommendMutation.isPending || isCityLoading}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition font-medium border border-slate-700"
         >
-          <RefreshCw className={`w-3.5 h-3.5 ${recommendMutation.isPending ? 'animate-spin' : ''}`} />
+          <RefreshCw
+            className={`w-3.5 h-3.5 ${recommendMutation.isPending ? "animate-spin" : ""}`}
+          />
           Recalculate Route
         </button>
       </div>
@@ -225,7 +235,9 @@ export const RouteScreen: React.FC = () => {
         <div className="lg:col-span-7 flex flex-col gap-4">
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 shadow-xl">
             <div className="flex items-center justify-between mb-2 px-1 text-xs text-slate-400">
-              <span>Interactive Road Canvas — Click node to set origin / destination</span>
+              <span>
+                Interactive Road Canvas — Click node to set origin / destination
+              </span>
               <span className="font-mono text-sky-400">
                 Active Route: {activeRouteKey.toUpperCase()}
               </span>
@@ -239,8 +251,12 @@ export const RouteScreen: React.FC = () => {
               hazards={sceneHazards}
               segmentStates={segmentStates}
               selectedRoutePath={activeRoute?.segment_path || []}
-              baselineRoutePath={recommendation?.baseline_route?.segment_path || []}
-              recommendedRoutePath={recommendation?.recommended_route?.segment_path || []}
+              baselineRoutePath={
+                recommendation?.baseline_route?.segment_path || []
+              }
+              recommendedRoutePath={
+                recommendation?.recommended_route?.segment_path || []
+              }
               originNode={origin}
               destNode={destination}
               onNodeClick={handleNodeClick}
@@ -268,7 +284,7 @@ export const RouteScreen: React.FC = () => {
             onAdvanceScenario={handleAdvanceScenario}
             isAdvancing={advanceMutation.isPending}
             clockTime={clock?.simulated_time || null}
-            clockMode={clock?.clock_mode || 'wall-clock'}
+            clockMode={clock?.clock_mode || "wall-clock"}
             error={errorMessage}
           />
 

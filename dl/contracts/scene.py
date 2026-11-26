@@ -1,9 +1,8 @@
 """
 Shared Pydantic v2 contracts for DisasterLens scenes.
 
-PROVISIONAL: This contract is owned by Rishikesh. Tejash has prepared this
-provisional implementation for generator development. Changes require team
-coordination before merging to main.
+Combines Tejash/Rajneesh scene contracts with Rishikesh's Box and RoadNode
+definitions required by evaluation and vision contracts.
 
 All geometry uses pixel coordinates on a 1024×1024 canvas.
 Scale: 1 pixel ≈ 0.2 metres (documented in city.py).
@@ -12,8 +11,9 @@ Scale: 1 pixel ≈ 0.2 metres (documented in city.py).
 from __future__ import annotations
 
 from enum import Enum
+from math import isfinite
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, RootModel, model_validator
 
 # ---------------------------------------------------------------------------
 # Enums
@@ -69,6 +69,27 @@ class Zone(str, Enum):
 # ---------------------------------------------------------------------------
 
 class Point(BaseModel):
+    x: float
+    y: float
+
+
+class Box(RootModel[tuple[float, float, float, float]]):
+    """Shared [x1, y1, x2, y2] pixel-box format."""
+
+    @model_validator(mode="after")
+    def ordered_coordinates(self):
+        if not all(isfinite(value) for value in self.root):
+            raise ValueError("box coordinates must be finite")
+        if self.root[2] < self.root[0] or self.root[3] < self.root[1]:
+            raise ValueError("box coordinates must be ordered")
+        return self
+
+
+class RoadNode(BaseModel):
+    """Lightweight graph node contract compatible with benchmark evaluation."""
+
+    model_config = ConfigDict(extra="forbid")
+    node_id: str
     x: float
     y: float
 

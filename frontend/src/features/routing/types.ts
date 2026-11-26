@@ -4,7 +4,7 @@
  * and dl/contracts/observation.py.
  */
 
-import { RoadStatus, SegmentState } from '../../types/scene';
+import { RoadStatus, SegmentState } from "../../types/scene";
 
 export interface RouteStep {
   step_number: number;
@@ -88,7 +88,13 @@ export interface CityDetails extends CitySummary {
   scene_image_url?: string;
   scene_image_urls?: { plain: string; labelled: string };
   graph?: { node_count: number; edge_count: number; is_connected: boolean };
-  intersections: Array<{ id: string; x: number; y: number; zone: string; connected_segments?: string[] }>;
+  intersections: Array<{
+    id: string;
+    x: number;
+    y: number;
+    zone: string;
+    connected_segments?: string[];
+  }>;
   road_segments: Array<{
     id: string;
     from_intersection: string;
@@ -129,10 +135,10 @@ export interface ScenarioDetails extends ScenarioSummary {
 
 export interface RouteAlertItem {
   route_id: string;
-  alert_type: 'PRIMARY_NOW_BLOCKED' | 'ROUTE_CLEARED' | 'ROUTE_DEGRADED';
+  alert_type: "PRIMARY_NOW_BLOCKED" | "ROUTE_CLEARED" | "ROUTE_DEGRADED";
   segment_id: string;
   message: string;
-  severity: 'critical' | 'warning' | 'info';
+  severity: "critical" | "warning" | "info";
 }
 
 export interface ScenarioAdvanceResponse {
@@ -148,7 +154,7 @@ export interface ScenarioAdvanceResponse {
 }
 
 export interface ClockResponse {
-  clock_mode: 'simulated' | 'wall-clock';
+  clock_mode: "simulated" | "wall-clock";
   reference_time: string;
   simulated_time: string | null;
   wall_clock_time?: string;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   CameraView,
   Observation,
@@ -6,7 +6,7 @@ import {
   ScenarioData,
   ScenarioEvent,
   SegmentState,
-} from '../../types/scene';
+} from "../../types/scene";
 import {
   Clock,
   RotateCcw,
@@ -16,109 +16,113 @@ import {
   Camera,
   Server,
   Radio,
-} from 'lucide-react';
+} from "lucide-react";
 
 export interface ScenarioPlayerProps {
   scenario?: ScenarioData;
   backendApiUrl?: string;
   onObservationSubmitted?: (obs: Observation, currentClock: string) => void;
-  onClockChanged?: (clockTime: string, updatedStates: Record<string, SegmentState>) => void;
+  onClockChanged?: (
+    clockTime: string,
+    updatedStates: Record<string, SegmentState>,
+  ) => void;
   className?: string;
 }
 
 // Built-in fixture data for demo city if scenario prop not provided
 const DEFAULT_DEMO_SCENARIO: ScenarioData = {
-  scenario_id: 'demo_city',
+  scenario_id: "demo_city",
   description:
-    'DisasterLens 6×6 Demonstration City with 4 camera views and T0–T3 observation timeline.',
+    "DisasterLens 6×6 Demonstration City with 4 camera views and T0–T3 observation timeline.",
   grid_size: 6,
   seed: 20261127,
   cameras: [
     {
-      camera_id: 'synthetic_camera_1',
-      zone: 'NW',
+      camera_id: "synthetic_camera_1",
+      zone: "NW",
       viewport: { x_min: 0, y_min: 0, x_max: 512, y_max: 512 },
-      covered_segments: ['SEG-001', 'SEG-002', 'SEG-007', 'SEG-008'],
+      covered_segments: ["SEG-001", "SEG-002", "SEG-007", "SEG-008"],
     },
     {
-      camera_id: 'synthetic_camera_2',
-      zone: 'NE',
+      camera_id: "synthetic_camera_2",
+      zone: "NE",
       viewport: { x_min: 512, y_min: 0, x_max: 1024, y_max: 512 },
-      covered_segments: ['SEG-003', 'SEG-004', 'SEG-009', 'SEG-010'],
+      covered_segments: ["SEG-003", "SEG-004", "SEG-009", "SEG-010"],
     },
     {
-      camera_id: 'synthetic_camera_3',
-      zone: 'SW',
+      camera_id: "synthetic_camera_3",
+      zone: "SW",
       viewport: { x_min: 0, y_min: 512, x_max: 512, y_max: 1024 },
-      covered_segments: ['SEG-031', 'SEG-032', 'SEG-037', 'SEG-038'],
+      covered_segments: ["SEG-031", "SEG-032", "SEG-037", "SEG-038"],
     },
     {
-      camera_id: 'synthetic_camera_4',
-      zone: 'SE',
+      camera_id: "synthetic_camera_4",
+      zone: "SE",
       viewport: { x_min: 512, y_min: 512, x_max: 1024, y_max: 1024 },
-      covered_segments: ['SEG-033', 'SEG-034', 'SEG-039', 'SEG-040'],
+      covered_segments: ["SEG-033", "SEG-034", "SEG-039", "SEG-040"],
     },
   ],
   events: [
     {
-      time_step: 'T0',
+      time_step: "T0",
       timestamp: null,
-      description: 'Initial state: No observations yet. All road statuses UNKNOWN.',
+      description:
+        "Initial state: No observations yet. All road statuses UNKNOWN.",
       observations: [],
     },
     {
-      time_step: 'T1',
-      timestamp: '2026-11-27T08:00:00+05:30',
+      time_step: "T1",
+      timestamp: "2026-11-27T08:00:00+05:30",
       description:
-        'Flood detected across main NW corridor. Expected status: BLOCKED. Route alerts trigger.',
+        "Flood detected across main NW corridor. Expected status: BLOCKED. Route alerts trigger.",
       observations: [
         {
-          source: 'synthetic_camera_1',
-          capture_time: '2026-11-27T08:00:00+05:30',
-          zone: 'NW',
-          affected_segments: ['SEG-001', 'SEG-007'],
-          hazard_type: 'flood',
-          image: '/scenarios/demo_city/camera_1.png',
+          source: "synthetic_camera_1",
+          capture_time: "2026-11-27T08:00:00+05:30",
+          zone: "NW",
+          affected_segments: ["SEG-001", "SEG-007"],
+          hazard_type: "flood",
+          image: "/scenarios/demo_city/camera_1.png",
         },
       ],
     },
     {
-      time_step: 'T2',
-      timestamp: '2026-11-27T09:00:00+05:30',
+      time_step: "T2",
+      timestamp: "2026-11-27T09:00:00+05:30",
       description:
-        'Debris detected beside road in NE (near-miss decoy). Expected: road remains CLEAR. No false block.',
+        "Debris detected beside road in NE (near-miss decoy). Expected: road remains CLEAR. No false block.",
       observations: [
         {
-          source: 'synthetic_camera_2',
-          capture_time: '2026-11-27T09:00:00+05:30',
-          zone: 'NE',
-          affected_segments: ['SEG-003'],
-          hazard_type: 'debris',
+          source: "synthetic_camera_2",
+          capture_time: "2026-11-27T09:00:00+05:30",
+          zone: "NE",
+          affected_segments: ["SEG-003"],
+          hazard_type: "debris",
           near_miss: true,
-          image: '/scenarios/demo_city/camera_2.png',
+          image: "/scenarios/demo_city/camera_2.png",
         },
       ],
     },
     {
-      time_step: 'T3',
-      timestamp: '2026-11-27T10:00:00+05:30',
+      time_step: "T3",
+      timestamp: "2026-11-27T10:00:00+05:30",
       description:
-        'NW flood area re-imaged with floodwaters receded. Recovery requires verification -> UNCERTAIN.',
+        "NW flood area re-imaged with floodwaters receded. Recovery requires verification -> UNCERTAIN.",
       observations: [
         {
-          source: 'synthetic_camera_1',
-          capture_time: '2026-11-27T10:00:00+05:30',
-          zone: 'NW',
-          affected_segments: ['SEG-001', 'SEG-007'],
+          source: "synthetic_camera_1",
+          capture_time: "2026-11-27T10:00:00+05:30",
+          zone: "NW",
+          affected_segments: ["SEG-001", "SEG-007"],
           hazard_type: null,
           recovery: true,
-          image: '/scenarios/demo_city/camera_1.png',
+          image: "/scenarios/demo_city/camera_1.png",
         },
       ],
     },
   ],
-  scene_file: 'scene.json',
-  ground_truth_file: 'ground_truth.json',
+  scene_file: "scene.json",
+  ground_truth_file: "ground_truth.json",
 };
 
 // Calculate simulated freshness
@@ -127,21 +131,22 @@ function calculateFreshness(captureTimeStr: string, simulatedClockStr: string) {
   const sim = new Date(simulatedClockStr).getTime();
   const diffHours = (sim - cap) / (1000 * 60 * 60);
 
-  if (diffHours < 0) return { ageHours: 0, status: 'FRESH' as const };
-  if (diffHours <= 3) return { ageHours: diffHours, status: 'FRESH' as const };
-  if (diffHours <= 12) return { ageHours: diffHours, status: 'AGEING' as const };
-  return { ageHours: diffHours, status: 'STALE' as const };
+  if (diffHours < 0) return { ageHours: 0, status: "FRESH" as const };
+  if (diffHours <= 3) return { ageHours: diffHours, status: "FRESH" as const };
+  if (diffHours <= 12)
+    return { ageHours: diffHours, status: "AGEING" as const };
+  return { ageHours: diffHours, status: "STALE" as const };
 }
 
 export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
   scenario = DEFAULT_DEMO_SCENARIO,
-  backendApiUrl = 'http://localhost:8000',
+  backendApiUrl = "http://localhost:8000",
   onObservationSubmitted,
   onClockChanged,
-  className = '',
+  className = "",
 }) => {
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
-  const [activeCameraId, setActiveCameraId] = useState('synthetic_camera_1');
+  const [activeCameraId, setActiveCameraId] = useState("synthetic_camera_1");
   const [useLiveApi, setUseLiveApi] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -151,17 +156,25 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
   // Range: 0 hours (08:00) to 24 hours (next day 08:00)
   const [simulatedHourOffset, setSimulatedHourOffset] = useState(0);
 
-  const baseTime = new Date('2026-11-27T08:00:00+05:30').getTime();
-  const currentSimulatedTime = new Date(baseTime + simulatedHourOffset * 3600 * 1000);
-  const simulatedClockIso = currentSimulatedTime.toISOString().replace('Z', '+05:30');
+  const baseTime = new Date("2026-11-27T08:00:00+05:30").getTime();
+  const currentSimulatedTime = new Date(
+    baseTime + simulatedHourOffset * 3600 * 1000,
+  );
+  const simulatedClockIso = currentSimulatedTime
+    .toISOString()
+    .replace("Z", "+05:30");
 
   // Observation submission history
-  const [submittedObservations, setSubmittedObservations] = useState<Observation[]>([]);
+  const [submittedObservations, setSubmittedObservations] = useState<
+    Observation[]
+  >([]);
 
   // Current event
-  const currentEvent: ScenarioEvent = scenario.events[currentStepIdx] || scenario.events[0];
+  const currentEvent: ScenarioEvent =
+    scenario.events[currentStepIdx] || scenario.events[0];
   const activeCamera: CameraView =
-    scenario.cameras.find((c) => c.camera_id === activeCameraId) || scenario.cameras[0];
+    scenario.cameras.find((c) => c.camera_id === activeCameraId) ||
+    scenario.cameras[0];
 
   // Notify parent on clock change
   useEffect(() => {
@@ -170,18 +183,18 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
 
     submittedObservations.forEach((obs) => {
       const freshness = calculateFreshness(obs.capture_time, simulatedClockIso);
-      let status: RoadStatus = 'UNKNOWN';
+      let status: RoadStatus = "UNKNOWN";
 
-      if (obs.hazard_type === 'flood' || obs.hazard_type === 'debris') {
+      if (obs.hazard_type === "flood" || obs.hazard_type === "debris") {
         if (obs.near_miss) {
-          status = 'CLEAR';
+          status = "CLEAR";
         } else {
-          status = freshness.status === 'STALE' ? 'STALE' : 'BLOCKED';
+          status = freshness.status === "STALE" ? "STALE" : "BLOCKED";
         }
       } else if (obs.recovery) {
-        status = 'UNCERTAIN';
+        status = "UNCERTAIN";
       } else {
-        status = freshness.status === 'STALE' ? 'STALE' : 'CLEAR';
+        status = freshness.status === "STALE" ? "STALE" : "CLEAR";
       }
 
       obs.affected_segments.forEach((segId) => {
@@ -201,7 +214,7 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
   const handleSubmitObservation = async () => {
     const nextIdx = currentStepIdx + 1;
     if (nextIdx >= scenario.events.length) {
-      setApiError('All scenario events (T0–T3) have been submitted.');
+      setApiError("All scenario events (T0–T3) have been submitted.");
       return;
     }
 
@@ -219,24 +232,30 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
     if (useLiveApi) {
       try {
         const resp = await fetch(`${backendApiUrl}/api/observations`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(obsToSubmit),
         });
 
         if (!resp.ok) {
-          throw new Error(`Backend API returned HTTP ${resp.status}: ${resp.statusText}`);
+          throw new Error(
+            `Backend API returned HTTP ${resp.status}: ${resp.statusText}`,
+          );
         }
         await resp.json();
         setApiSuccess(`Live observation ingested via ${obsToSubmit.source}`);
       } catch (err: any) {
-        setApiError(`API Failure: ${err.message}. Check if Rajneesh's backend is running.`);
+        setApiError(
+          `API Failure: ${err.message}. Check if Rajneesh's backend is running.`,
+        );
         setIsSubmitting(false);
         return; // Don't advance on live API failure
       }
     } else {
       // Mock / local simulation adapter
-      setApiSuccess(`[Local Mock Mode] Observation ingested for ${obsToSubmit.source}`);
+      setApiSuccess(
+        `[Local Mock Mode] Observation ingested for ${obsToSubmit.source}`,
+      );
     }
 
     setIsSubmitting(false);
@@ -245,7 +264,9 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
     onObservationSubmitted?.(obsToSubmit, simulatedClockIso);
 
     // Auto-select the camera view for this observation
-    const cam = scenario.cameras.find((c) => c.camera_id === obsToSubmit.source);
+    const cam = scenario.cameras.find(
+      (c) => c.camera_id === obsToSubmit.source,
+    );
     if (cam) setActiveCameraId(cam.camera_id);
   };
 
@@ -254,17 +275,21 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
     setSubmittedObservations([]);
     setSimulatedHourOffset(0);
     setApiError(null);
-    setApiSuccess('Timeline reset to T0.');
+    setApiSuccess("Timeline reset to T0.");
   };
 
   return (
-    <div className={`bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-2xl flex flex-col gap-5 ${className}`}>
+    <div
+      className={`bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-2xl flex flex-col gap-5 ${className}`}
+    >
       {/* Header & Controls */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
             <Radio className="w-5 h-5 text-sky-400 animate-pulse" />
-            <h2 className="text-lg font-bold text-slate-100">Scenario Timeline Player</h2>
+            <h2 className="text-lg font-bold text-slate-100">
+              Scenario Timeline Player
+            </h2>
           </div>
           <p className="text-xs text-slate-400 mt-0.5">
             6×6 Demo City • 4 Autonomous Camera Feeds • T0–T3 Disaster Evolution
@@ -278,7 +303,9 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
           <button
             onClick={() => setUseLiveApi(false)}
             className={`px-2.5 py-1 rounded font-medium transition ${
-              !useLiveApi ? 'bg-sky-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              !useLiveApi
+                ? "bg-sky-600 text-white shadow"
+                : "text-slate-400 hover:text-white"
             }`}
           >
             Local Mock
@@ -286,7 +313,9 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
           <button
             onClick={() => setUseLiveApi(true)}
             className={`px-2.5 py-1 rounded font-medium transition ${
-              useLiveApi ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              useLiveApi
+                ? "bg-emerald-600 text-white shadow"
+                : "text-slate-400 hover:text-white"
             }`}
           >
             Live Backend
@@ -305,20 +334,29 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
               onClick={() => setCurrentStepIdx(idx)}
               className={`p-3 rounded-lg border cursor-pointer transition flex flex-col gap-1 ${
                 isActive
-                  ? 'bg-sky-950/70 border-sky-500 shadow-md ring-1 ring-sky-500/50'
+                  ? "bg-sky-950/70 border-sky-500 shadow-md ring-1 ring-sky-500/50"
                   : isPassed
-                  ? 'bg-slate-800/60 border-slate-700 text-slate-300'
-                  : 'bg-slate-900/40 border-slate-800 text-slate-500 hover:border-slate-700'
+                    ? "bg-slate-800/60 border-slate-700 text-slate-300"
+                    : "bg-slate-900/40 border-slate-800 text-slate-500 hover:border-slate-700"
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className={`font-mono font-bold text-sm ${isActive ? 'text-sky-400' : ''}`}>
+                <span
+                  className={`font-mono font-bold text-sm ${isActive ? "text-sky-400" : ""}`}
+                >
                   {evt.time_step}
                 </span>
-                {isPassed && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
+                {isPassed && (
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                )}
               </div>
               <span className="text-[11px] truncate text-slate-300">
-                {evt.timestamp ? new Date(evt.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Initial'}
+                {evt.timestamp
+                  ? new Date(evt.timestamp).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })
+                  : "Initial"}
               </span>
             </div>
           );
@@ -328,9 +366,13 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
       {/* Current Step Description Card */}
       <div className="bg-slate-950/70 border border-slate-800 rounded-lg p-4 flex flex-col gap-2">
         <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-sky-400">Step {currentEvent.time_step} Overview</span>
+          <span className="font-semibold text-sky-400">
+            Step {currentEvent.time_step} Overview
+          </span>
           <span className="text-slate-500">
-            {currentEvent.timestamp ? `${currentEvent.timestamp}` : 'Baseline State'}
+            {currentEvent.timestamp
+              ? `${currentEvent.timestamp}`
+              : "Baseline State"}
           </span>
         </div>
         <p className="text-sm text-slate-200">{currentEvent.description}</p>
@@ -342,9 +384,10 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
               <span>Zone: {currentEvent.observations[0].zone}</span>
             </div>
             <div className="text-slate-300">
-              Affected segments:{' '}
+              Affected segments:{" "}
               <span className="font-mono text-amber-300">
-                {currentEvent.observations[0].affected_segments.join(', ') || 'None'}
+                {currentEvent.observations[0].affected_segments.join(", ") ||
+                  "None"}
               </span>
             </div>
           </div>
@@ -359,7 +402,8 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
             <span>Simulated System Clock (IST):</span>
           </div>
           <span className="font-mono text-sm font-bold text-amber-300 bg-amber-950/50 px-2.5 py-0.5 rounded border border-amber-600/40">
-            {currentSimulatedTime.toLocaleTimeString()} (+{simulatedHourOffset}h elapsed)
+            {currentSimulatedTime.toLocaleTimeString()} (+{simulatedHourOffset}h
+            elapsed)
           </span>
         </div>
 
@@ -403,8 +447,8 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
                 onClick={() => setActiveCameraId(cam.camera_id)}
                 className={`p-2.5 rounded-lg border text-xs text-left transition flex flex-col gap-1 ${
                   isSelected
-                    ? 'bg-sky-950/80 border-sky-500 text-sky-200'
-                    : 'bg-slate-950/50 border-slate-800 text-slate-400 hover:border-slate-700'
+                    ? "bg-sky-950/80 border-sky-500 text-sky-200"
+                    : "bg-slate-950/50 border-slate-800 text-slate-400 hover:border-slate-700"
                 }`}
               >
                 <span className="font-mono font-semibold">{cam.camera_id}</span>
@@ -435,7 +479,9 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
       <div className="flex items-center gap-3 pt-2">
         <button
           onClick={handleSubmitObservation}
-          disabled={isSubmitting || currentStepIdx >= scenario.events.length - 1}
+          disabled={
+            isSubmitting || currentStepIdx >= scenario.events.length - 1
+          }
           className="flex-1 bg-sky-600 hover:bg-sky-500 disabled:bg-slate-800 disabled:text-slate-600 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow-lg disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
@@ -445,7 +491,7 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
           )}
           <span>
             {currentStepIdx >= scenario.events.length - 1
-              ? 'Scenario Replay Complete'
+              ? "Scenario Replay Complete"
               : `Submit Next Observation (Step T${currentStepIdx + 1})`}
           </span>
         </button>
@@ -466,7 +512,9 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
           Observation History ({submittedObservations.length} ingested):
         </span>
         {submittedObservations.length === 0 ? (
-          <p className="text-slate-500 text-xs italic mt-1">No observations submitted yet.</p>
+          <p className="text-slate-500 text-xs italic mt-1">
+            No observations submitted yet.
+          </p>
         ) : (
           <div className="mt-2 space-y-1.5 max-h-36 overflow-y-auto pr-1">
             {submittedObservations.map((obs, i) => (
@@ -475,12 +523,16 @@ export const ScenarioPlayer: React.FC<ScenarioPlayerProps> = ({
                 className="bg-slate-950/50 border border-slate-800/80 rounded px-2.5 py-1.5 text-xs flex items-center justify-between text-slate-300"
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-sky-400 font-semibold">{obs.source}</span>
-                  <span className="text-slate-400 text-[10px]">Zone {obs.zone}</span>
+                  <span className="font-mono text-sky-400 font-semibold">
+                    {obs.source}
+                  </span>
+                  <span className="text-slate-400 text-[10px]">
+                    Zone {obs.zone}
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-[11px] text-amber-300">
-                    {obs.affected_segments.join(', ')}
+                    {obs.affected_segments.join(", ")}
                   </span>
                   <span className="text-slate-500 text-[10px]">
                     {new Date(obs.capture_time).toLocaleTimeString()}

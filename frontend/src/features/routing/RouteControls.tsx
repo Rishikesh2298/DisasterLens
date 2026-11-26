@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ArrowUpDown,
   Navigation,
@@ -6,8 +6,8 @@ import {
   Play,
   RotateCcw,
   AlertCircle,
-} from 'lucide-react';
-import { CityDetails, ScenarioDetails } from './types';
+} from "lucide-react";
+import { CityDetails, ScenarioDetails } from "./types";
 
 interface RouteControlsProps {
   city: CityDetails | null;
@@ -22,7 +22,7 @@ interface RouteControlsProps {
   onAdvanceScenario: (timeStep?: string) => void;
   isAdvancing: boolean;
   clockTime: string | null;
-  clockMode: 'simulated' | 'wall-clock';
+  clockMode: "simulated" | "wall-clock";
   error: string | null;
 }
 
@@ -43,7 +43,7 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
   error,
 }) => {
   const intersections = city?.intersections || [];
-  const currentStep = scenario?.current_time_step || 'T0';
+  const currentStep = scenario?.current_time_step || "T0";
 
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-xl space-y-4">
@@ -51,18 +51,20 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
       <div className="flex items-center justify-between border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
           <Navigation className="w-4 h-4 text-sky-400" />
-          <h2 className="text-sm font-bold text-white">Route Navigation Engine</h2>
+          <h2 className="text-sm font-bold text-white">
+            Route Navigation Engine
+          </h2>
         </div>
         <div className="flex items-center gap-2 text-xs">
           <Clock className="w-3.5 h-3.5 text-slate-400" />
           <span className="font-mono text-slate-300">
-            {clockTime ? new Date(clockTime).toLocaleTimeString() : 'Live'}
+            {clockTime ? new Date(clockTime).toLocaleTimeString() : "Live"}
           </span>
           <span
             className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${
-              clockMode === 'simulated'
-                ? 'bg-amber-500/10 text-amber-300 border-amber-500/30'
-                : 'bg-slate-800 text-slate-400 border-slate-700'
+              clockMode === "simulated"
+                ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                : "bg-slate-800 text-slate-400 border-slate-700"
             }`}
           >
             {clockMode}
@@ -76,7 +78,9 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
         <div className="sm:col-span-5 space-y-1">
           <label className="text-[11px] font-semibold text-slate-400 flex items-center justify-between">
             <span>Origin Node</span>
-            <span className="text-[10px] font-mono text-slate-500">e.g. N1</span>
+            <span className="text-[10px] font-mono text-slate-500">
+              e.g. N1
+            </span>
           </label>
           <select
             value={origin}
@@ -108,7 +112,9 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
         <div className="sm:col-span-5 space-y-1">
           <label className="text-[11px] font-semibold text-slate-400 flex items-center justify-between">
             <span>Destination Node</span>
-            <span className="text-[10px] font-mono text-slate-500">e.g. N36</span>
+            <span className="text-[10px] font-mono text-slate-500">
+              e.g. N36
+            </span>
           </label>
           <select
             value={destination}
@@ -132,7 +138,9 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
         className="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-xs text-white shadow-lg shadow-sky-500/20 flex items-center justify-center gap-2 transition"
       >
         <Navigation className="w-3.5 h-3.5" />
-        {isCalculating ? 'Computing Condition-Aware Route...' : 'Calculate Route Recommendation'}
+        {isCalculating
+          ? "Computing Condition-Aware Route..."
+          : "Calculate Route Recommendation"}
       </button>
 
       {/* Error Message */}
@@ -146,7 +154,9 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
       {/* Scenario Timeline Controls */}
       <div className="border-t border-slate-800 pt-3 space-y-2">
         <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-slate-300">Disaster Scenario Timeline</span>
+          <span className="font-semibold text-slate-300">
+            Disaster Scenario Timeline
+          </span>
           <span className="font-mono text-sky-400 text-[11px]">
             Step: <strong className="text-white">{currentStep}</strong>
           </span>
@@ -154,7 +164,7 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
 
         {/* Step Buttons */}
         <div className="grid grid-cols-4 gap-1.5">
-          {['T0', 'T1', 'T2', 'T3'].map((step) => {
+          {["T0", "T1", "T2", "T3"].map((step) => {
             const isActive = currentStep === step;
             return (
               <button
@@ -163,8 +173,8 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
                 disabled={isAdvancing}
                 className={`py-1.5 px-2 rounded-lg text-xs font-mono font-semibold transition border ${
                   isActive
-                    ? 'bg-sky-600 text-white border-sky-400 shadow-md'
-                    : 'bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-800 hover:text-slate-200'
+                    ? "bg-sky-600 text-white border-sky-400 shadow-md"
+                    : "bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-800 hover:text-slate-200"
                 }`}
               >
                 {step}
@@ -184,7 +194,7 @@ export const RouteControls: React.FC<RouteControlsProps> = ({
             Advance Next Timeline Step
           </button>
           <button
-            onClick={() => onAdvanceScenario('T0')}
+            onClick={() => onAdvanceScenario("T0")}
             disabled={isAdvancing}
             className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-slate-400 transition"
           >

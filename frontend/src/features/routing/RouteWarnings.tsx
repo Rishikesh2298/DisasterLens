@@ -1,6 +1,6 @@
-import React from 'react';
-import { AlertCircle, AlertTriangle, Info, ShieldAlert } from 'lucide-react';
-import { RouteAlertItem, RouteVerification } from './types';
+import React from "react";
+import { AlertCircle, AlertTriangle, Info, ShieldAlert } from "lucide-react";
+import { RouteAlertItem, RouteVerification } from "./types";
 
 interface RouteWarningsProps {
   alerts: RouteAlertItem[];
@@ -27,18 +27,18 @@ export const RouteWarnings: React.FC<RouteWarningsProps> = ({
       {hasAlerts && (
         <div className="space-y-2">
           {alerts.map((alert, idx) => {
-            const isCritical = alert.severity === 'critical';
-            const isWarning = alert.severity === 'warning';
+            const isCritical = alert.severity === "critical";
+            const isWarning = alert.severity === "warning";
 
             return (
               <div
                 key={`alert-${idx}`}
                 className={`p-3 rounded-xl border flex items-start gap-3 text-xs ${
                   isCritical
-                    ? 'bg-red-500/15 border-red-500/40 text-red-200'
+                    ? "bg-red-500/15 border-red-500/40 text-red-200"
                     : isWarning
-                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-200'
-                    : 'bg-sky-500/15 border-sky-500/40 text-sky-200'
+                      ? "bg-amber-500/15 border-amber-500/40 text-amber-200"
+                      : "bg-sky-500/15 border-sky-500/40 text-sky-200"
                 }`}
               >
                 {isCritical ? (
@@ -52,7 +52,7 @@ export const RouteWarnings: React.FC<RouteWarningsProps> = ({
                 <div className="space-y-0.5 flex-1">
                   <div className="flex items-center justify-between">
                     <span className="font-bold tracking-wide uppercase text-[11px]">
-                      {alert.alert_type.replace(/_/g, ' ')}
+                      {alert.alert_type.replace(/_/g, " ")}
                     </span>
                     <span className="font-mono text-[10px] opacity-80">
                       Segment: {alert.segment_id}
