@@ -8,7 +8,14 @@ version = "0.1.0"
 description = "Synthetic disaster-scene benchmark and evaluation tools"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["pydantic>=2.7,<3", "fastapi>=0.110,<1", "uvicorn>=0.29,<1"]
+dependencies = [
+    "pydantic>=2.7,<3",
+    "fastapi>=0.110,<1",
+    "uvicorn>=0.29,<1",
+    "pillow>=10.0",
+    "numpy>=1.24",
+    "shapely>=2.0",
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<9", "ruff>=0.5,<1"]
@@ -25,4 +32,3 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-

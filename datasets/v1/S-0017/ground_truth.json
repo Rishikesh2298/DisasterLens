@@ -1,0 +1,173 @@
+{
+  "damaged_building_ids": [],
+  "hazard_area_per_zone": {
+    "NE": 2797.2,
+    "NW": 0.0,
+    "SE": 2167.2,
+    "SW": 0.0
+  },
+  "scene_id": "S-0017",
+  "segment_statuses": [
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-001",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-002",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-003",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-004",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-005",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.2678,
+      "segment_id": "SEG-006",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-007",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-008",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-009",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [
+        "H-002"
+      ],
+      "max_coverage": 1.0,
+      "segment_id": "SEG-010",
+      "status": "blocked"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-011",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [
+        "H-002"
+      ],
+      "max_coverage": 1.0,
+      "segment_id": "SEG-012",
+      "status": "blocked"
+    },
+    {
+      "blocking_hazards": [
+        "H-001",
+        "H-002"
+      ],
+      "max_coverage": 0.439,
+      "segment_id": "SEG-013",
+      "status": "partial"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-014",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-015",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-016",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [
+        "H-001"
+      ],
+      "max_coverage": 1.0,
+      "segment_id": "SEG-017",
+      "status": "blocked"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-018",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [
+        "H-001"
+      ],
+      "max_coverage": 1.0,
+      "segment_id": "SEG-019",
+      "status": "blocked"
+    },
+    {
+      "blocking_hazards": [
+        "H-001"
+      ],
+      "max_coverage": 0.439,
+      "segment_id": "SEG-020",
+      "status": "partial"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-021",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-022",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-023",
+      "status": "clear"
+    },
+    {
+      "blocking_hazards": [],
+      "max_coverage": 0.0,
+      "segment_id": "SEG-024",
+      "status": "clear"
+    }
+  ],
+  "water_region_ids": [
+    "H-001",
+    "H-002"
+  ]
+}

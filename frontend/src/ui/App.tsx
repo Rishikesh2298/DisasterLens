@@ -13,6 +13,8 @@ import {
   ModelComparison,
 } from "../features/benchmark/BenchmarkOverview";
 import { FailureBrowser } from "../features/failures/FailureBrowser";
+import { ScenarioPlayerPage } from "../features/scenarios/ScenarioPlayerPage";
+import { SceneViewerPage } from "../features/scene/SceneViewerPage";
 import type { Failure } from "../types";
 
 function errorMessage(error: unknown) {
@@ -26,7 +28,11 @@ export default function App() {
       ? "failures"
       : location.pathname === "/compare"
         ? "compare"
-        : "overview";
+        : location.pathname === "/scene"
+          ? "scene"
+          : location.pathname === "/scenario"
+            ? "scenario"
+            : "overview";
   const [selectedRunId, setSelectedRunId] = useState("");
   const [selectedFailure, setSelectedFailure] = useState<Failure | null>(null);
   const [category, setCategory] = useState("all");
@@ -155,8 +161,19 @@ export default function App() {
         >
           <span>⌁</span> Failure browser <b>{failures.length}</b>
         </Link>
+        <Link
+          className={`nav-item ${page === "scene" ? "active" : ""}`}
+          to="/scene"
+        >
+          <span>◉</span> Scene viewer
+        </Link>
+        <Link
+          className={`nav-item ${page === "scenario" ? "active" : ""}`}
+          to="/scenario"
+        >
+          <span>▶</span> Scenario player
+        </Link>
         <div className="side-label secondary">COMING NEXT</div>
-        <div className="nav-muted">◉ &nbsp; Scene viewer</div>
         <div className="nav-muted">⌖ &nbsp; Route finder</div>
         <div className="sidebar-foot">
           <span className="pulse" /> Local workspace
@@ -172,7 +189,11 @@ export default function App() {
               ? "Benchmark"
               : page === "compare"
                 ? "Model comparison"
-                : "Failure browser"}
+                : page === "scene"
+                  ? "Scene viewer"
+                  : page === "scenario"
+                    ? "Scenario player"
+                    : "Failure browser"}
           </div>
           <div className="header-actions">
             {runOptions.length > 1 && (
@@ -224,107 +245,137 @@ export default function App() {
             </div>
             <span className="safety-lock">RESEARCH USE</span>
           </div>
-          {runIndex.isError && (
-            <div className="error">
-              Could not load runs: {errorMessage(runIndex.error)}
-            </div>
-          )}
-          {runQuery.isError && (
-            <div className="error">
-              Could not load results: {errorMessage(runQuery.error)}
-            </div>
-          )}
-          {runIndex.isLoading || runQuery.isLoading ? (
-            <div className="loading">Loading benchmark results…</div>
+          {page === "scene" ? (
+            <>
+              <SceneViewerPage />
+              <footer>
+                DISASTERLENS <span>·</span> SYNTHETIC DATA RESEARCH{" "}
+                <span>·</span> NO REAL-WORLD SAFETY CLAIMS
+              </footer>
+            </>
+          ) : page === "scenario" ? (
+            <>
+              <ScenarioPlayerPage />
+              <footer>
+                DISASTERLENS <span>·</span> SYNTHETIC DATA RESEARCH{" "}
+                <span>·</span> NO REAL-WORLD SAFETY CLAIMS
+              </footer>
+            </>
           ) : (
-            run && (
-              <>
-                <div className="page-heading">
-                  <div>
-                    <div className="eyebrow">
-                      EVALUATION / {run.split.toUpperCase()}
+            <>
+              {runIndex.isError && (
+                <div className="error">
+                  Could not load runs: {errorMessage(runIndex.error)}
+                </div>
+              )}
+              {runQuery.isError && (
+                <div className="error">
+                  Could not load results: {errorMessage(runQuery.error)}
+                </div>
+              )}
+              {runIndex.isLoading || runQuery.isLoading ? (
+                <div className="loading">Loading benchmark results…</div>
+              ) : (
+                run && (
+                  <>
+                    <div className="page-heading">
+                      <div>
+                        <div className="eyebrow">
+                          EVALUATION / {run.split.toUpperCase()}
+                        </div>
+                        <h1>
+                          {page === "overview"
+                            ? "Benchmark overview"
+                            : page === "compare"
+                              ? "Model comparison"
+                              : "Failure browser"}
+                        </h1>
+                        <p>
+                          {page === "failures"
+                            ? "Inspect model errors against per-scene ground truth."
+                            : "Measure model predictions against exact synthetic-scene ground truth."}
+                        </p>
+                      </div>
+                      <div className="heading-actions">
+                        {run.is_mock && (
+                          <span className="badge mock">MOCK RUN</span>
+                        )}
+                        {!mock && (
+                          <span className="badge api-badge">API DATA</span>
+                        )}
+                        <button
+                          className="secondary-button"
+                          onClick={exportCsv}
+                        >
+                          ↓ &nbsp; Export CSV
+                        </button>
+                      </div>
                     </div>
-                    <h1>
-                      {page === "overview"
-                        ? "Benchmark overview"
-                        : page === "compare"
-                          ? "Model comparison"
-                          : "Failure browser"}
-                    </h1>
-                    <p>
-                      {page === "failures"
-                        ? "Inspect model errors against per-scene ground truth."
-                        : "Measure model predictions against exact synthetic-scene ground truth."}
-                    </p>
-                  </div>
-                  <div className="heading-actions">
-                    {run.is_mock && (
-                      <span className="badge mock">MOCK RUN</span>
+                    <div className="run-strip">
+                      <span className="run-dot" />
+                      <div>
+                        <b>{run.model_id}</b>
+                        <span>
+                          Run {run.run_name} · {run.scene_count} scenes ·
+                          Updated{" "}
+                          {new Date(run.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <span className="split-badge">{run.split} set</span>
+                    </div>
+                    {page === "overview" && (
+                      <BenchmarkOverview
+                        run={run}
+                        runs={comparisonRuns.filter(
+                          (item) => item.split === run.split,
+                        )}
+                      />
                     )}
-                    {!mock && <span className="badge api-badge">API DATA</span>}
-                    <button className="secondary-button" onClick={exportCsv}>
-                      ↓ &nbsp; Export CSV
-                    </button>
-                  </div>
-                </div>
-                <div className="run-strip">
-                  <span className="run-dot" />
-                  <div>
-                    <b>{run.model_id}</b>
-                    <span>
-                      Run {run.run_name} · {run.scene_count} scenes · Updated{" "}
-                      {new Date(run.created_at).toLocaleDateString()}
-                    </span>
-                  </div>
-                  <span className="split-badge">{run.split} set</span>
-                </div>
-                {page === "overview" && (
-                  <BenchmarkOverview
-                    run={run}
-                    runs={comparisonRuns.filter(
-                      (item) => item.split === run.split,
+                    {page === "compare" && (
+                      <ModelComparison
+                        runs={comparisonRuns.filter(
+                          (item) => item.split === run.split,
+                        )}
+                      />
                     )}
-                  />
-                )}
-                {page === "compare" && (
-                  <ModelComparison
-                    runs={comparisonRuns.filter(
-                      (item) => item.split === run.split,
+                    {page === "failures" && (
+                      <FailureBrowser
+                        failures={filteredFailures}
+                        categories={categories}
+                        difficulties={difficulties}
+                        category={category}
+                        difficulty={difficulty}
+                        selected={selectedFailure}
+                        scene={sceneQuery.data}
+                        sceneLoading={sceneQuery.isLoading}
+                        sceneError={
+                          sceneQuery.isError
+                            ? errorMessage(sceneQuery.error)
+                            : undefined
+                        }
+                        onCategory={(value) => setFilters("category", value)}
+                        onDifficulty={(value) =>
+                          setFilters("difficulty", value)
+                        }
+                        onSelect={setSelectedFailure}
+                      />
                     )}
-                  />
+                    <footer>
+                      DISASTERLENS <span>·</span> SYNTHETIC DATA RESEARCH{" "}
+                      <span>·</span> NO REAL-WORLD SAFETY CLAIMS
+                    </footer>
+                  </>
+                )
+              )}
+              {!runIndex.isLoading &&
+                !runIndex.isError &&
+                !runOptions.length && (
+                  <div className="empty-state">
+                    No evaluated runs yet. Run the sample benchmark or add run
+                    folders under `results/`.
+                  </div>
                 )}
-                {page === "failures" && (
-                  <FailureBrowser
-                    failures={filteredFailures}
-                    categories={categories}
-                    difficulties={difficulties}
-                    category={category}
-                    difficulty={difficulty}
-                    selected={selectedFailure}
-                    scene={sceneQuery.data}
-                    sceneLoading={sceneQuery.isLoading}
-                    sceneError={
-                      sceneQuery.isError
-                        ? errorMessage(sceneQuery.error)
-                        : undefined
-                    }
-                    onCategory={(value) => setFilters("category", value)}
-                    onDifficulty={(value) => setFilters("difficulty", value)}
-                    onSelect={setSelectedFailure}
-                  />
-                )}
-                <footer>
-                  DISASTERLENS <span>·</span> SYNTHETIC DATA RESEARCH{" "}
-                  <span>·</span> NO REAL-WORLD SAFETY CLAIMS
-                </footer>
-              </>
-            )
-          )}
-          {!runIndex.isLoading && !runIndex.isError && !runOptions.length && (
-            <div className="empty-state">
-              No evaluated runs yet. Run the sample benchmark or add run folders
-              under `results/`.
-            </div>
+            </>
           )}
         </div>
       </main>

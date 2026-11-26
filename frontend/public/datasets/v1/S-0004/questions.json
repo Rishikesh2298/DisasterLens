@@ -1,0 +1,100 @@
+{
+  "questions": [
+    {
+      "expected_answer": {
+        "blocked_segments": [
+          "SEG-006",
+          "SEG-023"
+        ]
+      },
+      "id": "Q-001",
+      "prompt": "Which road segments are blocked in this scene?",
+      "type": "blocked_segments"
+    },
+    {
+      "expected_answer": {
+        "building_ids": [],
+        "count": 0
+      },
+      "id": "Q-002",
+      "prompt": "How many buildings are visibly damaged in this scene?",
+      "type": "damaged_buildings"
+    },
+    {
+      "expected_answer": {
+        "boxes": [
+          [
+            422.94,
+            924.0,
+            498.23,
+            964.0
+          ]
+        ],
+        "water_regions": [
+          {
+            "bbox": {
+              "x_max": 498.23,
+              "x_min": 422.94,
+              "y_max": 964.0,
+              "y_min": 924.0
+            },
+            "box": [
+              422.94,
+              924.0,
+              498.23,
+              964.0
+            ],
+            "hazard_id": "H-002"
+          }
+        ]
+      },
+      "id": "Q-003",
+      "prompt": "Locate all regions with standing water in this scene.",
+      "type": "water_regions"
+    },
+    {
+      "expected_answer": {
+        "blocking_segments": [
+          "SEG-006"
+        ],
+        "obstructed": true,
+        "route_segments": [
+          "SEG-020",
+          "SEG-013",
+          "SEG-006"
+        ]
+      },
+      "id": "Q-004",
+      "prompt": "Is the route from N15 to N3 obstructed? If yes, identify the blocking road segments.",
+      "type": "route_obstruction_positive"
+    },
+    {
+      "expected_answer": {
+        "blocking_segments": [],
+        "obstructed": false,
+        "route_segments": [
+          "SEG-018",
+          "SEG-011",
+          "SEG-004",
+          "SEG-003"
+        ]
+      },
+      "id": "Q-005",
+      "prompt": "Is the route from N14 to N3 obstructed? If yes, identify the blocking road segments.",
+      "type": "route_obstruction_negative"
+    },
+    {
+      "expected_answer": {
+        "zone_a": "NE",
+        "zone_a_area": 3640.0,
+        "zone_b": "SW",
+        "zone_b_area": 3011.6,
+        "zone_with_more": "NE"
+      },
+      "id": "Q-006",
+      "prompt": "Which zone has more visible hazard area: NE or SW?",
+      "type": "zone_comparison"
+    }
+  ],
+  "scene_id": "S-0004"
+}
