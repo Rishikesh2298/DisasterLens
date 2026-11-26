@@ -1,116 +1,143 @@
 # DisasterLens
 
-DisasterLens is a synthetic-scene research benchmark for measuring hazard recognition and road-obstruction reasoning. It scores model predictions against exact generated-scene ground truth and shows how those predictions can affect route selection.
+**Disaster-Scene Benchmark, Evaluation Engine, and Route-Obstruction Understanding** — A Visual Task Factory Hackathon Project.
 
-> **Research prototype:** all included examples are synthetic. This is not a certified navigation or emergency-response system. A clear result means only that no obstruction was detected in the available imagery; it does not establish that a road or route is safe.
+DisasterLens is a synthetic-scene research benchmark and route-reasoning platform for measuring hazard recognition and road-obstruction understanding. It scores model predictions against exact generated-scene ground truth and demonstrates how observations, freshness decay, and recovery gates shape emergency route recommendations.
 
-## Current implementation
+> **Safety Notice & Research Prototype Disclaimer:**
+> DisasterLens is a research prototype that operates strictly on **synthetic (computer-generated) disaster scenes**. It is **not** a certified navigation, emergency dispatch, or life-safety system. A clear result indicates only that *no obstruction was detected in imagery captured at a given timestamp*; it does not establish water depth, roadbed stability, hidden damage, structural integrity, official road closures, or that a road or route is "safe".
 
-- Versioned shared contracts in `dl/contracts`.
-- Shared scene, vision-analysis, observation, routing and evaluation models, with confidence caps encoded in validation.
-- Modular evaluation for hazard detection, road status, building counts, water regions, route questions, zone comparisons, confidence calibration, route impact and failure categories.
-- A JSON CLI that writes validated run summaries and a failure list.
-- Input validation for unique scene IDs, prediction/dataset ID alignment, missing outputs, split boundaries, and prediction-run metadata.
-- A read-only FastAPI benchmark-results API.
-- A React + TypeScript dashboard with React Router pages, cached API queries, run selection, model-vs-baseline comparison, difficulty charts, confusion matrix, per-scene failure review, CSV export, and mock/live data selection.
-- Pytest checks for hand-calculated metrics, oracle performance, false-clear behavior, route-impact cases and API endpoints.
+---
 
-The generator, live vision adapters, full routing application, scene viewer and deployed hosting are not implemented yet. See the [main implementation plan](docs/implementation-plan/00_Main_Implementation_Plan.pdf) and [Rishikesh's implementation plan](docs/implementation-plan/individual/1_Rishikesh_Implementation_Plan.pdf).
+## Current Implementation
+
+- **Shared Data Contracts (`dl/contracts`):** Versioned (`0.1.0`) Pydantic v2 schemas for scenes, vision analysis, observations, freshness state, route recommendations, and evaluation datasets/summaries.
+- **Modular Benchmark & Evaluation Engine (`dl/evaluation`):** Pure task scorers for hazard detection (IoU 0.5 & 0.3), road segment status, building counts, water regions, route obstruction, zone comparison, confidence calibration, route impact, and failure taxonomy (`false_clear`, `near_miss_false_block`, `invalid_output`, etc.), plus CLI `dl.evaluation.run`.
+- **Backend Foundation & Persistence (`dl/api`):** FastAPI service with SQLAlchemy (SQLite/PostgreSQL), idempotent demo-city seeding, structured image upload storage, benchmark run endpoints (`/api/benchmark/*`), and scenario/clock/routing endpoints (`/api/*`).
+- **Road Graph, Freshness, Fusion & Routing (`dl/routing`):** NetworkX road network builder, table-driven freshness decay (`freshness.yaml`), multi-observation temporal fusion (`captured_at`-ordered with recovery confidence/visibility gates), condition-aware Dijkstra & k-shortest alternatives, path verifier, and templated explanations.
+- **Frontend Workspace (`frontend`):**
+  - **Route Screen & Demo Player (`/`):** Condition-aware routing explorer, T0–T3 scenario timeline playback, and interactive SVG scene canvas.
+  - **Benchmark Dashboard (`/benchmark`, `/compare`, `/failures`):** Model-vs-baseline comparison, difficulty breakdown charts, confusion matrix, failure browser, CSV export, and mock/live API switch.
+
+---
 
 ## Architecture
 
-```text
-Dataset + predictions (JSON)
-            │
-            ▼
-  dl.evaluation.run ─────► results/<run>/summary.json + failures.json
-            │                                           │
-            ▼                                           ▼
-      Pure task scorers                         FastAPI read API
-                                                        │
-                                                        ▼
-                                           React benchmark dashboard
+```mermaid
+flowchart LR
+  G["Synthetic Generator / Fixtures<br/>(scenes + ground truth)"] --> V["Vision Engine<br/>(mock oracle / adapter)"]
+  G --> E["Evaluation CLI (dl.evaluation.run)<br/>-> results/<run>/summary.json"]
+  E --> B["Unified FastAPI Backend<br/>(/api/benchmark/* + /api/*)"]
+  V --> B
+  B --> R["Pure Routing Engine<br/>(NetworkX + Freshness + Fusion)"]
+  R --> B
+  B --> F["Frontend App (React 18 + Vite)<br/>/ (Route Screen) & /benchmark"]
 ```
 
-Each scorer is a pure function over JSON-compatible scene records. Dataset scenes use `truth` (or the shared contract's `ground_truth`); prediction records use `prediction` or the shared vision `segment_verdicts` shape. Files are joined by `scene_id`, and scene-level model metadata is retained. The sample format is in [`fixtures/`](fixtures/).
+---
 
-## Requirements
+## Team Responsibilities
 
-- Python 3.11 or later
-- Node.js 20 or later and npm
+| Member | Module / Domain | Responsibilities & Ownership |
+| :--- | :--- | :--- |
+| **Rishikesh** | System Lead & Evaluation | Repository coordination, shared contracts, modular evaluation engine, benchmark API (`/api/benchmark/*`), benchmark dashboard, deployment orchestration. |
+| **Tejash** | Synthetic Scene Generation | Scene generator, ground-truth derivation, raster cross-section rules, SceneCanvas viewer, ScenarioPlayer, `demo_city` dataset. |
+| **Divyanshu** | Vision AI Engine | Vision model adapter, prompt execution, hazard-to-road mapping, safety guards against false clear. |
+| **Rajneesh** | Backend & Routing Engine | Road graph, freshness decay, observation fusion, route recommendation & verifier, REST API (`/api/*`), Route Screen frontend, backend & routing tests. |
 
-## Setup
+---
 
-From the repository root:
+## Prerequisites & Clean-Clone Setup
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+- **Python:** 3.11 or 3.12
+- **Node.js:** 20 or later (with `npm`)
+
+### 1. Backend Setup
+```bash
+git clone https://github.com/Rishikesh2298/DisasterLens.git
+cd DisasterLens
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
+cp .env.example .env
 ```
 
-Install and build the dashboard:
-
-```powershell
+### 2. Frontend Setup
+```bash
 cd frontend
 npm install
-npm run build
 ```
+*(Optional: copy `frontend/.env.example` to `frontend/.env.local` to point the benchmark dashboard at the live local backend with mock mode disabled).*
 
-## Run the sample benchmark
+---
 
-```powershell
-python -m dl.evaluation.run `
-  --dataset fixtures/sample_dataset.json `
-  --predictions fixtures/sample_predictions.json `
-  --output results/sample-oracle `
-  --run-name sample-oracle `
-  --model-id fixture-oracle `
-  --split dev `
-  --mock
+## Running Locally
+
+### Start the Unified Backend API
+```bash
+uvicorn dl.api.main:app --reload --host 0.0.0.0 --port 8000
 ```
+- OpenAPI Docs (Swagger UI): `http://localhost:8000/docs`
+- Health Check: `http://localhost:8000/api/health`
 
-The command writes `results/sample-oracle/summary.json`, `failures.json` and `per_scene.json`. The dataset and predictions are an oracle fixture, so supported prediction tasks should score perfectly; calibration is a probability quality measure, where lower is better. Model ID, prompt version and mock status are inferred from prediction-file metadata unless overridden by CLI options. Results record whether a run is mock data; do not combine mock and real model runs.
-
-## Run the API and dashboard
-
-In two terminals from the repository root:
-
-```powershell
-uvicorn dl.api.main:app --reload
-```
-
-```powershell
+### Start the Frontend App
+```bash
 cd frontend
 npm run dev
 ```
+Open `http://localhost:5173`:
+- **`/`**: Emergency Route Screen, T0–T3 Scenario Player, and Synthetic Scene Viewer.
+- **`/benchmark`**, **`/compare`**, **`/failures`**: Benchmark Overview, Model Comparison, and Failure Browser.
 
-Open `http://localhost:5173`. The dashboard starts with mock sample data, including model and baseline comparison examples. Use the Mock data switch to change to saved API runs. To default to API mode, copy `frontend/.env.example` to `frontend/.env.local`; the backend reads run folders under `results/` by default. Copy `.env.example` if you need to override the results folder or CORS origins.
+### Run the Sample Benchmark Evaluation CLI
+```bash
+python -m dl.evaluation.run \
+  --dataset fixtures/sample_dataset.json \
+  --predictions fixtures/sample_predictions.json \
+  --output results/sample-oracle \
+  --run-name sample-oracle \
+  --model-id fixture-oracle \
+  --split dev \
+  --mock
+```
 
-API endpoints:
+---
 
-| Endpoint | Purpose |
-|---|---|
-| `GET /api/health` | Service health |
-| `GET /api/benchmark/runs` | Available saved runs |
-| `GET /api/benchmark/runs/{run_id}` | Validated run summary JSON |
-| `GET /api/benchmark/runs/{run_id}/failures` | Failures; optional `category` and `difficulty` filters |
-| `GET /api/benchmark/runs/{run_id}/scenes/{scene_id}` | Ground truth and prediction for one scene |
+## API Endpoints
 
-Dashboard pages are available at `/benchmark`, `/compare`, and `/failures`. The failure browser filters by category and difficulty and opens a side-by-side truth/prediction detail for each scene.
+### Benchmark Results API (`/api/benchmark/*`)
+| Method | Path | Purpose |
+| :--- | :--- | :--- |
+| `GET` | `/api/benchmark/health` | Benchmark service liveness (`synthetic_only: true`). |
+| `GET` | `/api/benchmark/runs` | List available evaluated runs in `results/`. |
+| `GET` | `/api/benchmark/runs/{run_id}` | Validated run summary JSON. |
+| `GET` | `/api/benchmark/runs/{run_id}/failures` | Failure cases filtered by optional `category` and `difficulty`. |
+| `GET` | `/api/benchmark/runs/{run_id}/scenes/{scene_id}` | Ground truth and prediction for a specific scene. |
 
-## Evaluation details
+### Application, Observation, Scenario & Routing API (`/api/*`)
+Full request/response contracts are documented in [`docs/api-contracts.md`](docs/api-contracts.md).
 
-- Hazard and water boxes use `[x1, y1, x2, y2]`; matching is greedy by descending prediction confidence and class, at IoU 0.5 and 0.3. Detection includes aggregate and per-hazard-class metrics.
-- Road classes are `blocked`, `partial`, `clear` and `uncertain`. Missing predictions are scored as `uncertain`; false-clear rate is the fraction of all roads that are truly blocked but predicted clear, with blocked miss rate also reported conditionally among truly blocked roads.
-- Building counts report exact-match rate and mean absolute error. Route questions include overall and near-miss accuracy. Zone ties are excluded.
-- Calibration reports the blocked-confidence Brier score and five bins.
-- Route impact compares a ground-truth route (truly blocked edges removed) with a prediction-driven route, reporting unsafe route rate, unnecessary detour rate, extra distance and difficulty breakdown.
-- Failure categories include false clear, near-miss false block, other false blocks, false hazard detections, partial confusion, missed hazard, invalid output, count error and wrong zone.
+| Method | Path | Purpose |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Service health, DB status, active `VISION_MODE`, clock state, disclaimer. |
+| `GET` | `/api/cities` | List seeded cities (`DEMO-001`). |
+| `GET` | `/api/cities/{city_id}` | Full graph topology, zones, geometry, and scene image URLs. |
+| `GET` | `/api/cities/{city_id}/segments` | Effective segment statuses, age, and freshness at `as_of`. |
+| `GET` | `/api/segments/{segment_id}/history` | Chronological observation audit history for a segment. |
+| `POST` | `/api/observations` | Ingest JSON or multipart image observation; returns `affected_segments` and alerts. |
+| `POST` | `/api/routes/recommend` | Shortest baseline vs condition-aware recommended route, alternatives, verifier, explanation. |
+| `GET` | `/api/scenarios` | List demonstration disaster scenarios (`demo_city`). |
+| `GET` | `/api/scenarios/{scenario_id}` | Scenario timeline steps and camera viewports. |
+| `POST` | `/api/scenarios/{scenario_id}/advance` | Advance timeline (T0–T3), sync simulated clock, ingest observations. |
+| `GET` | `/api/clock` | Current simulated and wall-clock reference times. |
+| `POST` | `/api/clock` | Set or reset simulated clock time. |
 
-## Checks
+---
 
-```powershell
+## Verification & Quality Checks
+
+```bash
 python -m pytest -q
 python -m dl.contracts.check fixtures
 ruff check dl tests
@@ -120,15 +147,20 @@ npm audit --audit-level=moderate
 npm run build
 ```
 
-GitHub Actions runs these backend checks and the frontend checks on pushes and pull requests. Contracts live in [`dl/contracts`](dl/contracts); their current version is `0.1.0`.
+---
 
-The benchmark metric definitions and JSON record format are documented in [`docs/benchmark-spec.md`](docs/benchmark-spec.md). Ownership rules are in [CODEOWNERS](.github/CODEOWNERS); pull requests use the checklist template in [PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md).
+## Vision Mode Status & Deployment
 
-## Safety and limits
+- **`VISION_MODE=mock`** *(Operational default)*: Deterministic mock oracle tagged with `is_mock: true`.
+- **`VISION_MODE=cached` / `live`** *(Stubbed until live adapter / cache integration)*: Explicitly raises `VisionProviderError` (HTTP 500) rather than silently substituting mock results.
+- **Deployment Config:** Backend deployment is configured in [`render.yaml`](render.yaml) (Render) and frontend in `frontend/` (Vercel). Configure `CORS_ORIGINS` on Render and `VITE_API_BASE_URL` on Vercel.
+- **Docs & Plans:**
+  - [`docs/api-contracts.md`](docs/api-contracts.md) & [`docs/benchmark-spec.md`](docs/benchmark-spec.md)
+  - [Main implementation plan](docs/implementation-plan/00_Main_Implementation_Plan.pdf)
+  - Individual plans: [Rishikesh](docs/implementation-plan/individual/1_Rishikesh_Implementation_Plan.pdf), [Tejash](docs/implementation-plan/individual/2_Tejash_Implementation_Plan.pdf), [Divyanshu](docs/implementation-plan/individual/3_Divyanshu_Implementation_Plan.pdf), [Rajneesh](docs/implementation-plan/individual/4_Rajneesh_Implementation_Plan.pdf)
 
-Scenes are synthetic and simplified. They cannot establish water depth, hidden damage, structural integrity, official closures or real-world model performance. Freshness policy and route assumptions remain prototype rules. Results are research measurements, not travel or emergency advice.
+---
 
-## Project plans
+## Limitations & Safety Boundary
 
-- [Main implementation plan](docs/implementation-plan/00_Main_Implementation_Plan.pdf)
-- Individual plans: [Rishikesh](docs/implementation-plan/individual/1_Rishikesh_Implementation_Plan.pdf), [Tejash](docs/implementation-plan/individual/2_Tejash_Implementation_Plan.pdf), [Divyanshu](docs/implementation-plan/individual/3_Divyanshu_Implementation_Plan.pdf), [Rajneesh](docs/implementation-plan/individual/4_Rajneesh_Implementation_Plan.pdf)
+Scenes are synthetic and simplified. They cannot establish water depth, hidden damage, structural integrity, official road closures, or real-world vision model reliability. Freshness thresholds and route multipliers are prototype heuristics. Results are research measurements only and must never be used for live emergency response or navigation.

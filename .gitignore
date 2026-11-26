@@ -12,6 +12,8 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+*.db
+*.sqlite3
 *.egg-info/
 .pytest_cache/
 .ruff_cache/
@@ -38,3 +40,6 @@ datasets/v1/*
 frontend/public/datasets/v1/*
 !frontend/public/datasets/v1/S-000[1-5]/
 !frontend/public/datasets/v1/S-000[1-5]/**
+
+# Runtime uploads
+uploads/

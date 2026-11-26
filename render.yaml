@@ -1,0 +1,43 @@
+# DisasterLens Deployment Blueprint for Render
+# Note: Render accounts and production infrastructure are owned and managed by Rishikesh.
+# This blueprint provides production-ready configuration and environment variable wiring.
+
+services:
+  # Backend API Web Service
+  - type: web
+    name: disasterlens-backend
+    runtime: python
+    region: oregon
+    plan: starter
+    buildCommand: "pip install -e '.[dev]'"
+    startCommand: "uvicorn dl.api.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: VISION_MODE
+        value: "mock"
+      - key: VISION_PROVIDER
+        value: "mock"
+      # CORS Allowed Origins: comma-separated list of permitted frontend origins.
+      # Rishikesh should configure the production Vercel frontend origin here or in Render Dashboard
+      # (e.g. "https://<your-vercel-app>.vercel.app,http://localhost:3000,http://localhost:5173")
+      - key: CORS_ORIGINS
+        value: "http://localhost:5173,http://localhost:3000,https://disasterlens.onrender.com"
+      - key: DATA_DIR
+        value: "scenarios/demo_city"
+      # Production Database Configuration:
+      # SQLite disk on Render is ephemeral. For production persistence across restarts,
+      # configure a PostgreSQL database (e.g. disasterlens-db) and inject DATABASE_URL:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: disasterlens-db
+          property: connectionString
+
+  # Optional Managed PostgreSQL Database
+  # Uncomment or provision when permanent database persistence is enabled by team lead:
+databases:
+  - name: disasterlens-db
+    plan: free
+    region: oregon
+    databaseName: disasterlens
+    user: disasterlens_admin

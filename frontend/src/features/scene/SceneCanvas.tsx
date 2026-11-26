@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Building,
   Hazard,
@@ -20,6 +20,10 @@ export interface SceneCanvasProps {
   segmentStates: Record<string, SegmentState>;
   predictedStates?: Record<string, SegmentState>;
   selectedRoutePath?: string[];
+  baselineRoutePath?: string[];
+  recommendedRoutePath?: string[];
+  originNode?: string;
+  destNode?: string;
   onNodeClick?: (nodeId: string) => void;
   onSegmentClick?: (segmentId: string) => void;
   imageWidth?: number;
@@ -89,6 +93,26 @@ const HAZARD_FILLS: Record<string, string> = {
   damaged_building: "rgba(220, 38, 38, 0.60)",
 };
 
+const parsePoint = (p: unknown): { x: number; y: number } => {
+  if (Array.isArray(p)) return { x: Number(p[0]) || 0, y: Number(p[1]) || 0 };
+  if (p && typeof p === "object") {
+    const obj = p as { x?: unknown; y?: unknown };
+    return { x: Number(obj.x) || 0, y: Number(obj.y) || 0 };
+  }
+  return { x: 0, y: 0 };
+};
+
+const parsePoints = (pts: unknown[]): Array<{ x: number; y: number }> => {
+  if (!Array.isArray(pts)) return [];
+  return pts.map(parsePoint);
+};
+
+const toSvgPoints = (pts: unknown[]): string => {
+  return parsePoints(pts)
+    .map((p) => `${p.x},${p.y}`)
+    .join(" ");
+};
+
 export const SceneCanvas: React.FC<SceneCanvasProps> = ({
   sceneImageUrl,
   segments,
@@ -99,6 +123,10 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
   segmentStates,
   predictedStates,
   selectedRoutePath = [],
+  baselineRoutePath = [],
+  recommendedRoutePath = [],
+  originNode,
+  destNode,
   onNodeClick,
   onSegmentClick,
   imageWidth = 1024,
@@ -115,6 +143,10 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
   const [imageStatus, setImageStatus] = useState<"loading" | "ready" | "error">(
     sceneImageUrl ? "loading" : "error",
   );
+
+  useEffect(() => {
+    setImageStatus(sceneImageUrl ? "loading" : "error");
+  }, [sceneImageUrl]);
 
   const [hoveredSegment, setHoveredSegment] = useState<RoadSegment | null>(
     null,
@@ -207,7 +239,7 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
       </div>
 
       <div className="dl-canvas-viewport">
-        {sceneImageUrl ? (
+        {sceneImageUrl && imageStatus !== "error" ? (
           <img
             key={sceneImageUrl}
             src={sceneImageUrl}
@@ -224,11 +256,6 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
         {sceneImageUrl && imageStatus === "loading" && (
           <div className="dl-canvas-empty">Loading scene imagery…</div>
         )}
-        {sceneImageUrl && imageStatus === "error" && (
-          <div className="dl-canvas-empty">
-            Could not load image ({sceneImageUrl}). Showing vector overlays.
-          </div>
-        )}
 
         <svg
           viewBox={`0 0 ${imageWidth} ${imageHeight}`}
@@ -240,11 +267,11 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
             setMousePos(null);
           }}
         >
+          {/* Buildings Layer */}
           {showBuildings &&
             buildings.map((bldg) => {
-              const pointsStr = bldg.polygon
-                .map((p) => `${p.x},${p.y}`)
-                .join(" ");
+              const pointsStr = toSvgPoints(bldg.polygon);
+              if (!pointsStr) return null;
               return (
                 <polygon
                   key={bldg.id}
@@ -257,43 +284,62 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               );
             })}
 
+          {/* Road Segments Layer */}
           {showRoads &&
             segments.map((seg) => {
-              const pointsStr = seg.polygon
-                .map((p) => `${p.x},${p.y}`)
-                .join(" ");
+              const pointsStr = toSvgPoints(seg.polygon);
+              if (!pointsStr) return null;
               const state = activeStates[seg.id];
               const status = normalizeStatus(state?.status);
               const meta = STATUS_META[status];
               const isSelected = selectedRoutePath.includes(seg.id);
+              const isRecommended = recommendedRoutePath.includes(seg.id);
+              const isBaseline = baselineRoutePath.includes(seg.id);
               const isHovered = hoveredSegment?.id === seg.id;
+
+              let fill = meta.fill;
+              let stroke = isHovered ? "#ffffff" : meta.stroke;
+              let strokeWidth = isHovered ? "3" : "1.5";
+              let strokeDasharray: string | undefined = undefined;
+
+              if (isSelected) {
+                fill = "rgba(56, 189, 248, 0.65)";
+                stroke = "#38bdf8";
+                strokeWidth = "3.5";
+                strokeDasharray = "6,3";
+              } else if (isRecommended) {
+                fill = "rgba(16, 185, 129, 0.55)";
+                stroke = "#10b981";
+                strokeWidth = "3";
+              } else if (isBaseline) {
+                fill = "rgba(148, 163, 184, 0.35)";
+                stroke = "#94a3b8";
+                strokeWidth = "2";
+                strokeDasharray = "4,4";
+              }
+
+              const cl = parsePoints(seg.centerline);
 
               return (
                 <g key={seg.id} style={{ cursor: "pointer" }}>
                   <polygon
                     points={pointsStr}
-                    fill={isSelected ? "rgba(56, 189, 248, 0.55)" : meta.fill}
-                    stroke={
-                      isSelected
-                        ? "#38bdf8"
-                        : isHovered
-                          ? "#ffffff"
-                          : meta.stroke
-                    }
-                    strokeWidth={isSelected ? "3.5" : isHovered ? "3" : "1.5"}
-                    strokeDasharray={isSelected ? "6,3" : undefined}
+                    fill={fill}
+                    stroke={stroke}
+                    strokeWidth={strokeWidth}
+                    strokeDasharray={strokeDasharray}
                     onMouseEnter={() => setHoveredSegment(seg)}
                     onClick={() => onSegmentClick?.(seg.id)}
                   />
-                  {seg.centerline.length >= 2 && (
+                  {cl.length >= 2 && (
                     <line
-                      x1={seg.centerline[0].x}
-                      y1={seg.centerline[0].y}
-                      x2={seg.centerline[1].x}
-                      y2={seg.centerline[1].y}
+                      x1={cl[0].x}
+                      y1={cl[0].y}
+                      x2={cl[1].x}
+                      y2={cl[1].y}
                       stroke={meta.stroke}
-                      strokeWidth="1"
-                      strokeOpacity="0.7"
+                      strokeWidth="1.2"
+                      strokeOpacity="0.75"
                       pointerEvents="none"
                     />
                   )}
@@ -301,9 +347,75 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               );
             })}
 
+          {/* Dedicated Route Path Corridor Traces */}
+          {showRoads && (
+            <g pointerEvents="none">
+              {baselineRoutePath.map((segId) => {
+                const seg = segments.find((s) => s.id === segId);
+                if (!seg) return null;
+                const cl = parsePoints(seg.centerline);
+                if (cl.length < 2) return null;
+                return (
+                  <line
+                    key={`base-trace-${segId}`}
+                    x1={cl[0].x}
+                    y1={cl[0].y}
+                    x2={cl[1].x}
+                    y2={cl[1].y}
+                    stroke="#f59e0b"
+                    strokeWidth="3"
+                    strokeDasharray="6,4"
+                    strokeOpacity="0.8"
+                  />
+                );
+              })}
+
+              {recommendedRoutePath.map((segId) => {
+                const seg = segments.find((s) => s.id === segId);
+                if (!seg) return null;
+                const cl = parsePoints(seg.centerline);
+                if (cl.length < 2) return null;
+                return (
+                  <line
+                    key={`rec-trace-${segId}`}
+                    x1={cl[0].x}
+                    y1={cl[0].y}
+                    x2={cl[1].x}
+                    y2={cl[1].y}
+                    stroke="#10b981"
+                    strokeWidth="4.5"
+                    strokeOpacity="0.9"
+                  />
+                );
+              })}
+
+              {selectedRoutePath.map((segId) => {
+                const seg = segments.find((s) => s.id === segId);
+                if (!seg) return null;
+                const cl = parsePoints(seg.centerline);
+                if (cl.length < 2) return null;
+                return (
+                  <line
+                    key={`sel-trace-${segId}`}
+                    x1={cl[0].x}
+                    y1={cl[0].y}
+                    x2={cl[1].x}
+                    y2={cl[1].y}
+                    stroke="#38bdf8"
+                    strokeWidth="5"
+                    strokeDasharray="8,4"
+                    strokeOpacity="0.95"
+                  />
+                );
+              })}
+            </g>
+          )}
+
+          {/* Hazards Layer */}
           {showHazards &&
             activeHazards.map((h) => {
-              const pointsStr = h.polygon.map((p) => `${p.x},${p.y}`).join(" ");
+              const pointsStr = toSvgPoints(h.polygon);
+              if (!pointsStr) return null;
               const fill = HAZARD_FILLS[h.type] || "rgba(239, 68, 68, 0.5)";
               const isPred = viewMode === "prediction";
               return (
@@ -320,11 +432,13 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               );
             })}
 
+          {/* Road Segment Labels Layer */}
           {showLabels &&
             segments.map((seg) => {
-              if (seg.centerline.length < 2) return null;
-              const mx = (seg.centerline[0].x + seg.centerline[1].x) / 2;
-              const my = (seg.centerline[0].y + seg.centerline[1].y) / 2;
+              const cl = parsePoints(seg.centerline);
+              if (cl.length < 2) return null;
+              const mx = (cl[0].x + cl[1].x) / 2;
+              const my = (cl[0].y + cl[1].y) / 2;
               return (
                 <g
                   key={`lbl-${seg.id}`}
@@ -356,20 +470,89 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
               );
             })}
 
+          {/* Intersections (Nodes) */}
           {intersections.map((node) => {
-            const isNodeSelected = selectedRoutePath.includes(node.id);
+            const isOrigin = originNode === node.id;
+            const isDest = destNode === node.id;
+            const isSelected = selectedRoutePath.includes(node.id);
+
+            let nodeFill = "#cbd5e1";
+            let nodeStroke = "#111a18";
+            let radius = 6;
+
+            if (isOrigin) {
+              nodeFill = "#22c55e";
+              nodeStroke = "#ffffff";
+              radius = 9;
+            } else if (isDest) {
+              nodeFill = "#ef4444";
+              nodeStroke = "#ffffff";
+              radius = 9;
+            } else if (isSelected) {
+              nodeFill = "#38bdf8";
+              radius = 8;
+            }
+
             return (
-              <circle
-                key={node.id}
-                cx={node.x}
-                cy={node.y}
-                r={isNodeSelected ? "9" : "6"}
-                fill={isNodeSelected ? "#38bdf8" : "#cbd5e1"}
-                stroke="#111a18"
-                strokeWidth="2"
-                style={{ cursor: "pointer" }}
-                onClick={() => onNodeClick?.(node.id)}
-              />
+              <g key={node.id} style={{ cursor: "pointer" }}>
+                {(isOrigin || isDest) && (
+                  <circle
+                    cx={node.x}
+                    cy={node.y}
+                    r={radius + 4}
+                    fill="none"
+                    stroke={isOrigin ? "#22c55e" : "#ef4444"}
+                    strokeWidth="2"
+                    strokeDasharray="4,2"
+                  />
+                )}
+                <circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={radius}
+                  fill={nodeFill}
+                  stroke={nodeStroke}
+                  strokeWidth="2"
+                  onClick={() => onNodeClick?.(node.id)}
+                />
+                {(showLabels || isOrigin || isDest) && (
+                  <g pointerEvents="none" style={{ userSelect: "none" }}>
+                    <rect
+                      x={node.x - 14}
+                      y={node.y - (isOrigin || isDest ? 24 : 18)}
+                      width={isOrigin || isDest ? 36 : 28}
+                      height="13"
+                      rx="2.5"
+                      fill={
+                        isOrigin
+                          ? "#15803d"
+                          : isDest
+                            ? "#b91c1c"
+                            : "rgba(17, 26, 24, 0.9)"
+                      }
+                      stroke={
+                        isOrigin
+                          ? "#86efac"
+                          : isDest
+                            ? "#fca5a5"
+                            : "rgba(255, 255, 255, 0.25)"
+                      }
+                      strokeWidth="0.7"
+                    />
+                    <text
+                      x={node.x + (isOrigin || isDest ? 4 : 0)}
+                      y={node.y - (isOrigin || isDest ? 14.5 : 9)}
+                      textAnchor="middle"
+                      fill="#ffffff"
+                      fontSize={isOrigin || isDest ? "8" : "8.5"}
+                      fontFamily="monospace"
+                      fontWeight="bold"
+                    >
+                      {isOrigin ? "ORIGIN" : isDest ? "DEST" : node.id}
+                    </text>
+                  </g>
+                )}
+              </g>
             );
           })}
         </svg>
@@ -436,6 +619,13 @@ export const SceneCanvas: React.FC<SceneCanvasProps> = ({
                     <div className="dl-tooltip-row">
                       <span>Captured:</span>
                       <span>{state.captured_at}</span>
+                    </div>
+                  )}
+
+                  {state?.confidence !== undefined && (
+                    <div className="dl-tooltip-row">
+                      <span>AI Confidence:</span>
+                      <span>{(state.confidence * 100).toFixed(0)}%</span>
                     </div>
                   )}
                 </div>

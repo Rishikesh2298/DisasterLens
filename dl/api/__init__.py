@@ -1,1 +1,3 @@
-"""HTTP API for read-only benchmark results."""
+"""
+DisasterLens Web API package for benchmark evaluation results, scenario playback, and routing.
+"""

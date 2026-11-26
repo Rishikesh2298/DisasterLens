@@ -1,1 +1,3 @@
-# Tests for DisasterLens generator
+"""
+DisasterLens test suite.
+"""
