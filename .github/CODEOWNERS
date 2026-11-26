@@ -1,0 +1,10 @@
+# Rishikesh: shared contracts, benchmark evaluation, API, dashboard and project docs.
+/dl/contracts/ @Rishikesh2298
+/dl/evaluation/ @Rishikesh2298
+/dl/api/routers/benchmark.py @Rishikesh2298
+/frontend/src/api/ @Rishikesh2298
+/frontend/src/ui/ @Rishikesh2298
+/frontend/src/mocks/ @Rishikesh2298
+/frontend/src/types.ts @Rishikesh2298
+/README.md @Rishikesh2298
+/.github/ @Rishikesh2298

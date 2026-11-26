@@ -1,0 +1,249 @@
+{
+  "schema_version": "0.1.0",
+  "run_name": "sample-oracle",
+  "model_id": "fixture-oracle",
+  "prompt_version": null,
+  "split": "dev",
+  "is_mock": true,
+  "created_at": "2026-11-22T15:35:23.027615Z",
+  "scene_count": 1,
+  "metrics": {
+    "detection": {
+      "task": "detection",
+      "metrics": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "macro_f1": 1.0
+      },
+      "details": {
+        "per_class": {
+          "flood": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        },
+        "iou_0.3": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "macro_f1": 1.0,
+          "per_class": {
+            "flood": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      }
+    },
+    "segments": {
+      "task": "segments",
+      "metrics": {
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "false_clear_rate": 0.0,
+        "blocked_miss_rate": 0.0,
+        "false_block_rate": 0.0,
+        "uncertain_rate": 0.0
+      },
+      "details": {
+        "per_class": {
+          "blocked": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "partial": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "clear": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "uncertain": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion_matrix": {
+          "blocked": {
+            "blocked": 1,
+            "partial": 0,
+            "clear": 0,
+            "uncertain": 0
+          },
+          "partial": {
+            "blocked": 0,
+            "partial": 1,
+            "clear": 0,
+            "uncertain": 0
+          },
+          "clear": {
+            "blocked": 0,
+            "partial": 0,
+            "clear": 1,
+            "uncertain": 0
+          },
+          "uncertain": {
+            "blocked": 0,
+            "partial": 0,
+            "clear": 0,
+            "uncertain": 0
+          }
+        }
+      }
+    },
+    "counts": {
+      "task": "counts",
+      "metrics": {
+        "exact_match": 1.0,
+        "mae": 0.0,
+        "count": 1
+      },
+      "details": {}
+    },
+    "water": {
+      "task": "water",
+      "metrics": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_iou": 1.0
+      },
+      "details": {}
+    },
+    "routes": {
+      "task": "routes",
+      "metrics": {
+        "accuracy": 1.0,
+        "near_miss_accuracy": 1.0,
+        "count": 2,
+        "near_miss_count": 1
+      },
+      "details": {
+        "obstructed": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    },
+    "zones": {
+      "task": "zones",
+      "metrics": {
+        "accuracy": 1.0,
+        "count": 1
+      },
+      "details": {}
+    },
+    "calibration": {
+      "task": "calibration",
+      "metrics": {
+        "brier_score": 0.0,
+        "count": 3
+      },
+      "details": {
+        "bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.2,
+            "count": 2,
+            "mean_confidence": 0.0,
+            "hit_rate": 0.0
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.4,
+            "count": 0,
+            "mean_confidence": 0.0,
+            "hit_rate": 0.0
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.6,
+            "count": 0,
+            "mean_confidence": 0.0,
+            "hit_rate": 0.0
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.8,
+            "count": 0,
+            "mean_confidence": 0.0,
+            "hit_rate": 0.0
+          },
+          {
+            "lower": 0.8,
+            "upper": 1.0,
+            "count": 1,
+            "mean_confidence": 1.0,
+            "hit_rate": 1.0
+          }
+        ]
+      }
+    },
+    "reliability": {
+      "task": "reliability",
+      "metrics": {
+        "valid_json_rate": 1.0,
+        "mean_latency_ms": null,
+        "scene_count": 1,
+        "latency_count": 0
+      },
+      "details": {}
+    }
+  },
+  "route_impact": {
+    "route_count": 1,
+    "unsafe_route_rate": 0.0,
+    "unnecessary_detour_rate": 0.0,
+    "mean_extra_distance_percent": 0.0,
+    "by_difficulty": {
+      "easy": {
+        "routes": 1,
+        "unsafe": 0,
+        "detours": 0,
+        "unsafe_rate": 0.0,
+        "unnecessary_detour_rate": 0.0
+      }
+    }
+  },
+  "failures": []
+}
