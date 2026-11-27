@@ -203,17 +203,29 @@ class TestCachedMode:
 class TestLiveMode:
     """Test analyze_observation in 'live' mode."""
 
-    def test_live_mode_raises_not_implemented_error_when_provider_empty(self):
-        """When gemini provider is not implemented, live mode must raise NotImplementedError."""
+    def test_live_mode_raises_not_implemented_error_when_provider_unregistered(self):
+        """When an unregistered provider is requested, live mode must raise NotImplementedError."""
         scene = _make_test_scene()
         image = _make_fake_png_bytes()
 
         with pytest.raises(NotImplementedError) as exc_info:
-            analyze_observation(image=image, zone_geometry=scene, mode="live")
+            analyze_observation(image=image, zone_geometry=scene, mode="live", provider="unregistered_provider")
 
         error_msg = str(exc_info.value)
         assert "Live vision mode is blocked" in error_msg
-        assert "providers/gemini.py is empty" in error_msg
+
+    def test_live_mode_raises_value_error_when_api_key_missing(self, monkeypatch):
+        """When gemini provider is registered but GEMINI_API_KEY is not set, raises ValueError."""
+        monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+        monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+        scene = _make_test_scene()
+        image = _make_fake_png_bytes()
+
+        with pytest.raises(ValueError) as exc_info:
+            analyze_observation(image=image, zone_geometry=scene, mode="live")
+
+        error_msg = str(exc_info.value)
+        assert "GEMINI_API_KEY environment variable is not configured" in error_msg
 
     def test_live_mode_with_registered_adapter_succeeds(self):
         """If a live provider is registered, live mode executes it cleanly."""
