@@ -81,9 +81,12 @@ def run_smoke_test(
     print(f"Prompt Version:  {result.prompt_version}")
     print(f"Latency (ms):    {result.latency_ms}")
     print(f"Hazards Found:   {len(result.hazards)}")
-    for h in result.hazards:
-        bbox_coords = list(h.bbox.root) if hasattr(h.bbox, "root") else list(h.bbox)
-        print(f"  - [{h.hazard_type.value}] conf={h.confidence:.2f} bbox={bbox_coords}: {h.description}")
+    for idx, h in enumerate(result.hazards, start=1):
+        data = h.model_dump(mode="json")
+        haz_type = data.get("type", "unknown")
+        bbox_coords = data.get("bbox", [])
+        conf = data.get("confidence", 0.0)
+        print(f"  - Hazard #{idx}: [{haz_type}] confidence={conf:.2f} bbox={bbox_coords}")
 
     print(f"\nGuarded Verdicts ({len(result.guarded_verdicts)} segments):")
     for seg_id, verdict in sorted(result.guarded_verdicts.items()):

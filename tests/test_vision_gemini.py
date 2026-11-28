@@ -126,7 +126,8 @@ class TestModelAndCredentials:
 # =============================================================================
 
 class TestAnalyzeScene:
-    def test_analyze_scene_valid_json_response(self):
+    def test_analyze_scene_valid_json_response(self, monkeypatch):
+        monkeypatch.delenv("VISION_MODEL", raising=False)
         valid_json = """{
             "hazards": [
                 {"type": "flood", "bbox": [10.0, 10.0, 50.0, 50.0], "confidence": 0.95}

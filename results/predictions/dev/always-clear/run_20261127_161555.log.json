@@ -1,0 +1,157 @@
+{
+  "run_id": "run_20261127_161555",
+  "model": "always-clear",
+  "prompt_version": "v1",
+  "image_variant": "plain",
+  "split": "dev",
+  "dataset_dir": "C:\\Disaster\\DisasterLens\\datasets\\v1",
+  "output_dir": "C:\\Disaster\\DisasterLens\\results\\predictions\\dev\\always-clear",
+  "started_at": "2026-11-27T16:15:55.585599+00:00",
+  "finished_at": "2026-11-27T16:15:56.610642+00:00",
+  "total_scenes": 20,
+  "processed": 20,
+  "skipped": 0,
+  "failed": 0,
+  "scenes": [
+    {
+      "scene_id": "S-0001",
+      "status": "ok",
+      "latency_ms": 19,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0002",
+      "status": "ok",
+      "latency_ms": 65,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0003",
+      "status": "ok",
+      "latency_ms": 64,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0004",
+      "status": "ok",
+      "latency_ms": 63,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0005",
+      "status": "ok",
+      "latency_ms": 59,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0006",
+      "status": "ok",
+      "latency_ms": 49,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0007",
+      "status": "ok",
+      "latency_ms": 53,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0008",
+      "status": "ok",
+      "latency_ms": 47,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0009",
+      "status": "ok",
+      "latency_ms": 45,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0010",
+      "status": "ok",
+      "latency_ms": 46,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0011",
+      "status": "ok",
+      "latency_ms": 45,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0012",
+      "status": "ok",
+      "latency_ms": 44,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0013",
+      "status": "ok",
+      "latency_ms": 44,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0014",
+      "status": "ok",
+      "latency_ms": 46,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0015",
+      "status": "ok",
+      "latency_ms": 46,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0016",
+      "status": "ok",
+      "latency_ms": 44,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0017",
+      "status": "ok",
+      "latency_ms": 44,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0018",
+      "status": "ok",
+      "latency_ms": 45,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0019",
+      "status": "ok",
+      "latency_ms": 46,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0020",
+      "status": "ok",
+      "latency_ms": 46,
+      "valid_json": true,
+      "error": null
+    }
+  ]
+}

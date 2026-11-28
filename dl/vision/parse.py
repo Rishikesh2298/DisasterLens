@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 from typing import Callable
 
@@ -6,8 +7,22 @@ from pydantic import ValidationError
 
 from dl.contracts.vision import SceneAnalysis
 
+logger = logging.getLogger(__name__)
+
 # Type alias for repair callback: receives (raw_text, error_description) and returns repaired_text
 RepairCallback = Callable[[str, str], str]
+
+
+def _sanitize_for_log(text: str) -> str:
+    """Sanitize potential secrets, tokens, or credentials from raw text before logging."""
+    if not text:
+        return ""
+    sanitized = str(text)
+    # Mask common API key patterns (Google AIza..., bearer tokens, api_key parameters)
+    sanitized = re.sub(r"AIza[0-9A-Za-z-_]{35}", "[REDACTED_API_KEY]", sanitized)
+    sanitized = re.sub(r"(?:api_?key|key|token|secret|password)=([A-Za-z0-9_\-]+)", r"key=[REDACTED]", sanitized, flags=re.IGNORECASE)
+    sanitized = re.sub(r"(?:Bearer|Basic)\s+[A-Za-z0-9_\-\.=]+", r"Bearer [REDACTED]", sanitized, flags=re.IGNORECASE)
+    return sanitized
 
 
 def _extract_outermost_object(text: str, start: int) -> str:
@@ -126,6 +141,26 @@ def _parse_and_validate(
                 if isinstance(conf, (int, float)) and 0.85 < conf <= 1.0:
                     seg_data["confidence"] = 0.85
 
+    # Graceful coordinate ordering for bounding boxes:
+    # If a model emits [x1, y1, x2, y2] with inverted coordinates (e.g. y1 > y2),
+    # ensure [min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)] so valid model reasoning
+    # is not rejected by Box.ordered_coordinates validator.
+    if "hazards" in data and isinstance(data["hazards"], list):
+        for h in data["hazards"]:
+            if isinstance(h, dict) and "bbox" in h:
+                bbox = h["bbox"]
+                if isinstance(bbox, (list, tuple)) and len(bbox) == 4:
+                    if all(isinstance(v, (int, float)) for v in bbox):
+                        x1, y1, x2, y2 = bbox
+                        h["bbox"] = [min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)]
+
+    if "water_regions" in data and isinstance(data["water_regions"], list):
+        for idx, bbox in enumerate(data["water_regions"]):
+            if isinstance(bbox, (list, tuple)) and len(bbox) == 4:
+                if all(isinstance(v, (int, float)) for v in bbox):
+                    x1, y1, x2, y2 = bbox
+                    data["water_regions"][idx] = [min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)]
+
     # Strictly validate against Pydantic SceneAnalysis contract
     return SceneAnalysis.model_validate(data)
 
@@ -171,6 +206,15 @@ def parse_scene_analysis(
         return analysis
     except (ValueError, json.JSONDecodeError, ValidationError) as initial_error:
         error_msg = f"{type(initial_error).__name__}: {initial_error}"
+        snippet = _sanitize_for_log(raw_text)[:300]
+        logger.warning(
+            "parse_scene_analysis: Failed to parse model response for scene '%s' (model: '%s', prompt_version: '%s'). Error: %s | Response snippet: %s",
+            scene_id,
+            model_id,
+            prompt_version,
+            error_msg,
+            snippet,
+        )
 
     # One repair retry attempt if callback is provided
     if repair_callback is not None:
@@ -185,8 +229,15 @@ def parse_scene_analysis(
             )
             repaired_analysis.valid_json = True
             return repaired_analysis
-        except (ValueError, json.JSONDecodeError, ValidationError):
-            pass
+        except (ValueError, json.JSONDecodeError, ValidationError) as retry_error:
+            retry_err_msg = f"{type(retry_error).__name__}: {retry_error}"
+            retry_snippet = _sanitize_for_log(repaired_text)[:300]
+            logger.warning(
+                "parse_scene_analysis: Repair retry also failed for scene '%s'. Error: %s | Repaired snippet: %s",
+                scene_id,
+                retry_err_msg,
+                retry_snippet,
+            )
 
     # Fallback response when validation fails
     # Never invent valid road verdicts or hazards for invalid outputs

@@ -198,6 +198,70 @@ def test_escaped_quotes_and_braces_in_evidence():
     assert 'flood {warning}' in res.segment_verdicts["SEG-007"].evidence
 
 
+# ───────────────── Diagnostic Logging Tests ─────────────────
+
+def test_diagnostic_logging_on_parse_failure(caplog):
+    """When parsing fails, a diagnostic WARNING must be logged with error details."""
+    import logging
+    raw = '{"hazards": "invalid_type_not_list"}'
+    with caplog.at_level(logging.WARNING):
+        res = p.parse_scene_analysis(raw, SCENE_ID, MODEL_ID, PROMPT_VERSION)
+    assert res.valid_json is False
+    assert any("parse_scene_analysis: Failed to parse" in rec.message for rec in caplog.records)
+    assert any("ValidationError" in rec.message for rec in caplog.records)
+
+
+def test_diagnostic_logging_masks_credentials(caplog):
+    """Raw model responses containing credentials must be sanitized before logging."""
+    import logging
+    fake_key = "AIzaSyD_FakeTestSecretKey123456789012"
+    raw = f'{{"hazards": [broken json, key={fake_key}}}'
+    with caplog.at_level(logging.WARNING):
+        res = p.parse_scene_analysis(raw, SCENE_ID, MODEL_ID, PROMPT_VERSION)
+    assert res.valid_json is False
+    warning_msgs = [rec.message for rec in caplog.records if rec.levelno == logging.WARNING]
+    assert len(warning_msgs) > 0
+    # Ensure raw secret is never present in log records
+    for msg in warning_msgs:
+        assert fake_key not in msg
+        assert "[REDACTED_API_KEY]" in msg or "[REDACTED]" in msg
+
+
+def test_diagnostic_logging_truncates_at_300_chars(caplog):
+    """Long model outputs must have their logged snippet capped at 300 characters."""
+    import logging
+    long_raw = "broken_json_" + ("x" * 800)
+    with caplog.at_level(logging.WARNING):
+        res = p.parse_scene_analysis(long_raw, SCENE_ID, MODEL_ID, PROMPT_VERSION)
+    assert res.valid_json is False
+    warning_record = next(rec for rec in caplog.records if "parse_scene_analysis" in rec.message)
+    # The snippet is after "Response snippet: "
+    snippet_part = warning_record.message.split("Response snippet: ")[-1]
+    assert len(snippet_part) <= 300
+
+
+# ───────────────── Bounding Box Coordinate Ordering Tests ─────────────────
+
+def test_inverted_bbox_coordinates_gracefully_ordered():
+    """Inverted bbox coordinates (e.g. y1 > y2 from Gemini) must be gracefully ordered."""
+    raw = (
+        '{"hazards": [{"type": "debris", "bbox": [483.0, 617.0, 521.0, 580.0], "confidence": 0.95}], '
+        '"segment_verdicts": {"SEG-017": {"status": "blocked", "confidence": 0.85}}}'
+    )
+    res = p.parse_scene_analysis(raw, SCENE_ID, MODEL_ID, PROMPT_VERSION)
+    assert res.valid_json is True
+    assert len(res.hazards) == 1
+    # Bounding box must be ordered: x_min <= x_max and y_min <= y_max
+    assert res.hazards[0].bbox.root == (483.0, 580.0, 521.0, 617.0)
+
+
+def test_invalid_bbox_coordinates_fail():
+    """Non-finite or malformed bbox coordinates must still fail validation properly."""
+    raw = '{"hazards": [{"type": "debris", "bbox": [10.0, 20.0, "not_a_float", 50.0], "confidence": 0.9}]}'
+    res = p.parse_scene_analysis(raw, SCENE_ID, MODEL_ID, PROMPT_VERSION)
+    assert res.valid_json is False
+
+
 # ───────────────── Runner ─────────────────
 
 if __name__ == "__main__":

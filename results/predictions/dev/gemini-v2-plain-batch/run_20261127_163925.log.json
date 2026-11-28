@@ -1,0 +1,157 @@
+{
+  "run_id": "run_20261127_163925",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_version": "v2",
+  "image_variant": "plain",
+  "split": "dev",
+  "dataset_dir": "C:\\Disaster\\DisasterLens\\datasets\\v1",
+  "output_dir": "C:\\Disaster\\DisasterLens\\results\\predictions\\dev\\gemini-v2-plain-batch",
+  "started_at": "2026-11-27T16:39:25.638979+00:00",
+  "finished_at": "2026-11-27T16:39:34.546608+00:00",
+  "total_scenes": 20,
+  "processed": 1,
+  "skipped": 19,
+  "failed": 0,
+  "scenes": [
+    {
+      "scene_id": "S-0001",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0002",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0003",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0004",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0005",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0006",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0007",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0008",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0009",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0010",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0011",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0012",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0013",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0014",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0015",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0016",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0017",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0018",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0019",
+      "status": "skipped",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": null
+    },
+    {
+      "scene_id": "S-0020",
+      "status": "ok",
+      "latency_ms": 7545,
+      "valid_json": true,
+      "error": null
+    }
+  ]
+}

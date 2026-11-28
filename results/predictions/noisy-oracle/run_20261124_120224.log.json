@@ -1,0 +1,24 @@
+{
+  "run_id": "run_20261124_120224",
+  "model": "noisy-oracle",
+  "prompt_version": "v1",
+  "image_variant": "plain",
+  "split": "dev",
+  "dataset_dir": "C:\\Disaster\\DisasterLens\\datasets\\v1",
+  "output_dir": "C:\\Disaster\\DisasterLens\\results\\predictions\\noisy-oracle",
+  "started_at": "2026-11-24T12:02:24.330578+00:00",
+  "finished_at": "2026-11-24T12:02:24.344977+00:00",
+  "total_scenes": 1,
+  "processed": 1,
+  "skipped": 0,
+  "failed": 0,
+  "scenes": [
+    {
+      "scene_id": "S-0001",
+      "status": "ok",
+      "latency_ms": 7,
+      "valid_json": true,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "scene_id": "S-0012",
+  "hazards": [
+    {
+      "type": "debris",
+      "bbox": [
+        800.0,
+        58.0,
+        891.0,
+        99.0
+      ],
+      "confidence": 0.95
+    }
+  ],
+  "segment_verdicts": {
+    "SEG-001": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-002": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-003": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-004": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-005": {
+      "status": "partial",
+      "confidence": 0.85,
+      "evidence": "Debris partially covers the road segment.",
+      "visible": true
+    },
+    "SEG-006": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-007": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-008": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-009": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-010": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-011": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-012": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-013": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-014": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-015": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-016": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-017": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-018": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-019": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-020": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-021": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-022": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-023": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    },
+    "SEG-024": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "No obstruction detected along the road segment.",
+      "visible": true
+    }
+  },
+  "damaged_building_count": 0,
+  "water_regions": [],
+  "image_quality_good": true,
+  "model_id": "gemini-3.5-flash-lite",
+  "prompt_version": "v2",
+  "valid_json": true,
+  "latency_ms": 3816
+}

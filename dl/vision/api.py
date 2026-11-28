@@ -38,7 +38,7 @@ from dl.vision.base import VisionAdapter
 from dl.vision.cache import CachedVisionAdapter
 from dl.vision.guards import apply_guards
 from dl.vision.mapper import RoadMappingResult, map_hazards_to_roads
-from dl.vision.registry import get_adapter, list_registered_providers
+from dl.vision.registry import _try_lazy_load_provider, get_adapter, list_registered_providers
 
 logger = logging.getLogger(__name__)
 
@@ -228,7 +228,9 @@ def _resolve_adapter(
         cache_dir = kwargs.pop("cache_dir", None)
         inner = kwargs.pop("inner_adapter", None)
         if inner is None:
-            provider = kwargs.get("provider", os.getenv("VISION_PROVIDER"))
+            provider = kwargs.pop("provider", None) or os.getenv("VISION_PROVIDER")
+            if provider:
+                _try_lazy_load_provider(provider)
             if provider and provider in list_registered_providers() and provider != "mock":
                 inner = get_adapter(mode="live", provider=provider, **kwargs)
             else:
@@ -243,6 +245,7 @@ def _resolve_adapter(
             return adapter
 
         provider = kwargs.get("provider", os.getenv("VISION_PROVIDER", "gemini"))
+        _try_lazy_load_provider(provider)  # load the provider module before checking the registry
         registered = list_registered_providers()
 
         # Check if the provider is available in registry

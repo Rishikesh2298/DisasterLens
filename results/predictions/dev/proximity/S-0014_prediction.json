@@ -1,0 +1,157 @@
+{
+  "scene_id": "S-0014",
+  "hazards": [],
+  "segment_verdicts": {
+    "SEG-001": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 342.4px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-002": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 493.2px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-003": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 288.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-004": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 205.2px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-005": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 294.8px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-006": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 82.8px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-007": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 370.8px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-008": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 185.2px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-009": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 493.2px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-010": {
+      "status": "blocked",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: hazard centroid within 0.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-011": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 205.2px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-012": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 62.8px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-013": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 82.8px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-014": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 370.8px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-015": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 328.5px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-016": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 466.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-017": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 288.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-018": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 178.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-019": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 294.8px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-020": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 110.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-021": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 398.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-022": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 158.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-023": {
+      "status": "blocked",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: hazard centroid within 0.0px (threshold=50.0px).",
+      "visible": null
+    },
+    "SEG-024": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "ProximityBaseline: nearest hazard centroid is 90.0px (threshold=50.0px).",
+      "visible": null
+    }
+  },
+  "damaged_building_count": null,
+  "water_regions": [],
+  "image_quality_good": null,
+  "model_id": "baseline-proximity",
+  "prompt_version": "v1",
+  "valid_json": true,
+  "latency_ms": 0
+}
