@@ -1,0 +1,27 @@
+{
+  "scenes": [
+    {
+      "scene_id": "S-0001",
+      "difficulty": "easy",
+      "split": "dev",
+      "near_miss_segments": ["SEG-002"],
+      "near_miss_questions": ["N1-N2"],
+      "truth": {
+        "hazards": [{"type": "flood", "bbox": [30, 40, 80, 90]}],
+        "segments": {"SEG-001": "blocked", "SEG-002": "clear", "SEG-003": "partial"},
+        "damaged_building_count": 1,
+        "water_regions": [{"bbox": [30, 40, 80, 90]}],
+        "routes": {"N1-N3": "obstructed", "N1-N2": "clear"},
+        "zone_comparisons": {"west-east": "west"}
+      },
+      "road_graph": {
+        "segments": [
+          {"id": "SEG-001", "from": "N1", "to": "N2", "length": 1},
+          {"id": "SEG-002", "from": "N2", "to": "N3", "length": 1},
+          {"id": "SEG-003", "from": "N1", "to": "N3", "length": 3}
+        ],
+        "routes": [{"origin": "N1", "destination": "N3"}]
+      }
+    }
+  ]
+}

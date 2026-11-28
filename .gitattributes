@@ -1,0 +1,4 @@
+datasets/**/*.json text eol=lf
+scenarios/**/*.json text eol=lf
+frontend/public/datasets/**/*.json text eol=lf
+frontend/public/scenarios/**/*.json text eol=lf

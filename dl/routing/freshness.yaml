@@ -1,0 +1,21 @@
+# DisasterLens Road Freshness Configuration
+# Time windows in hours measured strictly from captured_at against as_of reference time.
+# uploaded_at must NEVER determine freshness.
+
+thresholds:
+  clear:
+    fresh_max_hours: 3.0
+    ageing_max_hours: 12.0
+    stale_after_hours: 12.0
+
+  blocked:
+    active_max_hours: 24.0
+    stale_after_hours: 24.0
+
+  partial:
+    active_max_hours: 12.0
+    stale_after_hours: 12.0
+
+  uncertain:
+    active_max_hours: 12.0
+    unknown_after_hours: 12.0
