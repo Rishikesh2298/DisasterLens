@@ -3,11 +3,17 @@
 import argparse
 from pathlib import Path
 
+from pydantic import TypeAdapter
+
+from dl.contracts.enums import Verdict
 from dl.contracts.evaluation import (
     EvaluationDataset,
     EvaluationPredictionFile,
     EvaluationSummary,
 )
+from dl.contracts.vision import SceneAnalysis
+
+ROUTE_ANSWERS = TypeAdapter(dict[str, Verdict])
 
 
 def validate_fixtures(directory: Path):
@@ -20,6 +26,10 @@ def validate_fixtures(directory: Path):
             EvaluationDataset.model_validate_json(content)
         elif path.name.endswith("_predictions.json"):
             EvaluationPredictionFile.model_validate_json(content)
+        elif path.name.endswith("_analysis.json"):
+            SceneAnalysis.model_validate_json(content)
+        elif path.name.endswith("_route_answer.json"):
+            ROUTE_ANSWERS.validate_json(content)
         else:
             raise ValueError(f"Fixture has no registered contract: {path}")
         checked += 1
