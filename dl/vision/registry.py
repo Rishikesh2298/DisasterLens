@@ -91,11 +91,11 @@ def get_adapter(
         else:
             # Lazy import to avoid circular dependency
             try:
-                from dl.vision.mock import MockVisionAdapter
+                from dl.vision.oracle_mock import MockVisionAdapter
                 adapter = MockVisionAdapter(model=resolved_model, **kwargs)
             except (ImportError, AttributeError) as err:
                 raise NotImplementedError(
-                    "Mock mode requested, but MockVisionAdapter is not yet implemented in dl.vision.mock"
+                    "Mock mode requested, but MockVisionAdapter is not yet implemented in dl.vision.oracle_mock"
                 ) from err
         return adapter
 
