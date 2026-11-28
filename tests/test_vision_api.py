@@ -16,7 +16,6 @@ Tests cover:
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from unittest.mock import MagicMock
 
@@ -24,11 +23,10 @@ import pytest
 
 from dl.contracts.enums import Difficulty, HazardType, RoadStatus
 from dl.contracts.scene import Box, GroundTruth, Hazard, RoadNode, RoadSegment, Scene
-from dl.contracts.vision import PredictedHazard, SceneAnalysis, SegmentVerdict
+from dl.contracts.vision import SceneAnalysis, SegmentVerdict
 from dl.vision.api import ObservationResult, analyze_observation
 from dl.vision.base import VisionAdapter
-from dl.vision.mapper import RoadMappingResult
-from dl.vision.registry import clear_registry, register_adapter
+from dl.vision.registry import register_adapter
 
 
 def _make_sample_segment(segment_id: str = "SEG-001") -> RoadSegment:
@@ -337,7 +335,7 @@ class TestInputVariations:
         assert "SEG-001" in result.guarded_verdicts
 
     def test_zone_geometry_as_dict(self):
-        seg = _make_sample_segment("SEG-001")
+        _make_sample_segment("SEG-001")
         scene_dict = _make_test_scene().model_dump()
         image = _make_fake_png_bytes()
 

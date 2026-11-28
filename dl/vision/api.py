@@ -26,13 +26,14 @@ from __future__ import annotations
 import logging
 import os
 import time
+from collections.abc import Collection
 from pathlib import Path
-from typing import Any, Collection
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
 from dl.contracts.enums import Difficulty, RoadStatus
-from dl.contracts.scene import Box, GroundTruth, RoadSegment, Scene
+from dl.contracts.scene import GroundTruth, RoadSegment, Scene
 from dl.contracts.vision import PredictedHazard, SceneAnalysis, SegmentVerdict
 from dl.vision.base import VisionAdapter
 from dl.vision.cache import CachedVisionAdapter

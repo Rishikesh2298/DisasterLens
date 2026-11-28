@@ -11,7 +11,6 @@ from dl.contracts.enums import HazardType, RoadStatus
 from dl.contracts.scene import Box, Hazard, RoadSegment
 from dl.contracts.vision import PredictedHazard
 from dl.vision.mapper import (
-    RoadMappingResult,
     map_hazards_to_roads,
 )
 

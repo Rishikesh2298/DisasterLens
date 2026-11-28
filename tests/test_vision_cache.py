@@ -13,17 +13,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
 from unittest.mock import MagicMock
 
 import pytest
 
-from dl.contracts.enums import Difficulty, RoadStatus, Verdict, HazardType
+from dl.contracts.enums import Difficulty, HazardType, RoadStatus, Verdict
 from dl.contracts.scene import Box, GroundTruth, RoadNode, RoadSegment, Scene
 from dl.contracts.vision import PredictedHazard, SceneAnalysis, SegmentVerdict
-from dl.vision.base import ZoneComparisonResult
-from dl.vision.cache import CacheStore, CachedVisionAdapter, compute_cache_key
-
+from dl.vision.cache import CachedVisionAdapter, CacheStore, compute_cache_key
 
 # ---------------------------------------------------------------------------
 # Shared fixtures

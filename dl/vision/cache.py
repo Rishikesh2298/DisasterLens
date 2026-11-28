@@ -25,7 +25,6 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
-import os
 from pathlib import Path
 from typing import Any
 
@@ -124,10 +123,10 @@ class CacheStore:
             raw = path.read_text(encoding="utf-8")
             data = json.loads(raw)
             if not isinstance(data, dict):
-                raise ValueError("Root JSON must be an object.")
+                raise TypeError("Root JSON must be an object.")
             logger.debug("Cache hit: %s", path.name)
             return data
-        except (OSError, json.JSONDecodeError, ValueError) as exc:
+        except (OSError, json.JSONDecodeError, ValueError, TypeError) as exc:
             logger.warning(
                 "Cache file %s is unreadable or corrupted (%s). Treating as miss.",
                 path.name,
@@ -251,7 +250,7 @@ class CachedVisionAdapter(VisionAdapter):
                     key,
                 )
                 return analysis
-            except Exception as exc:  # noqa: BLE001
+            except Exception as exc:
                 logger.warning(
                     "Cached payload for key %.12s… failed validation (%s). "
                     "Falling through to inner adapter.",

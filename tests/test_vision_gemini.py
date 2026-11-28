@@ -7,8 +7,6 @@ network calls or real credentials.
 
 from __future__ import annotations
 
-import os
-from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
@@ -171,7 +169,7 @@ class TestAnalyzeScene:
         adapter = GeminiVisionAdapter(client=mock_client, image_variant="labelled")
         scene = _make_sample_scene()
 
-        analysis = adapter.analyze_scene(b"test_image_png", scene)
+        adapter.analyze_scene(b"test_image_png", scene)
         call_kwargs = mock_client.models.generate_content.call_args.kwargs
         prompt_text = call_kwargs["contents"][1]
         assert "labeled road segment" in prompt_text or "labelled" in prompt_text.lower()

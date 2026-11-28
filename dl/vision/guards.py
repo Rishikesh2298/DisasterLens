@@ -27,7 +27,7 @@ Contract Limitations & Safety Constraints:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Collection
+from typing import Any
 
 from dl.contracts.enums import RoadStatus
 from dl.contracts.vision import SceneAnalysis, SegmentVerdict
@@ -67,18 +67,16 @@ def _check_hazard_list_produced(
         return bool(has_hazard_list)
 
     if isinstance(analysis, dict):
-        if "hazards" not in analysis or analysis["hazards"] is None:
-            return False
-        return True
+        return "hazards" in analysis and analysis["hazards"] is not None
 
     # Pydantic SceneAnalysis instance
     if getattr(analysis, "hazards", None) is None:
         return False
 
-    if hasattr(analysis, "model_fields_set") and "hazards" not in analysis.model_fields_set:
-        return False
-
-    return True
+    return not (
+        hasattr(analysis, "model_fields_set")
+        and "hazards" not in analysis.model_fields_set
+    )
 
 
 def _extract_mapper_info(
@@ -270,9 +268,7 @@ def guard_segment_verdict(
     if current_status_str == RoadStatus.BLOCKED.value:
         mapper_is_clear = False
 
-        if mapped_status == RoadStatus.CLEAR:
-            mapper_is_clear = True
-        elif mapped_coverage is not None and mapped_coverage < MAPPER_OVERLAP_THRESHOLD:
+        if mapped_status == RoadStatus.CLEAR or mapped_coverage is not None and mapped_coverage < MAPPER_OVERLAP_THRESHOLD:
             mapper_is_clear = True
 
         if mapper_is_clear:

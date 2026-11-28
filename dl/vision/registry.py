@@ -1,5 +1,6 @@
 import os
-from typing import Callable, Literal, Type
+from collections.abc import Callable
+from typing import Literal
 
 from dl.vision.base import VisionAdapter
 
@@ -7,12 +8,12 @@ VisionMode = Literal["live", "cached", "mock"]
 SUPPORTED_MODES: set[str] = {"live", "cached", "mock"}
 
 # Registry mapping provider name (lowercase) to adapter factory or class
-_ADAPTER_REGISTRY: dict[str, Type[VisionAdapter] | Callable[..., VisionAdapter]] = {}
+_ADAPTER_REGISTRY: dict[str, type[VisionAdapter] | Callable[..., VisionAdapter]] = {}
 
 
 def register_adapter(
     name: str,
-) -> Callable[[Type[VisionAdapter] | Callable[..., VisionAdapter]], Type[VisionAdapter] | Callable[..., VisionAdapter]]:
+) -> Callable[[type[VisionAdapter] | Callable[..., VisionAdapter]], type[VisionAdapter] | Callable[..., VisionAdapter]]:
     """
     Decorator to register a VisionAdapter implementation or factory function.
 
@@ -22,8 +23,8 @@ def register_adapter(
             ...
     """
     def decorator(
-        cls_or_factory: Type[VisionAdapter] | Callable[..., VisionAdapter]
-    ) -> Type[VisionAdapter] | Callable[..., VisionAdapter]:
+        cls_or_factory: type[VisionAdapter] | Callable[..., VisionAdapter]
+    ) -> type[VisionAdapter] | Callable[..., VisionAdapter]:
         key = name.strip().lower()
         _ADAPTER_REGISTRY[key] = cls_or_factory
         return cls_or_factory
@@ -133,7 +134,7 @@ def _try_lazy_load_provider(provider_name: str) -> None:
     """Attempt to import built-in providers to trigger their @register_adapter."""
     if provider_name == "gemini":
         try:
-            import dl.vision.providers.gemini  # noqa: F401
+            import dl.vision.providers.gemini
         except (ImportError, AttributeError):
             pass
     elif provider_name in ("backup", "openai", "claude"):

@@ -116,7 +116,7 @@ class MockVisionAdapter(VisionAdapter):
         gt = scene.ground_truth
         results: dict[str, Verdict] = {}
 
-        for q_id in questions.keys():
+        for q_id in questions:
             if q_id not in gt.route_questions:
                 available = list(gt.route_questions.keys())
                 raise KeyError(

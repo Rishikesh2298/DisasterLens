@@ -1,7 +1,7 @@
 import json
 import logging
 import re
-from typing import Callable
+from collections.abc import Callable
 
 from pydantic import ValidationError
 
@@ -119,7 +119,7 @@ def _parse_and_validate(
     data = json.loads(json_str)
 
     if not isinstance(data, dict):
-        raise ValueError(f"Root JSON must be an object/dict, got {type(data).__name__}")
+        raise TypeError(f"Root JSON must be an object/dict, got {type(data).__name__}")
 
     # Inject required metadata if omitted by model in the raw payload
     if "scene_id" not in data:
@@ -149,17 +149,23 @@ def _parse_and_validate(
         for h in data["hazards"]:
             if isinstance(h, dict) and "bbox" in h:
                 bbox = h["bbox"]
-                if isinstance(bbox, (list, tuple)) and len(bbox) == 4:
-                    if all(isinstance(v, (int, float)) for v in bbox):
-                        x1, y1, x2, y2 = bbox
-                        h["bbox"] = [min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)]
+                if (
+                    isinstance(bbox, (list, tuple))
+                    and len(bbox) == 4
+                    and all(isinstance(v, (int, float)) for v in bbox)
+                ):
+                    x1, y1, x2, y2 = bbox
+                    h["bbox"] = [min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)]
 
     if "water_regions" in data and isinstance(data["water_regions"], list):
         for idx, bbox in enumerate(data["water_regions"]):
-            if isinstance(bbox, (list, tuple)) and len(bbox) == 4:
-                if all(isinstance(v, (int, float)) for v in bbox):
-                    x1, y1, x2, y2 = bbox
-                    data["water_regions"][idx] = [min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)]
+            if (
+                isinstance(bbox, (list, tuple))
+                and len(bbox) == 4
+                and all(isinstance(v, (int, float)) for v in bbox)
+            ):
+                x1, y1, x2, y2 = bbox
+                data["water_regions"][idx] = [min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)]
 
     # Strictly validate against Pydantic SceneAnalysis contract
     return SceneAnalysis.model_validate(data)

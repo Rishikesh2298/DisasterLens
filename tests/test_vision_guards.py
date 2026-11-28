@@ -15,13 +15,10 @@ Additionally tests Rule 5 (safe verdict rejected) and edge cases.
 
 from __future__ import annotations
 
-import pytest
-
 from dl.contracts.enums import HazardType, RoadStatus
 from dl.contracts.scene import Box
 from dl.contracts.vision import PredictedHazard, SceneAnalysis, SegmentVerdict
 from dl.vision.guards import (
-    GuardChange,
     apply_guards,
     guard_segment_verdict,
 )
@@ -188,7 +185,7 @@ class TestRule1IncompleteVisibility:
         verdict = SegmentVerdict(status=RoadStatus.CLEAR, confidence=0.8, visible=True)
         # Assign string 'partial' post-init to test unvalidated model output
         verdict.visible = "partial"  # type: ignore[assignment]
-        guarded, changes = guard_segment_verdict(verdict, "SEG-001", image_quality_good=True, has_hazard_list=True)
+        guarded, _changes = guard_segment_verdict(verdict, "SEG-001", image_quality_good=True, has_hazard_list=True)
 
         assert guarded.status == RoadStatus.UNCERTAIN
         assert "Rule 1" in guarded.evidence

@@ -87,11 +87,11 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any
 
-from dl.contracts.enums import HazardType, RoadStatus, Verdict
+from dl.contracts.enums import HazardType
 from dl.contracts.scene import (
     Box,
     GroundTruth,
@@ -581,7 +581,7 @@ def run_batch(
     effective_output = (output_dir or (DEFAULT_OUTPUT_DIR / split)).resolve()
     effective_output.mkdir(parents=True, exist_ok=True)
 
-    run_id = datetime.now(timezone.utc).strftime("run_%Y%m%d_%H%M%S")
+    run_id = datetime.now(UTC).strftime("run_%Y%m%d_%H%M%S")
     log = RunLog(
         run_id=run_id,
         model=model,
@@ -590,7 +590,7 @@ def run_batch(
         split=split,
         dataset_dir=str(dataset_dir.resolve()),
         output_dir=str(effective_output),
-        started_at=datetime.now(timezone.utc).isoformat(),
+        started_at=datetime.now(UTC).isoformat(),
     )
 
     # Resolve adapter
@@ -601,7 +601,7 @@ def run_batch(
         scene_dirs = discover_scenes(dataset_dir, split)
     except FileNotFoundError as exc:
         logger.error("%s", exc)
-        log.finished_at = datetime.now(timezone.utc).isoformat()
+        log.finished_at = datetime.now(UTC).isoformat()
         return log
 
     log.total_scenes = len(scene_dirs)
@@ -654,7 +654,7 @@ def run_batch(
                 )
                 break
 
-    log.finished_at = datetime.now(timezone.utc).isoformat()
+    log.finished_at = datetime.now(UTC).isoformat()
     _save_run_log(effective_output, log)
     return log
 

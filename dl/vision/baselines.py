@@ -42,7 +42,6 @@ from dl.contracts.scene import Box, Scene
 from dl.contracts.vision import PredictedHazard, SceneAnalysis, SegmentVerdict
 from dl.vision.base import VisionAdapter, ZoneComparisonResult
 
-
 # ---------------------------------------------------------------------------
 # Shared helper: build a minimal SceneAnalysis frame
 # ---------------------------------------------------------------------------
@@ -214,8 +213,7 @@ def _min_distance_to_centerline(
             nearest_y = ay + t * aby
             dist = math.hypot(px - nearest_x, py - nearest_y)
 
-        if dist < min_dist:
-            min_dist = dist
+        min_dist = min(min_dist, dist)
 
     return min_dist
 
@@ -325,8 +323,7 @@ class ProximityBaseline(VisionAdapter):
             min_dist = math.inf
             for centroid in hazard_centroids:
                 d = _min_distance_to_centerline(centroid, seg.centerline)
-                if d < min_dist:
-                    min_dist = d
+                min_dist = min(min_dist, d)
 
             if min_dist <= self.threshold_px:
                 verdicts[seg.segment_id] = SegmentVerdict(
@@ -505,7 +502,7 @@ class NoisyOracleBaseline(VisionAdapter):
                     f"flipped to BLOCKED by false_positive_rate={self.false_positive_rate}."
                 )
             return RoadStatus.CLEAR, (
-                f"NoisyOracle: ground truth=clear, retained."
+                "NoisyOracle: ground truth=clear, retained."
             )
 
         # Statuses not in ground truth (UNCERTAIN, STALE, UNKNOWN) pass through

@@ -48,7 +48,6 @@ class VisionAdapter(ABC):
                            segment verdicts, damaged building count, water regions,
                            and execution telemetry.
         """
-        pass
 
     @abstractmethod
     def answer_route_questions(
@@ -72,7 +71,6 @@ class VisionAdapter(ABC):
         Returns:
             dict[str, Verdict]: Mapping of question ID to Verdict.CLEAR or Verdict.OBSTRUCTED.
         """
-        pass
 
     @abstractmethod
     def compare_zones(
@@ -101,4 +99,3 @@ class VisionAdapter(ABC):
             ZoneComparisonResult: 'zone_a', 'zone_b', or 'equal' indicating which zone has
                                   more visible hazard area.
         """
-        pass

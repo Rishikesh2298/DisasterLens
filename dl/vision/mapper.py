@@ -13,9 +13,11 @@ evaluated based on physical intersection coverage without artificial severity we
 from __future__ import annotations
 
 import math
-from typing import Collection, NamedTuple, Sequence
+from collections.abc import Collection
+from typing import NamedTuple
 
-from shapely import Polygon, LineString, box as shapely_box, unary_union
+from shapely import LineString, Polygon, unary_union
+from shapely import box as shapely_box
 from shapely.geometry.base import BaseGeometry
 
 from dl.contracts.enums import HazardType, RoadStatus
@@ -218,8 +220,7 @@ def calculate_segment_coverage(
             covered_len = intersection.length
 
         cov = min(1.0, max(0.0, covered_len / road_width))
-        if cov > max_cov:
-            max_cov = cov
+        max_cov = max(max_cov, cov)
 
     return round(max_cov, 4)
 

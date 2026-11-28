@@ -21,19 +21,18 @@ directories.  The real dataset (datasets/v1/S-0001) is never modified.
 from __future__ import annotations
 
 import json
-import shutil
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from dl.contracts.enums import Difficulty, HazardType, RoadStatus
-from dl.contracts.scene import Box, GroundTruth, RoadNode, RoadSegment, Scene
+from dl.contracts.enums import HazardType, RoadStatus
+from dl.contracts.scene import Scene
 from dl.contracts.vision import SceneAnalysis, SegmentVerdict
 from dl.vision.runner import (
     RunLog,
-    SceneResult,
     SceneLoader,
+    SceneResult,
     _bbox_dict_to_box,
     _build_arg_parser,
     _haz_type,
@@ -47,7 +46,6 @@ from dl.vision.runner import (
     run_batch,
     save_prediction,
 )
-
 
 # ---------------------------------------------------------------------------
 # Shared fixture builders
@@ -617,7 +615,7 @@ class TestRunBatch:
         _create_scene_dir(ds, "S-001")
         out = tmp_path / "out"
 
-        log = run_batch(
+        run_batch(
             dataset_dir=ds,
             split="dev",
             model="always-clear",
