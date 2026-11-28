@@ -1,0 +1,157 @@
+{
+  "scene_id": "S-0020",
+  "hazards": [],
+  "segment_verdicts": {
+    "SEG-001": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-002": {
+      "status": "blocked",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=blocked, retained.",
+      "visible": true
+    },
+    "SEG-003": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-004": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-005": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-006": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-007": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-008": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-009": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-010": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-011": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-012": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-013": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-014": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-015": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-016": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-017": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-018": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-019": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-020": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-021": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-022": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-023": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    },
+    "SEG-024": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "NoisyOracle: ground truth=clear, retained.",
+      "visible": true
+    }
+  },
+  "damaged_building_count": null,
+  "water_regions": [],
+  "image_quality_good": null,
+  "model_id": "baseline-noisy-oracle",
+  "prompt_version": "v1",
+  "valid_json": true,
+  "latency_ms": 0
+}

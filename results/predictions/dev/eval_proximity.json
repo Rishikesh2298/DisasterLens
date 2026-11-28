@@ -1,0 +1,1371 @@
+{
+  "metadata": {
+    "predictions_dir": "C:\\Disaster\\DisasterLens\\results\\predictions\\dev\\proximity",
+    "ground_truth_dir": "C:\\Disaster\\DisasterLens\\datasets\\v1",
+    "scenes_requested": 20,
+    "scenes_evaluated": 20,
+    "errors": [],
+    "notes": [
+      "Hazard bounding-box metrics not computed: ground_truth.json does not contain hazard coordinates.",
+      "UNCERTAIN is not a ground-truth class; predicted UNCERTAIN counts as a misclassification.",
+      "Missing segment IDs in prediction are treated as UNCERTAIN."
+    ]
+  },
+  "overall": {
+    "scene_count": 20,
+    "total_segments": 480,
+    "total_correct": 466,
+    "total_missing_in_pred": 0,
+    "overall_accuracy": 0.9708,
+    "macro_f1": 0.9138,
+    "blocked_recall": 1.0,
+    "uncertain_predicted_count": 0,
+    "uncertain_rate": 0.0,
+    "per_class": {
+      "CLEAR": {
+        "tp": 431,
+        "fp": 0,
+        "fn": 5,
+        "precision": 1.0,
+        "recall": 0.9885,
+        "f1": 0.9942,
+        "gt_count": 436
+      },
+      "BLOCKED": {
+        "tp": 35,
+        "fp": 14,
+        "fn": 0,
+        "precision": 0.7143,
+        "recall": 1.0,
+        "f1": 0.8333,
+        "gt_count": 35
+      },
+      "PARTIAL": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 9,
+        "precision": null,
+        "recall": 0.0,
+        "f1": null,
+        "gt_count": 9
+      },
+      "UNCERTAIN": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "gt_count": 0
+      }
+    },
+    "confusion_matrix": {
+      "CLEAR": {
+        "CLEAR": 431,
+        "BLOCKED": 5,
+        "PARTIAL": 0,
+        "UNCERTAIN": 0
+      },
+      "BLOCKED": {
+        "CLEAR": 0,
+        "BLOCKED": 35,
+        "PARTIAL": 0,
+        "UNCERTAIN": 0
+      },
+      "PARTIAL": {
+        "CLEAR": 0,
+        "BLOCKED": 9,
+        "PARTIAL": 0,
+        "UNCERTAIN": 0
+      },
+      "UNCERTAIN": {
+        "CLEAR": 0,
+        "BLOCKED": 0,
+        "PARTIAL": 0,
+        "UNCERTAIN": 0
+      }
+    }
+  },
+  "per_scene": [
+    {
+      "scene_id": "S-0001",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 23,
+          "pred_count": 23,
+          "tp": 23,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 23,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0002",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 23,
+          "pred_count": 23,
+          "tp": 23,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 23,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0003",
+      "total_segments": 24,
+      "correct": 23,
+      "accuracy": 0.9583,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 20,
+          "pred_count": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 3,
+          "pred_count": 4,
+          "tp": 3,
+          "fp": 1,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 1,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 20,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 3,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0004",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 22,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 22,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0005",
+      "total_segments": 24,
+      "correct": 21,
+      "accuracy": 0.875,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 20,
+          "pred_count": 19,
+          "tp": 19,
+          "fp": 0,
+          "fn": 1
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 5,
+          "tp": 2,
+          "fp": 3,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 2,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 19,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0006",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 23,
+          "pred_count": 23,
+          "tp": 23,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 23,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0007",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 23,
+          "pred_count": 23,
+          "tp": 23,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 23,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0008",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 22,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 22,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0009",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 23,
+          "pred_count": 23,
+          "tp": 23,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 23,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0010",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 22,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 22,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0011",
+      "total_segments": 24,
+      "correct": 23,
+      "accuracy": 0.9583,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 22,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 2,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 1,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 22,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0012",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 22,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 22,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0013",
+      "total_segments": 24,
+      "correct": 23,
+      "accuracy": 0.9583,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 21,
+          "pred_count": 21,
+          "tp": 21,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 3,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 1,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 21,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0014",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 22,
+          "tp": 22,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 22,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0015",
+      "total_segments": 24,
+      "correct": 23,
+      "accuracy": 0.9583,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 21,
+          "tp": 21,
+          "fp": 0,
+          "fn": 1
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 3,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 21,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0016",
+      "total_segments": 24,
+      "correct": 23,
+      "accuracy": 0.9583,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 23,
+          "pred_count": 22,
+          "tp": 22,
+          "fp": 0,
+          "fn": 1
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 2,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 22,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0017",
+      "total_segments": 24,
+      "correct": 21,
+      "accuracy": 0.875,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 18,
+          "pred_count": 17,
+          "tp": 17,
+          "fp": 0,
+          "fn": 1
+        },
+        "BLOCKED": {
+          "gt_count": 4,
+          "pred_count": 7,
+          "tp": 4,
+          "fp": 3,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 2,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 17,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 4,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0018",
+      "total_segments": 24,
+      "correct": 23,
+      "accuracy": 0.9583,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 22,
+          "pred_count": 21,
+          "tp": 21,
+          "fp": 0,
+          "fn": 1
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 3,
+          "tp": 2,
+          "fp": 1,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 21,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0019",
+      "total_segments": 24,
+      "correct": 22,
+      "accuracy": 0.9167,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 20,
+          "pred_count": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 2,
+          "pred_count": 4,
+          "tp": 2,
+          "fp": 2,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 2,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 2
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 20,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 2,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    },
+    {
+      "scene_id": "S-0020",
+      "total_segments": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "missing_segments": [],
+      "extra_segments_in_pred": [],
+      "per_status_counts": {
+        "CLEAR": {
+          "gt_count": 23,
+          "pred_count": 23,
+          "tp": 23,
+          "fp": 0,
+          "fn": 0
+        },
+        "BLOCKED": {
+          "gt_count": 1,
+          "pred_count": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "PARTIAL": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UNCERTAIN": {
+          "gt_count": 0,
+          "pred_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "confusion_row": {
+        "CLEAR": {
+          "CLEAR": 23,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "BLOCKED": {
+          "CLEAR": 0,
+          "BLOCKED": 1,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "PARTIAL": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        },
+        "UNCERTAIN": {
+          "CLEAR": 0,
+          "BLOCKED": 0,
+          "PARTIAL": 0,
+          "UNCERTAIN": 0
+        }
+      }
+    }
+  ]
+}

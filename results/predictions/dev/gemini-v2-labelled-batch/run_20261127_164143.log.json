@@ -1,0 +1,129 @@
+{
+  "run_id": "run_20261127_164143",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_version": "v2",
+  "image_variant": "labelled",
+  "split": "dev",
+  "dataset_dir": "C:\\Disaster\\DisasterLens\\datasets\\v1",
+  "output_dir": "C:\\Disaster\\DisasterLens\\results\\predictions\\dev\\gemini-v2-labelled-batch",
+  "started_at": "2026-11-27T16:41:43.398904+00:00",
+  "finished_at": "2026-11-27T16:43:06.300704+00:00",
+  "total_scenes": 20,
+  "processed": 15,
+  "skipped": 0,
+  "failed": 1,
+  "scenes": [
+    {
+      "scene_id": "S-0001",
+      "status": "ok",
+      "latency_ms": 4931,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0002",
+      "status": "ok",
+      "latency_ms": 4770,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0003",
+      "status": "ok",
+      "latency_ms": 4813,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0004",
+      "status": "ok",
+      "latency_ms": 6533,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0005",
+      "status": "ok",
+      "latency_ms": 5903,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0006",
+      "status": "ok",
+      "latency_ms": 5975,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0007",
+      "status": "ok",
+      "latency_ms": 4783,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0008",
+      "status": "ok",
+      "latency_ms": 5559,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0009",
+      "status": "ok",
+      "latency_ms": 5389,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0010",
+      "status": "ok",
+      "latency_ms": 5158,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0011",
+      "status": "ok",
+      "latency_ms": 5297,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0012",
+      "status": "ok",
+      "latency_ms": 5824,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0013",
+      "status": "ok",
+      "latency_ms": 5313,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0014",
+      "status": "ok",
+      "latency_ms": 5817,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0015",
+      "status": "ok",
+      "latency_ms": 4900,
+      "valid_json": true,
+      "error": null
+    },
+    {
+      "scene_id": "S-0016",
+      "status": "quota_stop",
+      "latency_ms": null,
+      "valid_json": null,
+      "error": "Gemini API request failed: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.5-flash-lite, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 54.431307428s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://aistudio.google.com/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'description': 'Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.', 'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.5-flash-lite', 'location': 'global'}, 'quotaValue': '15'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '54s'}]}}"
+    }
+  ]
+}

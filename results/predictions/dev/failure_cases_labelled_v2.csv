@@ -1,0 +1,45 @@
+scene,segment,true_status,true_max_coverage,pred_status,pred_confidence,result,hazards_found_in_scene,hazard_types_found,evidence
+S-0001,SEG-017,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris covers the full road width.
+S-0002,SEG-003,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris obstructs the road segment.
+S-0003,SEG-012,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0003,SEG-020,PARTIAL,0.6393,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0003,SEG-023,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0003,SEG-024,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0004,SEG-006,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris blockages completely cover the road segment width.
+S-0004,SEG-023,BLOCKED,1.0,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0005,SEG-007,PARTIAL,0.3738,CLEAR,0.85,WRONG,2,debris,The full drivable road carriageway is visible and unobstructed along SEG-007.
+S-0005,SEG-012,BLOCKED,1.0,BLOCKED,0.85,OK,2,debris,Debris completely covers the roadway width along segment SEG-012.
+S-0005,SEG-014,PARTIAL,0.3738,CLEAR,0.85,WRONG,2,debris,The full drivable road carriageway is visible and unobstructed along SEG-014.
+S-0005,SEG-016,BLOCKED,1.0,CLEAR,0.85,WRONG,2,debris,Debris is located off-road and does not obstruct the drivable path of SEG-016.
+S-0006,SEG-012,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris completely covers the road segment.
+S-0007,SEG-004,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris covers the road segment.
+S-0008,SEG-004,BLOCKED,1.0,BLOCKED,0.85,OK,2,"debris,flood",Flood water covers the road segment.
+S-0008,SEG-019,BLOCKED,1.0,BLOCKED,0.85,OK,2,"debris,flood",Debris covers the full road width.
+S-0009,SEG-012,BLOCKED,1.0,PARTIAL,0.8,WRONG,1,debris,Debris partially obstructs the road segment.
+S-0010,SEG-003,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0010,SEG-016,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0011,SEG-001,BLOCKED,1.0,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0011,SEG-002,PARTIAL,0.752,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0012,SEG-005,BLOCKED,1.0,PARTIAL,0.85,WRONG,1,debris,Debris partially covers the road segment.
+S-0012,SEG-010,BLOCKED,1.0,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0013,SEG-003,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris covers the road surface in SEG-003.
+S-0013,SEG-005,BLOCKED,1.0,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0013,SEG-006,PARTIAL,0.5352,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0014,SEG-010,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris covers the road surface completely.
+S-0014,SEG-023,BLOCKED,1.0,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0015,SEG-016,BLOCKED,1.0,CLEAR,0.85,WRONG,2,debris,No obstruction detected along the road segment.
+S-0015,SEG-019,BLOCKED,1.0,BLOCKED,0.85,OK,2,debris,Debris covers the full road width.
+S-0016,SEG-023,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0017,SEG-010,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0017,SEG-012,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0017,SEG-013,PARTIAL,0.439,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0017,SEG-017,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0017,SEG-019,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0017,SEG-020,PARTIAL,0.439,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0018,SEG-005,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0018,SEG-022,BLOCKED,1.0,CLEAR,0.85,WRONG,0,,No obstruction detected along the road segment.
+S-0019,SEG-004,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris covers the full width of the road segment.
+S-0019,SEG-008,PARTIAL,0.3655,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0019,SEG-010,PARTIAL,0.3655,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0019,SEG-011,BLOCKED,1.0,CLEAR,0.85,WRONG,1,debris,No obstruction detected along the road segment.
+S-0020,SEG-002,BLOCKED,1.0,BLOCKED,0.85,OK,1,debris,Debris covers the full road width.

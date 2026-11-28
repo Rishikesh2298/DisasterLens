@@ -1,0 +1,157 @@
+{
+  "scene_id": "S-0006",
+  "hazards": [],
+  "segment_verdicts": {
+    "SEG-001": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-002": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-003": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-004": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-005": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-006": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-007": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-008": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-009": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-010": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-011": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-012": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-013": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-014": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-015": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-016": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-017": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-018": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-019": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-020": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-021": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-022": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-023": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    },
+    "SEG-024": {
+      "status": "clear",
+      "confidence": 0.85,
+      "evidence": "AlwaysClear baseline: unconditionally predicts CLEAR.",
+      "visible": null
+    }
+  },
+  "damaged_building_count": null,
+  "water_regions": [],
+  "image_quality_good": null,
+  "model_id": "baseline-always-clear",
+  "prompt_version": "v1",
+  "valid_json": true,
+  "latency_ms": 0
+}
